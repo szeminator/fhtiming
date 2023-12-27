@@ -5,7 +5,11 @@ import StartDialog from './components/StartDialog.vue'
 
 <template>
   <StartDialog name="StartDialog" />
-  <FHTimingFooter name="FHTimingFooter" />
+  <div class="container">
+    <FHTimingFooter name="FHTimingFooter" />
+  </div>
+  
+  
 </template>
 
 <style scoped>
@@ -22,5 +26,8 @@ import StartDialog from './components/StartDialog.vue'
   filter: drop-shadow(0 0 2em #42b883aa);
 }
 
-  
+.container {
+    padding-top: 50px;
+  }
+
 </style>
