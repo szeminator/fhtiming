@@ -8,6 +8,7 @@
       </p>
     </div>
         <input type="text" v-model="textInput" placeholder="Enter a number" class="input-field">
+        <p class="error-text" v-if="isError">Bitte eine RaceID eingeben</p>
         <button class="start-button">START</button>
   </template>
   
@@ -16,25 +17,38 @@
   
   const textInput = ref('');
   let numberInput = ref(null);
+  let isError = ref(false);
+
   
   watch(textInput, (newVal) => {
     let numberInput = ref<number | null>(null);
     if (!isNaN(Number(newVal))) {
         if (newVal) {
-          numberInput.value = parseInt(newVal);
+            numberInput.value = parseInt(newVal);
+            isError.value = false;
         } else {
-           numberInput.value = null;
+            numberInput.value = null;
+            isError.value = true;
         }
+    } else {
+        isError.value = true;
     }
     console.log('numberInput changed to:', numberInput.value);
   });
   </script>
   
   <style scoped>
+  .error-text {
+  color: red;
+  font-size: 12px;
+}
   .container {
     padding-bottom: 20px;
   }
-  
+  .input-field {
+  /* Other styles remain the same */
+  padding: 20px 10px; /* Adjust the first value (vertical padding) to your liking */
+}
   .input-field, .start-button {
   width: 50%; /* Adjust this value to your liking */
   margin: 10px auto; /* Centers the elements */
