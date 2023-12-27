@@ -16,7 +16,6 @@
   import { ref, watch } from 'vue';
   
   const textInput = ref('');
-  let numberInput = ref(null);
   let isError = ref(false);
 
   
