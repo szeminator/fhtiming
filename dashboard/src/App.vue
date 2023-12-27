@@ -1,15 +1,11 @@
 <script setup lang="ts">
-import Welcome from './components/Welcome.vue'
+import FHTimingFooter from './components/FHTimingFooter.vue'
+import StartDialog from './components/StartDialog.vue'
 </script>
 
 <template>
-  <div>
-    FH Timing Streckenauswertung
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <Welcome name="FHTiming" />
+  <StartDialog name="StartDialog" />
+  <FHTimingFooter name="FHTimingFooter" />
 </template>
 
 <style scoped>
@@ -25,4 +21,6 @@ import Welcome from './components/Welcome.vue'
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
 }
+
+  
 </style>
