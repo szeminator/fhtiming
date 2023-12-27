@@ -19,7 +19,7 @@
   
   watch(textInput, (newVal) => {
     let numberInput = ref<number | null>(null);
-    if (isNaN(newVal)){
+    if (!isNaN(Number(newVal))) {
         if (newVal) {
           numberInput.value = parseInt(newVal);
         } else {
