@@ -23,7 +23,7 @@ import { useStore } from '../store';
 
 const store = useStore();
 const courses = store.courses;
-let splits = ref([]);
+let splits = ref([]) as any;
 
 const selectedCourse = ref(null);
 const selectedSplit = ref(null);
