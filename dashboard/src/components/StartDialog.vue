@@ -9,7 +9,7 @@
     </div>
     <div>
         <input type="text" v-model="textInput" placeholder="Enter a number" class="input-field">
-        <p class="error-text" v-if="isError">Bitte eine RaceID eingeben</p>
+        <p class="error-text" v-if="isError">Bitte eine gültige RaceID eingeben</p>
         <button class="start-button" @click="loadEvent">START</button>
     </div>
   </template>
@@ -21,11 +21,14 @@
 
   const router = useRouter();
   const textInput = ref('');
+  const numberInput = ref<number | null>(null);
   let isError = ref(false);
+  const courses = ref([]);
+
 
    
   watch(textInput, (newVal) => {
-    let numberInput = ref<number | null>(null);
+    
     if (!isNaN(Number(newVal))) {
         if (newVal) {
             numberInput.value = parseInt(newVal);
@@ -39,9 +42,16 @@
     }
     console.log('numberInput changed to:', numberInput.value);
   });
-  const loadEvent = () => {
-    console.log(router);
-    router.push('/dashboard');
+  const loadEvent = async () => {
+    let response = await fetch("http://win2.fh-timing.com/middleware/" + numberInput.value + "/info/json?setting=courses");
+    if (!response.ok) {
+      //throw new Error(`HTTP error! status: ${response.status}`);
+      isError.value = true;
+    }
+    let jsonResponse = await response.json();
+    console.log(jsonResponse);
+    courses.value = jsonResponse.Courses;
+    router.push({ path: '/dashboard', params: { courses: courses.value } });
   };
   </script>
   
