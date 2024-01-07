@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import FHTimingFooter from './components/FHTimingFooter.vue'
+import InfoBox from './components/InfoBox.vue';
 import StartDialog from './components/StartDialog.vue'
 </script>
 
@@ -8,7 +9,7 @@ import StartDialog from './components/StartDialog.vue'
   <div class="container">
     <FHTimingFooter name="FHTimingFooter" />
   </div>
-  
+  <InfoBox name="InfoBox" />
   
 </template>
 
