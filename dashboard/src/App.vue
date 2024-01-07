@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import FHTimingFooter from './components/FHTimingFooter.vue'
-import StartDialog from './components/StartDialog.vue'
+import FHTimingFooter from './views/FHTimingFooter.vue'
+import FHTimingHeader from './views/FHTimingHeader.vue'
 </script>
 
 <template>
-  <StartDialog name="StartDialog" />
-  <div class="container">
-    <FHTimingFooter name="FHTimingFooter" />
-  </div>
-  
-  
+  <FHTimingHeader name="FHTimingHeader" />
+
+  <router-view />
+
+  <FHTimingFooter name="FHTimingFooter" />
+
 </template>
 
 <style scoped>
