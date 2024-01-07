@@ -1,8 +1,11 @@
 <template>
   <nav class="navbar">
-    <img src="/logo.png" alt="FH-Timing Icon" class="navbar-icon" />
+    <router-link to="/">
+    <img src="/logo.png" alt="FH-Timing Icon" class="navbar-icon" /></router-link>
     <router-link to="/" class="nav-link">Home</router-link> | 
     <router-link to="/dashboard" class="nav-link">Dashboard</router-link> | 
+    <router-link to="/graph" class="nav-link">Graph</router-link> | 
+    <router-link to="/table" class="nav-link">Tabelle</router-link> | 
     <router-link to="/impressum" class="nav-link">Impressum</router-link>
   </nav>
 </template>

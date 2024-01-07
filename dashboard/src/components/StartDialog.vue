@@ -8,9 +8,11 @@
       </p>
     </div>
     <div>
+      <form @submit.prevent="loadEvent">
         <input type="text" v-model="textInput" placeholder="Enter a number" class="input-field">
         <p class="error-text" v-if="isError">Bitte eine gültige RaceID eingeben</p>
         <button class="start-button" @click="loadEvent">START</button>
+      </form>
     </div>
   </template>
   
