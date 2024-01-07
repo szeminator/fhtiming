@@ -10,17 +10,20 @@
     <div>
         <input type="text" v-model="textInput" placeholder="Enter a number" class="input-field">
         <p class="error-text" v-if="isError">Bitte eine RaceID eingeben</p>
-        <button class="start-button">START</button>
+        <button class="start-button" @click="loadEvent">START</button>
     </div>
   </template>
   
   <script setup lang="ts">
   import { ref, watch } from 'vue';
-  
+  import { useRouter } from 'vue-router'
+
+
+  const router = useRouter();
   const textInput = ref('');
   let isError = ref(false);
 
-  
+   
   watch(textInput, (newVal) => {
     let numberInput = ref<number | null>(null);
     if (!isNaN(Number(newVal))) {
@@ -36,6 +39,10 @@
     }
     console.log('numberInput changed to:', numberInput.value);
   });
+  const loadEvent = () => {
+    console.log(router);
+    router.push('/dashboard');
+  };
   </script>
   
   <style scoped>
