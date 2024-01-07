@@ -4,16 +4,29 @@
     <InfoBoxPercentage title="Info2" />
   </div>
   <div>
-    <h1>This is the Dashboard</h1>
+    <select>
+    <option v-for="course in courses" :key="course.Coursenr" :value="course.Coursenr">
+      {{ course.Coursename }} - {{ course.Coursenr }}
+    </option>
+  </select>
   </div>
-
 </template>
+ 
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
+import { useStore } from '../store';
 import InfoBoxValue from './InfoBoxValue.vue';
 import InfoBoxPercentage from './InfoBoxPercentage.vue';
 
-// Add your script here
+const store = useStore();
+const courses = store.courses;
+
+onMounted(() => {
+  console.log(courses);
+});
+
+
 </script>
 
 <style scoped>
