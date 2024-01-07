@@ -34,6 +34,7 @@
     if (!isNaN(Number(newVal))) {
         if (newVal) {
             numberInput.value = parseInt(newVal);
+            store.setEventID(numberInput.value);
             isError.value = false;
         } else {
             numberInput.value = null;
