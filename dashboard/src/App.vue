@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import FHTimingFooter from './views/FHTimingFooter.vue'
 import FHTimingHeader from './views/FHTimingHeader.vue'
 </script>
 
@@ -7,9 +6,6 @@ import FHTimingHeader from './views/FHTimingHeader.vue'
   <FHTimingHeader name="FHTimingHeader" />
 
   <router-view />
-
-  <FHTimingFooter name="FHTimingFooter" />
-
 </template>
 
 <style scoped>
