@@ -4,10 +4,10 @@ import { defineStore } from 'pinia';
 export const useStore = defineStore({
   id: 'main',
   state: () => ({
-    courses: []
+    courses: [] as any[]
   }),
   actions: {
-    setCourses(courses) {
+    setCourses(courses: any[]) {
       this.courses = courses;
     }
   }
