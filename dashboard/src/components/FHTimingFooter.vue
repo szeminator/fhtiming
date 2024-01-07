@@ -4,7 +4,7 @@
       <img src="https://results.fh-timing.com/res/logo.png" alt="FH Timing" title="FH Timing" class="about-logo">
     </div>
     <div class="col-sm-6">
-      <p class="lead">The timing team at Carinthia University of Applied Sciences (Fachhochschule Kärnten). </p>
+      <p class="lead">The FH-timing team at Carinthia University of Applied Sciences (Fachhochschule Kärnten). </p>
       <p>
         Fachhochschule Kärnten<br>
         Studiengang Netzwerk- und Kommunikationstechnik<br>

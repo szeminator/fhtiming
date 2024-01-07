@@ -2,14 +2,16 @@
     <div class="container">
       <h1>FH Timing Streckenauswertung</h1>
       <p>
-        Streckenauswertung bietet eine visuelle Darstellung der Zeitdaten von Läufern und Radfahrern. 
-        Durch Diagramme und Tabellen können Sie leicht die Leistung jedes Teilnehmers verfolgen und vergleichen. 
+        Streckenauswertung bietet eine visuelle Darstellung der Zeitdaten von Läufer:innen, Fahrer:innen und Radfahrer:innen. 
+        Durch Diagramme und Tabellen können Sie leicht die Leistung jedes/jeder Teilnehmers/Teilnehmerin verfolgen und vergleichen. 
         Dies ermöglicht eine effektive Analyse und verbessert das Verständnis der Rennbedingungen.
       </p>
     </div>
+    <div>
         <input type="text" v-model="textInput" placeholder="Enter a number" class="input-field">
         <p class="error-text" v-if="isError">Bitte eine RaceID eingeben</p>
         <button class="start-button">START</button>
+    </div>
   </template>
   
   <script setup lang="ts">
@@ -49,7 +51,7 @@
   padding: 20px 10px; /* Adjust the first value (vertical padding) to your liking */
 }
   .input-field, .start-button {
-  width: 50%; /* Adjust this value to your liking */
+  width: 20%; /* Adjust this value to your liking */
   margin: 10px auto; /* Centers the elements */
   display: block; /* Needed for margin auto to work */
 }
