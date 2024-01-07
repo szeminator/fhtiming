@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <h1>This is the Dashboard</h1>
+  <div class="info-container">
+    <InfoBoxValue title="Info" />
+    <InfoBoxPercentage title="Info2" />
   </div>
   <div>
   <select v-model="selectedCourse">
@@ -48,10 +49,13 @@
 
   </div>
 </template>
+ 
 
 <script setup lang="ts">
 import { ref, watch, onMounted, reactive } from 'vue';
 import { useStore } from '../store';
+import InfoBoxValue from './InfoBoxValue.vue';
+import InfoBoxPercentage from './InfoBoxPercentage.vue';
 
 const store = useStore();
 const courses = store.courses;
@@ -96,8 +100,13 @@ async function loadChartdata() {
   console.log(chartdata.value[0].first);
 }
 
+
 </script>
 
 <style scoped>
-/* Add your styles here */
+.info-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px; /* Adjust the gap as needed */
+}
 </style>
