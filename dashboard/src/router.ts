@@ -9,6 +9,7 @@ const routes = [
   },
   { 
     path: '/dashboard', 
+    name: 'dashboard',
     component: Dashboard 
   },
 ];

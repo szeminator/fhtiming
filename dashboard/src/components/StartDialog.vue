@@ -16,9 +16,11 @@
   
   <script setup lang="ts">
   import { ref, watch } from 'vue';
-  import { useRouter } from 'vue-router'
+  import { useRouter } from 'vue-router';
+  import { useStore } from '../store';
 
 
+  const store = useStore();
   const router = useRouter();
   const textInput = ref('');
   const numberInput = ref<number | null>(null);
@@ -49,9 +51,11 @@
       isError.value = true;
     }
     let jsonResponse = await response.json();
-    console.log(jsonResponse);
+    //console.log(jsonResponse);
     courses.value = jsonResponse.Courses;
-    router.push({ path: '/dashboard', params: { courses: courses.value } });
+    store.setCourses(jsonResponse.Courses);
+    router.push('/dashboard');
+    //router.push({ name: 'dashboard', params: { courses: courses.value } });
   };
   </script>
   

@@ -12,11 +12,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+import { useStore } from '../store';
+
+const store = useStore();
+const courses = store.courses;
 
 const route = useRoute();
-const courses = ref(route.params.courses);
+
+onMounted(() => {
+  console.log(courses);
+});
+
 </script>
 
 <style scoped>
