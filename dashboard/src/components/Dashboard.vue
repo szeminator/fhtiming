@@ -78,7 +78,8 @@ watch(selectedCourse, async (newCourse) => {
     // Well it depends on the course that the splits are called Splits_100, Splits_102, Splits_103, etc.
     // So we need to use the course number to get the correct splits.
     splits.value = jsonResponse[`Splits_${newCourse}`];
-
+    let splitNumbers = splits.value.map(split => Number(split.Splitnr));
+    store.setAllSplitIDs(splitNumbers);
   }
 });
 
@@ -87,17 +88,20 @@ onMounted(() => {
 });
 
 async function loadChartdata() {
-  console.log(selectedSplits.value);
+  //console.log(selectedSplits.value);
+  
+  console.log(store.allSplitIDs);
   //http://win2.fh-timing.com/middleware/{{event}}/result/json?course=102&detail=start,first,last,club,category,age,gender,status,nat&splitnr=100,199,199100&rank=199100&order=asc
-  let response = await fetch(`http://win2.fh-timing.com/middleware/${store.eventid}/result/json?course=${selectedCourse.value}&splitnr=${selectedSplits.value.join(',')}&rank=199100&order=asc&detail=start,first,last,club,category,age,gender,status,nat`);
+  let response = await fetch(`http://win2.fh-timing.com/middleware/${store.eventid}/result/json?course=${selectedCourse.value}&splitnr=${store.allSplitIDs.join(',')}&rank=199100&order=asc&detail=start,first,last,club,category,age,gender,status,nat`);
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
   //console.log(response);
   let jsonResponse = await response.json();
   chartdata.value = jsonResponse[`Course_${selectedCourse.value}`];
-  console.log("Chartdata got updated: " + chartdata.value);
-  console.log(chartdata.value[0].first);
+  store.setAllResultData(chartdata.value);
+  //console.log("Chartdata got updated: " + chartdata.value);
+  console.log(chartdata.value[0].first + " " + chartdata.value[0].last);
 }
 
 
