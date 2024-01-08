@@ -2,6 +2,8 @@
   <div class="info-container">
     <InfoBoxValue title="Info" />
     <InfoBoxPercentage title="Info2" />
+    <InfoBoxPercentage title="Info3" />
+    <InfoBoxPercentage title="Info5" />
   </div>
   <div>
   <select v-model="selectedCourse">
@@ -111,6 +113,8 @@ async function loadChartdata() {
 .info-container {
   display: flex;
   justify-content: flex-start;
-  gap: 20px; /* Adjust the gap as needed */
+  gap: 20px; 
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 </style>

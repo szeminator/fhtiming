@@ -23,7 +23,7 @@ import FHTimingHeader from './views/FHTimingHeader.vue'
 }
 
 .container {
-    padding-top: 50px;
+    padding-top: 10px;
   }
 
 </style>

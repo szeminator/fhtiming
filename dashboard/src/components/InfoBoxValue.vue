@@ -13,18 +13,20 @@ const {
 
 <template>
   <div class="infobox">
-    <h3 class="text-lg font-semibold title">Info fadsf sasf asdf asdf adfas  fasddf dasdfadsf sasf asdf asdf adfas   f</h3>
-    <p class="content">Info 2</p>
+    <img src="/config.svg" alt="Config" class="config-icon" />
+    <h3 class="text-lg font-semibold title">Gewinner</h3>
+    <p class="content">Timmy</p>
   </div>
   </template>
   
   <style scoped>
   .infobox {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 188px;
     min-height: 108px; /* Minimum height */
-    padding: 3px 9px 9px 9px; /* Increased padding for the box */
+    padding: 9px; /* Increased padding for the box */
     align-items: flex-start;
     gap: 10px;
     border-radius: 5px;
@@ -36,6 +38,9 @@ const {
     align-self: flex-start;
     margin: 0px;
     text-align: left;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
   }
   
   .content {
@@ -55,6 +60,16 @@ const {
     padding: 2px;
     width: 100%;
     box-sizing: border-box;
+  }
+
+  .config-icon {
+    position: absolute;
+    z-index: 1000;
+    top: -15px; 
+    right: -15px;
+    background-color: #76C657;
+    border-radius: 50%;
+    padding: 8px;
   }
   </style>
     
