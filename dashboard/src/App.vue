@@ -1,29 +1,41 @@
 <script setup lang="ts">
 import FHTimingHeader from './views/FHTimingHeader.vue'
+import Sidebar from './views/Sidebar.vue';
+import { ref } from 'vue';
+
+
+const isSidebarVisible = ref(true);
+
+function toggleSidebar() {
+  isSidebarVisible.value = !isSidebarVisible.value;
+}
 </script>
 
 <template>
+  <button @click="toggleSidebar" class="toggle-button">Settings</button>
   <FHTimingHeader name="FHTimingHeader" />
-
-  <router-view />
+  <Sidebar v-show="isSidebarVisible" />
+  <div :class="isSidebarVisible ? 'content-with-sidebar' : 'content-full-width'">
+    <router-view />
+  </div>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.content-with-sidebar {
+  margin-left: 256px; /* Adjust to match the sidebar's width */
+  width: calc(100% - 256px); /* Adjust the width */
 }
 
-.container {
-    padding-top: 10px;
-  }
+.content-full-width {
+  margin-left: 0;
+  width: 100%;
+}
 
+.toggle-button {
+  position: fixed;
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  z-index: 1500; /* Make sure it's above other elements */
+  /* Add more styling as per your UI design */
+}
 </style>

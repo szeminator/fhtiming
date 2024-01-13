@@ -7,7 +7,6 @@
   </div>
   <div>
 
-  <Filterlogic :courses="courses" :selectedCourse="selectedCourse" :selectedSplits="selectedSplits" :splits="splits" @loadChartdata="loadChartdata" />
 
   <table class="styled-table">
       <thead class="header">

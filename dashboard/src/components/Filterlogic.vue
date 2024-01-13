@@ -76,4 +76,12 @@ async function loadChartdata() {
   margin-bottom: 20px;
   margin-top: 20px;
 }
+
+.start-button {
+  border-radius: 100px;
+  background: #76C657;
+
+/* M3/Elevation Light/2 */
+  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+}
 </style>

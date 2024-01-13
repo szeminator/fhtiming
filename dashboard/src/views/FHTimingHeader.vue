@@ -18,7 +18,7 @@
   width: 100%;
   padding: 20px;
   background-color: #f8f9fa;
-  z-index: 1000;
+  z-index: 1010;
   text-align: left;
 }
 
