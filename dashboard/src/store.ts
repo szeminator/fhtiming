@@ -8,6 +8,9 @@ export const useStore = defineStore({
     allResults: [] as any[],
     allSplitIDs: [] as number[],
     eventid: 0,
+    selectedCourse: 0,
+    selectedSplitIDs: [] as number[],
+
   }),
   actions: {
     setCourses(courses: any[]) {
@@ -21,6 +24,12 @@ export const useStore = defineStore({
     },
     setEventID(eventid: number) {
       this.eventid = eventid;
+    },
+    setSelectedCourse(selectedCourse: number) {
+      this.selectedCourse = selectedCourse;
+    },
+    setSelectedSplitIDs(selectedSplitIDs: number[]) {
+      this.selectedSplitIDs = selectedSplitIDs;
     }
   }
 });

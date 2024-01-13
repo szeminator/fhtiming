@@ -6,8 +6,6 @@
     <InfoBoxPercentage title="Info5" />
   </div>
   <div>
-
-
   <table class="styled-table">
       <thead class="header">
         <tr>
@@ -24,7 +22,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="data in chartdata.value" :key="data.start">
+        <tr v-for="data in chartdata" :key="data.start">
           <td>{{ data.start }}</td>
           <td>{{ data.first }}</td>
           <td>{{ data.last }}</td>
@@ -44,57 +42,26 @@
  
 
 <script setup lang="ts">
-import { ref, watch, onMounted, reactive } from 'vue';
+import { onMounted, computed } from 'vue';
 import { useStore } from '../store';
 import InfoBoxValue from './InfoBoxValue.vue';
 import InfoBoxPercentage from './InfoBoxPercentage.vue';
-import Filterlogic from './Filterlogic.vue';
 
 const store = useStore();
 const courses = store.courses;
-let splits = ref([]) as any;
-let chartdata = reactive({ value: [] });
+let chartdata = computed(() => store.allResults);
 
-const selectedCourse = ref(null);
-const selectedSplits = ref([]);
-
-
-watch(selectedCourse, async (newCourse) => {
-  if (newCourse) {
-    let response = await fetch(`http://win2.fh-timing.com/middleware/${store.eventid}/info/json?setting=splits&course=${newCourse}`);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    //console.log(response);  
-    let jsonResponse = await response.json();
-    //console.log(jsonResponse);  
-    // Well it depends on the course that the splits are called Splits_100, Splits_102, Splits_103, etc.
-    // So we need to use the course number to get the correct splits.
-    splits.value = jsonResponse[`Splits_${newCourse}`];
-    let splitNumbers = splits.value.map(split => Number(split.Splitnr));
-    store.setAllSplitIDs(splitNumbers);
-  }
-});
+let selectedCourse = computed(() => store.selectedCourse);
+let selectedSplits = computed(() => store.selectedSplitIDs);
 
 onMounted(() => {
   console.log(courses);
 });
 
 async function loadChartdata() {
-  console.log("parent loadChartdata called from child");
-  
-  console.log(store.allSplitIDs);
-  //http://win2.fh-timing.com/middleware/{{event}}/result/json?course=102&detail=start,first,last,club,category,age,gender,status,nat&splitnr=100,199,199100&rank=199100&order=asc
-  let response = await fetch(`http://win2.fh-timing.com/middleware/${store.eventid}/result/json?course=${selectedCourse.value}&splitnr=${store.allSplitIDs.join(',')}&rank=199100&order=asc&detail=start,first,last,club,category,age,gender,status,nat`);
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-  //console.log(response);
-  let jsonResponse = await response.json();
-  chartdata.value = jsonResponse[`Course_${selectedCourse.value}`];
-  store.setAllResultData(chartdata.value);
-  //console.log("Chartdata got updated: " + chartdata.value);
-  console.log(chartdata.value[0].first + " " + chartdata.value[0].last);
+  console.log(selectedCourse);
+  console.log(selectedSplits);
+  console.log((chartdata.value[0] as any)?.first + " " + (chartdata.value[0] as any)?.last);
 }
 
 
