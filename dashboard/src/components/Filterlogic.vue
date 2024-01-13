@@ -1,44 +1,16 @@
 <template>
-  <div class="info-container">
-    <InfoBoxValue title="Info" />
-    <InfoBoxPercentage title="Info2" />
-    <InfoBoxPercentage title="Info3" />
-    <InfoBoxPercentage title="Info5" />
-  </div>
   <div>
-
-  <Filterlogic :courses="courses" :selectedCourse="selectedCourse" :selectedSplits="selectedSplits" :splits="splits" @loadChartdata="loadChartdata" />
-
-  <table>
-      <thead>
-        <tr>
-          <th>Start</th>
-          <th>First</th>
-          <th>Last</th>
-          <th>Club</th>
-          <th>Category</th>
-          <th>Age</th>
-          <th>Gender</th>
-          <th>Status</th>
-          <th>Nat</th>
-          <th>Time</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="data in chartdata.value" :key="data.start">
-          <td>{{ data.start }}</td>
-          <td>{{ data.first }}</td>
-          <td>{{ data.last }}</td>
-          <td>{{ data.club }}</td>
-          <td>{{ data.category }}</td>
-          <td>{{ data.age }}</td>
-          <td>{{ data.gender }}</td>
-          <td>{{ data.status }}</td>
-          <td>{{ data.nat }}</td>
-          <td>{{ data.NETTO_ET2_Time }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <select v-model="selectedCourse">
+    <option v-for="course in courses" :key="course.Coursenr" :value="course.Coursenr">
+      {{ course.Coursename }} - {{ course.Coursenr }}
+    </option>
+  </select>
+  <p>Selected Course: {{ selectedCourse }}</p>
+  <div v-for="split in splits" :key="split.Splitnr">
+      <input type="checkbox" :value="split.Splitnr" v-model="selectedSplits">
+      {{ split.Splitname }} - {{ split.Splitnr }}
+    </div>
+  <button class="start-button" @click="loadChartdata">Lade Chartdaten</button>
 
   </div>
 </template>
@@ -47,9 +19,6 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, reactive } from 'vue';
 import { useStore } from '../store';
-import InfoBoxValue from './InfoBoxValue.vue';
-import InfoBoxPercentage from './InfoBoxPercentage.vue';
-import Filterlogic from './Filterlogic.vue';
 
 const store = useStore();
 const courses = store.courses;
@@ -97,8 +66,6 @@ async function loadChartdata() {
   //console.log("Chartdata got updated: " + chartdata.value);
   console.log(chartdata.value[0].first + " " + chartdata.value[0].last);
 }
-
-
 </script>
 
 <style scoped>
