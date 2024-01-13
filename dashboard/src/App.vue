@@ -46,6 +46,7 @@ function toggleSidebar() {
   z-index: 1500; /* Make sure it's above other elements */
   border-radius: 100px;
   background: #76C657;
+  color: white;
   box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
   transition: box-shadow 0.2s, transform 0.2s; /* Smooth transition for the press effect */
 }
