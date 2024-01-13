@@ -1,10 +1,5 @@
 <template>
-  <div class="info-container">
-    <InfoBoxValue title="Info" />
-    <InfoBoxPercentage title="Info2" />
-    <InfoBoxPercentage title="Info3" />
-    <InfoBoxPercentage title="Info5" />
-  </div>
+  
   <div>
   <table class="styled-table">
       <thead class="header">
@@ -44,8 +39,7 @@
 <script setup lang="ts">
 import { onMounted, computed } from 'vue';
 import { useStore } from '../store';
-import InfoBoxValue from './InfoBoxValue.vue';
-import InfoBoxPercentage from './InfoBoxPercentage.vue';
+
 
 const store = useStore();
 const courses = store.courses;
@@ -68,13 +62,7 @@ async function loadChartdata() {
 </script>
 
 <style scoped>
-.info-container {
-  display: flex;
-  justify-content: flex-start;
-  gap: 20px; 
-  margin-bottom: 20px;
-  margin-top: 20px;
-}
+
 .styled-table {
   width: 100%;
   border-collapse: collapse;

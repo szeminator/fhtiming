@@ -28,8 +28,9 @@ const props = defineProps({
   width: 256px; /* Or any other width you prefer */
   height: 100vh; /* Full height of the viewport */
   z-index: 1000; /* Ensure it's above other elements */
-  background-color: #f8f8f8; /* Background color */
   overflow-y: auto; /* Add scroll for overflow content */
+  border-right: 1px solid #d3d3d3; /* Greyish border at the bottom */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Slight shadow for depth */
 }
 
 .sidebar-content {

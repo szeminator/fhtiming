@@ -1,16 +1,21 @@
 <template>
-  <div>
-  <select v-model="selectedCourse">
-    <option v-for="course in courses" :key="course.Coursenr" :value="course.Coursenr">
-      {{ course.Coursename }} - {{ course.Coursenr }}
-    </option>
-  </select>
-  <p>Selected Course: {{ selectedCourse }}</p>
-  <div v-for="split in splits" :key="split.Splitnr">
-      <input type="checkbox" :value="split.Splitnr" v-model="selectedSplits">
-      {{ split.Splitname }} - {{ split.Splitnr }}
+  <div class="dropdown-container">
+    <label for="courseSelect" class="dropdown-label">Select a course</label>
+    <select v-model="selectedCourse" id="courseSelect" class="dropdown-select">
+      <option v-for="course in courses" :key="course.Coursenr" :value="course.Coursenr">
+        {{ course.Coursename }} - {{ course.Coursenr }}
+      </option>
+    </select>
+    <p class="text">Selected Course: {{ selectedCourse }}</p>
+    <div class="split-list">
+      <div v-for="split in splits" :key="split.Splitnr" class="split-item">
+        <input type="checkbox" :id="`split-${split.Splitnr}`" :value="split.Splitnr" v-model="selectedSplits" class="hidden-checkbox">
+        <label :for="'split-' + split.Splitnr" class="checkbox-label">
+          <span class="custom-checkbox">
+            <i class="checkmark" v-show="selectedSplits.includes(split.Splitnr)">✓</i>
+          </span>{{ split.Splitname }} - {{ split.Splitnr }}</label>
+      </div>
     </div>
-
   </div>
 </template>
  
@@ -78,11 +83,104 @@ onMounted(() => {
   margin-top: 20px;
 }
 
-.start-button {
-  border-radius: 100px;
-  background: #76C657;
-
-/* M3/Elevation Light/2 */
-  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+.split-list {
+  margin: 0;
+  padding: 0;
 }
+
+.split-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 8px;
+  border-radius: 4px;
+  margin-bottom: 2px;
+  font-family: 'Arial', sans-serif; /* Your preferred font */
+}
+.split-item input[type="checkbox"] {
+  margin-right: 10px; /* Space between the checkbox and the label */
+}
+
+.text {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  color: #000;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: 'Open Sans', sans-serif;
+}
+
+.hidden-checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.custom-checkbox {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  border: 2px solid #76C657;
+  border-radius: 4px;
+  position: relative;
+}
+
+.checkmark {
+  color: #76C657;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px; /* Adjusted for the smaller checkbox size */
+  line-height: 1; /* Aligns the checkmark vertically */
+}
+
+select {
+  font-size: 0.8rem; /* Smaller font size */
+  padding: 0.4rem 0.8rem; /* Smaller padding */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 0.5rem; /* Less margin below the dropdown */
+  cursor: pointer;
+  width: auto; /* Adjust width to content or set a specific size */
+  display: block; /* Ensure it doesn't inline with other elements */
+  margin-left: auto; /* Centers the dropdown if its width is less than 100% */
+  margin-right: auto;
+}
+
+.dropdown-container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.dropdown-label {
+  position: absolute;
+  top: -0.6rem; /* Adjusts to move the label slightly above the select */
+  left: 1rem; /* Adjusts to align with the text inside the select */
+  background: #ffffff; /* Assumes your sidebar background color */
+  padding: 0 0.4rem;
+  font-size: 0.8rem;
+  color: #76C657;
+  transition: all 0.3s;
+  pointer-events: none; 
+  user-select: none; 
+}
+
+.dropdown-select {
+font-size: 0.8rem;
+padding: 0.4rem 0.8rem;
+border: 1px solid #76C657;
+border-radius: 4px;
+cursor: pointer;
+width: 90%; 
+display: block; 
+margin-top: 1.2rem; 
+}
+
 </style>
