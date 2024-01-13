@@ -11,6 +11,8 @@
 
   <table class="styled-table">
       <thead class="header">
+  <table class="styled-table">
+      <thead class="header">
         <tr>
           <th>Start</th>
           <th>First</th>
@@ -108,6 +110,18 @@ async function loadChartdata() {
   gap: 20px; 
   margin-bottom: 20px;
   margin-top: 20px;
+}
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.styled-table th.header {
+  font-weight: bold;
+}
+
+.styled-table tr:nth-child(even) {
+  background-color: #EBF9F1;
 }
 .styled-table {
   width: 100%;
