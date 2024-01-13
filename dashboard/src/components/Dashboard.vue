@@ -6,9 +6,6 @@
     <InfoBoxPercentage title="Info5" />
   </div>
   <div>
-
-    <button class="start-button" @click="loadChartdata">Lade Chartdaten</button>
-
   <table class="styled-table">
       <thead class="header">
         <tr>
@@ -45,31 +42,26 @@
  
 
 <script setup lang="ts">
-import { ref, watch, onMounted, reactive } from 'vue';
+import { onMounted, computed } from 'vue';
 import { useStore } from '../store';
 import InfoBoxValue from './InfoBoxValue.vue';
 import InfoBoxPercentage from './InfoBoxPercentage.vue';
 
 const store = useStore();
 const courses = store.courses;
-let chartdata = store.allResults;
+let chartdata = computed(() => store.allResults);
 
-let selectedCourse = store.selectedCourse;
-let selectedSplits = store.selectedSplitIDs;
+let selectedCourse = computed(() => store.selectedCourse);
+let selectedSplits = computed(() => store.selectedSplitIDs);
 
 onMounted(() => {
   console.log(courses);
 });
 
 async function loadChartdata() {
-
-  selectedCourse = store.selectedCourse;
-  selectedSplits = store.selectedSplitIDs;
   console.log(selectedCourse);
   console.log(selectedSplits);
-
-  chartdata = store.allResults;
-  console.log(chartdata[0].first + " " + chartdata[0].last);
+  console.log((chartdata.value[0] as any)?.first + " " + (chartdata.value[0] as any)?.last);
 }
 
 

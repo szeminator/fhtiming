@@ -41,7 +41,7 @@ watch(selectedCourse, async (newCourse) => {
     // Well it depends on the course that the splits are called Splits_100, Splits_102, Splits_103, etc.
     // So we need to use the course number to get the correct splits.
     splits.value = jsonResponse[`Splits_${newCourse}`];
-    let splitNumbers = splits.value.map(split => Number(split.Splitnr));
+    let splitNumbers = splits.value.map((split: { Splitnr: any; }) => Number(split.Splitnr));
     store.setAllSplitIDs(splitNumbers);
     console.log("Splitnumbers got updated");
 
