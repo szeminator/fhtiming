@@ -70,6 +70,7 @@ const {
     background-color: #76C657;
     border-radius: 50%;
     padding: 8px;
+    box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
   }
   </style>
     

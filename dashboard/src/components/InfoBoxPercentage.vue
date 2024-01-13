@@ -32,7 +32,6 @@ const {
     border-radius: 5px;
     border: 2px solid var(--Bright-Cape-colors-BC-Blue, #417DA8);
     box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.30);
-    position: relative;
   }
   
   .title {
@@ -70,5 +69,6 @@ const {
     background-color: #76C657;
     border-radius: 50%;
     padding: 8px;
+    box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
   }
   </style>
