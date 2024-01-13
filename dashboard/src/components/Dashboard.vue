@@ -82,7 +82,7 @@ onMounted(() => {
 });
 
 async function loadChartdata() {
-  //console.log(selectedSplits.value);
+  console.log("parent loadChartdata called from child");
   
   console.log(store.allSplitIDs);
   //http://win2.fh-timing.com/middleware/{{event}}/result/json?course=102&detail=start,first,last,club,category,age,gender,status,nat&splitnr=100,199,199100&rank=199100&order=asc

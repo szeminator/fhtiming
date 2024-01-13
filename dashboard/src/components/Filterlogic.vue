@@ -28,6 +28,8 @@ let chartdata = reactive({ value: [] });
 const selectedCourse = ref(null);
 const selectedSplits = ref([]);
 
+const emit = defineEmits(['loadChartdata']);
+
 
 watch(selectedCourse, async (newCourse) => {
   if (newCourse) {
@@ -50,22 +52,11 @@ onMounted(() => {
   console.log(courses);
 });
 
-async function loadChartdata() {
-  //console.log(selectedSplits.value);
-  
-  console.log(store.allSplitIDs);
-  //http://win2.fh-timing.com/middleware/{{event}}/result/json?course=102&detail=start,first,last,club,category,age,gender,status,nat&splitnr=100,199,199100&rank=199100&order=asc
-  let response = await fetch(`http://win2.fh-timing.com/middleware/${store.eventid}/result/json?course=${selectedCourse.value}&splitnr=${store.allSplitIDs.join(',')}&rank=199100&order=asc&detail=start,first,last,club,category,age,gender,status,nat`);
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-  //console.log(response);
-  let jsonResponse = await response.json();
-  chartdata.value = jsonResponse[`Course_${selectedCourse.value}`];
-  store.setAllResultData(chartdata.value);
-  //console.log("Chartdata got updated: " + chartdata.value);
-  console.log(chartdata.value[0].first + " " + chartdata.value[0].last);
-}
+const loadChartdata = () => {
+  console.log('loadChartdata function called at child');
+  emit('loadChartdata');
+};
+
 </script>
 
 <style scoped>
