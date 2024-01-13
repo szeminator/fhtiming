@@ -31,7 +31,7 @@ const {
     gap: 10px;
     border-radius: 5px;
     border: 2px solid var(--Bright-Cape-colors-BC-Blue, #417DA8);
-    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.30);
+    box-shadow: 5px 5px 5px 0px rgba(8, 3, 3, 0.3);
   }
   
   .title {

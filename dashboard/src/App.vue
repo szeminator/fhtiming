@@ -73,7 +73,7 @@ function toggleSidebar() {
   display: flex;
   justify-content: center;
   gap: 20px; 
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   margin-top: 100px;
 }
 
