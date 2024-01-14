@@ -11,16 +11,9 @@
       </thead>
       <tbody>
         <tr v-for="data in chartdata" :key="data.start">
-          <td>{{ data.start }}</td>
-          <td>{{ data.first }}</td>
-          <td>{{ data.last }}</td>
-          <td>{{ data.club }}</td>
-          <td>{{ data.category }}</td>
-          <td>{{ data.age }}</td>
-          <td>{{ data.gender }}</td>
-          <td>{{ data.status }}</td>
-          <td>{{ data.nat }}</td>
-          <td>{{ data.NETTO_ET2_Time }}</td>
+          <td v-for="key in chartdataKeys" :key="key">
+            {{ data[key] }}
+          </td>
         </tr>
       </tbody>
     </table>
