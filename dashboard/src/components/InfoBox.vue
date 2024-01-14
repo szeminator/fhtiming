@@ -50,7 +50,9 @@ function emitDeleteEvent() {
     <button @click="emitDeleteEvent" class="delete-button">
       <img src="/delete.svg" alt="Delete" />
     </button>
-    <img src="/config.svg" alt="Config" class="config-icon" ref="configButton" @click="openModal" />
+    <button @click="openModal" class="config-icon" ref="configButton">
+      <img src="/config.svg" alt="Config" />
+    </button>
   </div>
     <h3 class="text-lg font-semibold title">{{ infoboxTitle }}</h3>
     <p class="content">{{ infoboxContent }}</p>
@@ -109,27 +111,39 @@ function emitDeleteEvent() {
   gap: 8px;
 }
 
-.delete-button {
+
+.delete-button, .config-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #76C657;
   border-radius: 50%;
-  padding: 4px;
-  width: 28px;
-  height: 28px;
+  padding: 4px; 
   box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.config-icon {
+
+/* .config-icon {
   background-color: #76C657;
   border-radius: 50%;
-  padding: 4px; /* Adjust padding to reduce size */
-  width: 24px; /* Adjusted width */
-  height: 24px; /* Adjusted height */
+  padding: 4px; 
+  width: 24px; 
+  height: 24px; 
   box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
   display: flex;
   justify-content: center;
   align-items: center;
+} */
+
+.delete-button img, .config-icon img {
+  display: block;
+  margin: auto; /* This centers the image within the flex container */
+  width: 24px; /* Adjust if necessary */
+  height: 24px; /* Adjust if necessary */
 }
+
+
   </style>

@@ -1,32 +1,31 @@
 <script setup lang="ts">
 import FHTimingHeader from './views/FHTimingHeader.vue'
-import InfoBoxPercentage from './components/InfoBoxPercentage.vue';
+import InfoBox from './components/InfoBox.vue';
 import Sidebar from './views/Sidebar.vue';
 import { ref, computed } from 'vue';
 import { v4 as uuidv4 } from 'uuid'; // You might need to install uuid
 
 
 const isSidebarVisible = ref(true);
-const infoBoxPercentages = ref([{ title: "Info2" }]);
+const infoBoxes = ref([{ title: "Info2" }]);
 
 const toggleIcon = computed(() => isSidebarVisible.value ? '/hide.svg' : '/show.svg');
+const hasInfoBoxes = computed(() => infoBoxes.value.length > 0);
 
 function toggleSidebar() {
   isSidebarVisible.value = !isSidebarVisible.value;
 }
 
-function addInfoBoxPercentage() {
-  infoBoxPercentages.value.push({ id: uuidv4(), title: `Value${infoBoxPercentages.value.length + 1}` });
+function addInfoBox() {
+  infoBoxes.value.push({ id: uuidv4(), title: `Value${infoBoxes.value.length + 1}` });
 }
 
-function removeInfoBoxPercentage(id) {
-  const index = infoBoxPercentages.value.findIndex(box => box.id === id);
+function removeInfoBox(id) {
+  const index = infoBoxes.value.findIndex(box => box.id === id);
   if (index > -1) {
-    infoBoxPercentages.value.splice(index, 1);
+    infoBoxes.value.splice(index, 1);
   }
 }
-
-
 </script>
 
 <template>
@@ -38,20 +37,22 @@ function removeInfoBoxPercentage(id) {
     <Sidebar v-show="isSidebarVisible" />
   </div>
   <div :class="isSidebarVisible ? 'content-with-sidebar' : 'content-full-width'">
-    <button @click="addInfoBoxPercentage" 
+    <button @click="addInfoBox" 
             :class="isSidebarVisible ? 'add-button-sidebar-visible' : 'add-button-sidebar-hidden'"
             class="add-button">
       <img src="/add.svg" alt="Add" />
     </button>
     <div class="info-container">
-      <InfoBoxPercentage
-        v-for="box in infoBoxPercentages"
+      <InfoBox
+        v-for="box in infoBoxes"
         :key="box.id"
         :title="box.title"
-        @delete="() => removeInfoBoxPercentage(box.id)"
+        @delete="() => removeInfoBox(box.id)"
       />
     </div>
+    <div :class="hasInfoBoxes ? 'router-view-with-infobox' : 'router-view-no-infobox'">
    <router-view />
+    </div>
   </div>
 </template>
 
@@ -141,12 +142,14 @@ function removeInfoBoxPercentage(id) {
   left: 65px; /* Align with the content when sidebar is hidden */
 }
 
-.delete-button {
-  /* Styling for the delete button */
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  margin-left: -30px; /* Adjust based on your layout */
+.router-view-with-infobox {
+  /* Styling when there are InfoBoxes */
+  margin-top: 20px; /* Example value, adjust as needed */
 }
+
+.router-view-no-infobox {
+  /* Styling when there are no InfoBoxes */
+  margin-top: 120px; /* Example value, adjust as needed */
+}
+
 </style>
