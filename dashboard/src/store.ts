@@ -10,6 +10,7 @@ export const useStore = defineStore({
     eventid: 0,
     selectedCourse: 0,
     selectedSplitIDs: [] as number[],
+    chartdataKeys: [] as string[],
 
   }),
   actions: {
@@ -30,6 +31,9 @@ export const useStore = defineStore({
     },
     setSelectedSplitIDs(selectedSplitIDs: number[]) {
       this.selectedSplitIDs = selectedSplitIDs;
+    },
+    setChartdataKeys(chartdataKeys: []) {
+      this.chartdataKeys = chartdataKeys;
     }
   }
 });
