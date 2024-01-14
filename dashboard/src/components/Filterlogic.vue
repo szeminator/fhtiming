@@ -59,6 +59,8 @@ watch(selectedCourse, async (newCourse) => {
     chartdata = jsonResponse[`Course_${selectedCourse.value}`];
     store.setChartdataKeys(Object.keys(chartdata[0]));
     store.setAllResultData(chartdata);
+    selectedSplits.value = [];
+    store.setSelectedSplitIDs([]);
     console.log("Chartdata got updated");
   }
 });
