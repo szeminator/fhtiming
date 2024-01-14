@@ -10,6 +10,8 @@ const infoboxContent = ref('Default Content');
 const configButton = ref(null);
 const modalPosition = ref({ x: 0, y: 0 });
 
+const emit = defineEmits(['add', 'delete']);
+
 const openModal = () => {
   if (configButton.value && configButton.value.offsetParent) {
     const rect = configButton.value.getBoundingClientRect();
@@ -28,9 +30,6 @@ const openModal = () => {
   }
 };
 
-
-
-
 // Handle selection from Questions.vue
 const handleSelection = (selectedOption) => {
   showModal.value = false;
@@ -38,11 +37,27 @@ const handleSelection = (selectedOption) => {
   // Retrieve and filter info from the store based on selectedOption
   infoboxContent.value = selectedOption.content;
 };
+
+function emitAddEvent() {
+  emit('add');
+}
+
+function emitDeleteEvent() {
+  emit('delete');
+}
 </script>
 
 <template>
 <div class="infobox">
-  <img src="/config.svg" alt="Config" class="config-icon" ref="configButton" @click="openModal" />
+  <div class="control-buttons">
+    <button @click="emitAddEvent" class="add-button">
+      <img src="/add.svg" alt="Add" />
+    </button>
+    <button @click="emitDeleteEvent" class="delete-button">
+      <img src="/delete.svg" alt="Delete" />
+    </button>
+    <img src="/config.svg" alt="Config" class="config-icon" ref="configButton" @click="openModal" />
+  </div>
     <h3 class="text-lg font-semibold title">{{ infoboxTitle }}</h3>
     <p class="content">{{ infoboxContent }}</p>
   <Options v-if="showModal" :position="modalPosition" @close="showModal = false" @select="handleSelection" />
@@ -91,14 +106,36 @@ const handleSelection = (selectedOption) => {
     width: 100%;
     box-sizing: border-box;
   }
+  
+  .control-buttons {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  display: flex;
+  gap: 8px;
+}
 
-  .config-icon {
-    position: absolute;
-    top: -15px; 
-    right: -15px;
-    background-color: #76C657;
-    border-radius: 50%;
-    padding: 8px;
-    box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
-  }
+.add-button, .delete-button {
+  background-color: #76C657;
+  border-radius: 50%;
+  padding: 4px;
+  width: 28px;
+  height: 28px;
+  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.config-icon {
+  background-color: #76C657;
+  border-radius: 50%;
+  padding: 4px; /* Adjust padding to reduce size */
+  width: 24px; /* Adjusted width */
+  height: 24px; /* Adjusted height */
+  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
   </style>
