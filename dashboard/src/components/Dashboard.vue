@@ -1,5 +1,5 @@
 <template>
-  <div>
+<!-- <div>
     <table class="styled-table">
       <thead class="header">
         <tr>
@@ -9,7 +9,6 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Add renderKey to the key to force a re-render when combinedKeys changes -->
         <tr v-for="data in chartdata" :key="data.start + combinedKeys.join('-') + renderKey">
           <td v-for="key in combinedKeys" :key="key">
             {{ console.log('rendering row: ', data[key]) }}
@@ -18,7 +17,30 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </div> -->
+
+
+  <div>
+    <table class="styled-table">
+      <thead class="header">
+        <tr>
+          <th v-for="key in combinedKeys" :key="key">
+            {{ keyMappings[key] || key }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="data
+in chartdata" :key="data.start + combinedKeys.join('-') + renderKey">
+<td v-for="key in combinedKeys" :key="key">
+{{ data[key] }}
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
 </template>
 
  
@@ -36,6 +58,20 @@ let predefinedChartKeys = ['start', 'first', 'last', 'club', 'category', 'age', 
 let selectedCourse = computed(() => store.selectedCourse);
 let selectedSplits = computed(() => store.selectedSplitIDs);
 let combinedKeys = computed(() => predefinedChartKeys.concat(selectedSplits.value));
+
+const keyMappings = {
+  start: 'Start Number',
+  first: 'First Name',
+  last: 'Last Name',
+  club: 'Club',
+  category: 'Category',
+  age: 'Age',
+  gender: 'Gender',
+  status: 'Status',
+  nat:
+'Nationality',
+// Add more mappings as needed
+};
 
 // Create a ref that will be used to force a re-render
 let renderKey = ref(0);
