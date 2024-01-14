@@ -3,6 +3,8 @@ import FHTimingHeader from './views/FHTimingHeader.vue'
 import InfoBoxPercentage from './components/InfoBoxPercentage.vue';
 import Sidebar from './views/Sidebar.vue';
 import { ref, computed } from 'vue';
+import { v4 as uuidv4 } from 'uuid'; // You might need to install uuid
+
 
 const isSidebarVisible = ref(true);
 const infoBoxPercentages = ref([{ title: "Info2" }]);
@@ -14,14 +16,16 @@ function toggleSidebar() {
 }
 
 function addInfoBoxPercentage() {
-  infoBoxPercentages.value.push({ title: `Value${infoBoxPercentages.value.length + 1}` });
+  infoBoxPercentages.value.push({ id: uuidv4(), title: `Value${infoBoxPercentages.value.length + 1}` });
 }
 
-function removeInfoBoxPercentage(index) {
-  if (infoBoxPercentages.value.length > 1) {
+function removeInfoBoxPercentage(id) {
+  const index = infoBoxPercentages.value.findIndex(box => box.id === id);
+  if (index > -1) {
     infoBoxPercentages.value.splice(index, 1);
   }
 }
+
 
 </script>
 
@@ -34,15 +38,19 @@ function removeInfoBoxPercentage(index) {
     <Sidebar v-show="isSidebarVisible" />
   </div>
   <div :class="isSidebarVisible ? 'content-with-sidebar' : 'content-full-width'">
+    <button @click="addInfoBoxPercentage" 
+            :class="isSidebarVisible ? 'add-button-sidebar-visible' : 'add-button-sidebar-hidden'"
+            class="add-button">
+      <img src="/add.svg" alt="Add" />
+    </button>
     <div class="info-container">
-    <InfoBoxPercentage
-        v-for="(box, index) in infoBoxPercentages"
-        :key="index"
+      <InfoBoxPercentage
+        v-for="box in infoBoxPercentages"
+        :key="box.id"
         :title="box.title"
-        @add="addInfoBoxPercentage"
-        @delete="() => removeInfoBoxPercentage(index)"
+        @delete="() => removeInfoBoxPercentage(box.id)"
       />
-  </div>
+    </div>
    <router-view />
   </div>
 </template>
@@ -53,24 +61,24 @@ function removeInfoBoxPercentage(index) {
 }
 
 .content-with-sidebar {
-  margin-left: 256px; /* Adjust to match the sidebar's width */
+  margin-left: 276px; /* Adjust to match the sidebar's width */
   width: calc(100% - 256px); /* Adjust the width */
   padding-top: 0px;
   z-index: 1500;
 }
 
 .content-full-width {
-  margin-left: 0;
+  margin-left: 20px;
   width: 100%;
   padding-top: 0px;
-  padding-left: 10px;
+  padding-left: 15px;
 }
 .info-container {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   gap: 20px; 
   margin-bottom: 40px;
-  margin-top: 100px;
+  margin-top: 120px;
 }
 
 .sidebar {
@@ -112,6 +120,25 @@ function removeInfoBoxPercentage(index) {
   background: #76C657;
   box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
   outline: none; /* Removes the outline on focus as well */
+}
+
+.add-button {
+  position: fixed; /* Use fixed positioning */
+  top: 90px; /* Align vertically with the toggle button */
+  background-color: #76C657;
+  border-radius: 50%;
+  padding: 8px;
+  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add-button-sidebar-visible {
+  left: calc(276px + 30px); /* Adjust this to align with the sidebar */
+}
+
+.add-button-sidebar-hidden {
+  left: 65px; /* Align with the content when sidebar is hidden */
 }
 
 .delete-button {
