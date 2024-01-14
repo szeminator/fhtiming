@@ -1,17 +1,19 @@
 <template>
-    <div class="modal" :style="modalStyle" @click.self="closeModal">
-      <div class="modal-content" ref="modalContent">
-        <h2>Select an Option</h2>
-        <ul>
-          <!-- Example options. Replace with your actual data -->
-          <li v-for="option in options" :key="option.id">
-            <button @click="selectOption(option)">{{ option.title }}</button>
-          </li>
-        </ul>
-        <button @click="closeModal">Close</button>
-      </div>
-    </div>
-  </template>
+  <div class="modal"
+      :style="modalStyle" 
+      @click.self="closeModal">
+<div class="modal-content" ref="modalContent">
+<h2>Select an Option</h2>
+<ul>
+<li v-for="option in options" :key="option.id">
+<button @click="selectOption(option)">{{ option.modalTitle }}</button>
+</li>
+</ul>
+<button @click="closeModal">Close</button>
+</div>
+
+  </div>
+</template>
   
   <script setup lang="ts">
   import { defineEmits, computed, ref, onMounted, onUnmounted} from 'vue';
@@ -51,15 +53,16 @@ onUnmounted(() => {
 
   // Example options data
   const options = [
-    { id: 1, title: 'Option 1', content: 'Content for Option 1' },
-    { id: 2, title: 'Option 2', content: 'Content for Option 2' },
-    // Add more options as needed
-  ];
+  { id: 1, modalTitle: 'Modal Option 1', contentTitle: 'Content Title 1', content: 'Content for Option 1' },
+{ id: 2, modalTitle: 'Modal Option 2', contentTitle: 'Content Title 2', content: 'Content for Option 2' },
+// Add more options as needed
+];
   
   // Method to emit selected option
   const selectOption = (option) => {
-    emit('select', option);
-  };
+  emit('select', { contentTitle: option.contentTitle, content: option.content });
+};
+
   
   // Method to close the modal
   const closeModal = () => {

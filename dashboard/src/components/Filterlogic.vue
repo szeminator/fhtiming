@@ -76,14 +76,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.info-container {
-  display: flex;
-  justify-content: flex-start;
-  gap: 20px; 
-  margin-bottom: 20px;
-  margin-top: 20px;
-}
-
 .split-list {
   margin: 0;
   padding: 0;
@@ -92,9 +84,9 @@ onMounted(() => {
 .split-item {
   display: flex;
   align-items: center;
-  padding: 8px 8px;
   border-radius: 4px;
-  margin-bottom: 2px;
+  margin-bottom: 8px;
+  padding-left: 5px;
   font-family: 'Arial', sans-serif; /* Your preferred font */
 }
 .split-item input[type="checkbox"] {
@@ -116,10 +108,26 @@ onMounted(() => {
   position: absolute;
 }
 
+.dropdown-select ::selection {
+  background: #76C657; /* Your desired green color */
+  color: white; /* Text color */
+}
+
+.dropdown-select option:hover {
+  background-color: #76C657 !important; /* Green */
+  color: white;
+}
+
+.dropdown-select option:checked {
+  background-color: #76C657 !important; /* Your desired green color */
+  color: white;
+}
+
 .checkbox-label {
   display: flex;
   align-items: center;
   cursor: pointer;
+  font-size: 0.75rem;
 }
 
 .custom-checkbox {
@@ -179,9 +187,10 @@ padding: 0.4rem 0.8rem;
 border: 1px solid #76C657;
 border-radius: 4px;
 cursor: pointer;
-width: 90%; 
+width: calc(100% - 30px);
 display: block; 
 margin-top: 1.2rem; 
+margin-left: 5px;
 }
 
 </style>

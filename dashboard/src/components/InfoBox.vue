@@ -31,13 +31,12 @@ const openModal = () => {
 };
 
 
-// Handle selection from Questions.vue
 const handleSelection = (selectedOption) => {
   showModal.value = false;
-  infoboxTitle.value = selectedOption.title;
-  // Retrieve and filter info from the store based on selectedOption
+  infoboxTitle.value = selectedOption.contentTitle; // Make sure this matches the emitted object's property
   infoboxContent.value = selectedOption.content;
 };
+
 
 function emitDeleteEvent() {
   emit('delete');

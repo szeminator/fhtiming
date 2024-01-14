@@ -39,7 +39,8 @@
 .logo-link {
   display: flex;
   align-items: center;
-  justify-content: center; 
+  justify-content: start; 
+  padding-left: 15px;
 }
 .nav-links {
   display: flex;
