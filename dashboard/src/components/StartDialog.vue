@@ -24,7 +24,7 @@
 
   const store = useStore();
   const router = useRouter();
-  const textInput = ref('');
+  const textInput = ref('2305270');
   const numberInput = ref<number | null>(null);
   let isError = ref(false);
   const courses = ref([]);
