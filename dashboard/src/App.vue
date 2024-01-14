@@ -1,28 +1,17 @@
 <script setup lang="ts">
 import FHTimingHeader from './views/FHTimingHeader.vue'
-import InfoBoxValue from './components/InfoBoxValue.vue';
 import InfoBoxPercentage from './components/InfoBoxPercentage.vue';
 import Sidebar from './views/Sidebar.vue';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 const isSidebarVisible = ref(true);
 const infoBoxPercentages = ref([{ title: "Info2" }]);
-const infoBoxValues = ref([{ title: "Info" }]); // Initialize with existing InfoBoxValue
+
+const toggleIcon = computed(() => isSidebarVisible.value ? '/hide.svg' : '/show.svg');
 
 function toggleSidebar() {
   isSidebarVisible.value = !isSidebarVisible.value;
 }
-
-function addInfoBoxValue() {
-  infoBoxValues.value.push({ title: `Value${infoBoxValues.value.length + 1}` });
-}
-
-function removeInfoBoxValue(index) {
-  if (infoBoxValues.value.length > 1) {
-    infoBoxValues.value.splice(index, 1);
-  }
-}
-
 
 function addInfoBoxPercentage() {
   infoBoxPercentages.value.push({ title: `Value${infoBoxPercentages.value.length + 1}` });
@@ -40,14 +29,12 @@ function removeInfoBoxPercentage(index) {
   <div class="header-sidebar-container">
     <FHTimingHeader name="FHTimingHeader" />
     <button @click="toggleSidebar" class="toggle-button">
-    <img src="/settings.svg" alt="Settings" />
-  </button>
-  <Sidebar v-show="isSidebarVisible" />
+      <img :src="toggleIcon" alt="Toggle Sidebar" />
+    </button>
+    <Sidebar v-show="isSidebarVisible" />
   </div>
   <div :class="isSidebarVisible ? 'content-with-sidebar' : 'content-full-width'">
     <div class="info-container">
-
-      <InfoBoxValue v-for="(box, index) in infoBoxValues" :key="index" :title="box.title" />
     <InfoBoxPercentage
         v-for="(box, index) in infoBoxPercentages"
         :key="index"
@@ -78,26 +65,6 @@ function removeInfoBoxPercentage(index) {
   padding-top: 0px;
   padding-left: 10px;
 }
-.toggle-button:focus {
-  outline: none; /* Removes the outline on focus as well */
-}
-.toggle-button {
-  position: fixed;
-  top: 70px; /* Adjust as needed */
-  left: 10px; /* Adjust as needed */
-  background: none; /* Remove background if you want only the SVG to be visible */
-  cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
-  z-index: 1500;
-  padding: 0px;
-  border-radius: 50%;
-  outline: none; /* Remove focus ring for accessibility */
-}
-
-.toggle-button:active {
-  box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15); /* Reduced shadow for pressed effect */
-  transform: translateY(2px); /* Slightly move the button down to mimic pressing */
-}
-
 .info-container {
   display: flex;
   justify-content: center;
@@ -114,7 +81,25 @@ function removeInfoBoxPercentage(index) {
 .sidebar-hidden {
   transform: translateX(-100%); /* Hidden state */
 }
+.toggle-button:focus {
+  outline: none; /* Removes the outline on focus as well */
+}
+.toggle-button {
+  position: fixed;
+  top: 90px; /* Adjust as needed */
+  left: 15px; /* Adjust as needed */
+  background: none; /* Remove background if you want only the SVG to be visible */
+  cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+  z-index: 1500;
+  padding: 0px;
+  border-radius: 50%;
+  outline: none; /* Remove focus ring for accessibility */
+}
 
+.toggle-button:active {
+  box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15); /* Reduced shadow for pressed effect */
+  transform: translateY(2px); /* Slightly move the button down to mimic pressing */
+}
 .toggle-button img {
   display: flex;
   flex-direction: column;
