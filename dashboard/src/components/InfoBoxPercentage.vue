@@ -1,21 +1,66 @@
 <script setup lang="ts">
 
-/* interface Props {
-  title: string,
-  content: string,
-}
-const { 
-  title, 
-  content 
-    }= defineProps<Props>() */
+import { ref } from 'vue';
+import Options from './InfoBoxOptions.vue'; // import your Questions.vue component
 
+// Reactive state
+const showModal = ref(false);
+const infoboxTitle = ref('Default Title');
+const infoboxContent = ref('Default Content');
+const configButton = ref(null);
+const modalPosition = ref({ x: 0, y: 0 });
+
+const emit = defineEmits(['add', 'delete']);
+
+const openModal = () => {
+  if (configButton.value && configButton.value.offsetParent) {
+    const rect = configButton.value.getBoundingClientRect();
+    const offsetParentRect = configButton.value.offsetParent.getBoundingClientRect();
+    const buttonRightEdgeX = rect.right;
+    const offsetParentLeft = offsetParentRect.left;
+
+    // Calculate the adjusted X position
+    const adjustedXPosition = buttonRightEdgeX - offsetParentLeft; // Adjusting with margin-left
+
+    modalPosition.value = {
+      x: adjustedXPosition - 20,
+      y: rect.top - 35 // Adjust if needed for vertical alignment
+    };
+    showModal.value = true;
+  }
+};
+
+// Handle selection from Questions.vue
+const handleSelection = (selectedOption) => {
+  showModal.value = false;
+  infoboxTitle.value = selectedOption.title;
+  // Retrieve and filter info from the store based on selectedOption
+  infoboxContent.value = selectedOption.content;
+};
+
+function emitAddEvent() {
+  emit('add');
+}
+
+function emitDeleteEvent() {
+  emit('delete');
+}
 </script>
 
 <template>
-  <div class="infobox">
-    <img src="/config.svg" alt="Config" class="config-icon" />
-    <h3 class="text-lg font-semibold title">Läufer 1. Percentile</h3>
-    <p class="content">5%</p>
+<div class="infobox">
+  <div class="control-buttons">
+    <button @click="emitAddEvent" class="add-button">
+      <img src="/add.svg" alt="Add" />
+    </button>
+    <button @click="emitDeleteEvent" class="delete-button">
+      <img src="/delete.svg" alt="Delete" />
+    </button>
+    <img src="/config.svg" alt="Config" class="config-icon" ref="configButton" @click="openModal" />
+  </div>
+    <h3 class="text-lg font-semibold title">{{ infoboxTitle }}</h3>
+    <p class="content">{{ infoboxContent }}</p>
+  <Options v-if="showModal" :position="modalPosition" @close="showModal = false" @select="handleSelection" />
   </div>
  </template>
   
@@ -61,14 +106,36 @@ const {
     width: 100%;
     box-sizing: border-box;
   }
+  
+  .control-buttons {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  display: flex;
+  gap: 8px;
+}
 
-  .config-icon {
-    position: absolute;
-    top: -15px; 
-    right: -15px;
-    background-color: #76C657;
-    border-radius: 50%;
-    padding: 8px;
-    box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
-  }
+.add-button, .delete-button {
+  background-color: #76C657;
+  border-radius: 50%;
+  padding: 4px;
+  width: 28px;
+  height: 28px;
+  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.config-icon {
+  background-color: #76C657;
+  border-radius: 50%;
+  padding: 4px; /* Adjust padding to reduce size */
+  width: 24px; /* Adjusted width */
+  height: 24px; /* Adjusted height */
+  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
   </style>

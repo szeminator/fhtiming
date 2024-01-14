@@ -6,10 +6,34 @@ import Sidebar from './views/Sidebar.vue';
 import { ref } from 'vue';
 
 const isSidebarVisible = ref(true);
+const infoBoxPercentages = ref([{ title: "Info2" }]);
+const infoBoxValues = ref([{ title: "Info" }]); // Initialize with existing InfoBoxValue
 
 function toggleSidebar() {
   isSidebarVisible.value = !isSidebarVisible.value;
 }
+
+function addInfoBoxValue() {
+  infoBoxValues.value.push({ title: `Value${infoBoxValues.value.length + 1}` });
+}
+
+function removeInfoBoxValue(index) {
+  if (infoBoxValues.value.length > 1) {
+    infoBoxValues.value.splice(index, 1);
+  }
+}
+
+
+function addInfoBoxPercentage() {
+  infoBoxPercentages.value.push({ title: `Value${infoBoxPercentages.value.length + 1}` });
+}
+
+function removeInfoBoxPercentage(index) {
+  if (infoBoxPercentages.value.length > 1) {
+    infoBoxPercentages.value.splice(index, 1);
+  }
+}
+
 </script>
 
 <template>
@@ -22,10 +46,15 @@ function toggleSidebar() {
   </div>
   <div :class="isSidebarVisible ? 'content-with-sidebar' : 'content-full-width'">
     <div class="info-container">
-    <InfoBoxValue title="Info" />
-    <InfoBoxPercentage title="Info2" />
-    <InfoBoxPercentage title="Info3" />
-    <InfoBoxPercentage title="Info5" />
+
+      <InfoBoxValue v-for="(box, index) in infoBoxValues" :key="index" :title="box.title" />
+    <InfoBoxPercentage
+        v-for="(box, index) in infoBoxPercentages"
+        :key="index"
+        :title="box.title"
+        @add="addInfoBoxPercentage"
+        @delete="() => removeInfoBoxPercentage(index)"
+      />
   </div>
    <router-view />
   </div>
@@ -98,5 +127,14 @@ function toggleSidebar() {
   background: #76C657;
   box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
   outline: none; /* Removes the outline on focus as well */
+}
+
+.delete-button {
+  /* Styling for the delete button */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: -30px; /* Adjust based on your layout */
 }
 </style>
