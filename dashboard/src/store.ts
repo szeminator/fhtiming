@@ -32,7 +32,7 @@ export const useStore = defineStore({
     setSelectedSplitIDs(selectedSplitIDs: number[]) {
       this.selectedSplitIDs = selectedSplitIDs;
     },
-    setChartdataKeys(chartdataKeys: []) {
+    setChartdataKeys(chartdataKeys: string[]) {
       this.chartdataKeys = chartdataKeys;
     }
   }
