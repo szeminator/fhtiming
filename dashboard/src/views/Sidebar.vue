@@ -31,6 +31,7 @@ const props = defineProps({
   overflow-y: auto; /* Add scroll for overflow content */
   border-right: 1px solid #d3d3d3; /* Greyish border at the bottom */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Slight shadow for depth */
+  background: white;
 }
 
 .sidebar-content {
