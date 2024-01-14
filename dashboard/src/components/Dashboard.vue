@@ -4,14 +4,14 @@
   <table class="styled-table">
       <thead class="header">
         <tr>
-          <th v-for="key in chartdataKeys" :key="key">
+          <th v-for="key in combinedKeys" :key="key">
             {{ key }}
           </th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="data in chartdata" :key="data.start">
-          <td v-for="key in chartdataKeys" :key="key">
+          <td v-for="key in combinedKeys" :key="key">
             {{ data[key] }}
           </td>
         </tr>
@@ -32,9 +32,12 @@ const store = useStore();
 const courses = store.courses;
 let chartdata = computed(() => store.allResults);
 let chartdataKeys = computed(() => store.chartdataKeys);
+let predefinedChartKeys = ['start', 'first', 'last', 'club', 'category', 'age', 'gender', 'status', 'nat'];
 
 let selectedCourse = computed(() => store.selectedCourse);
 let selectedSplits = computed(() => store.selectedSplitIDs);
+let combinedKeys = computed(() => predefinedChartKeys.concat(selectedSplits.value));
+
 
 onMounted(() => {
   
