@@ -67,6 +67,8 @@ watch(selectedCourse, async (newCourse) => {
 
 watch(selectedSplits, (newSplits) => {
   //console.log(newSplits);
+  //every entry in the result/json?course=102 call gets the splits back
+  //but in the results call the splits are called START_DUMMY_Time so every Splitname with _Time at the end needs to be updated
   let updatedSplits = newSplits.map(split => split + "_Time");
   store.setSelectedSplitIDs(updatedSplits);
 });
