@@ -35,7 +35,7 @@ const selectedSplits = ref([]);
 watch(selectedCourse, async (newCourse) => {
   if (newCourse) {
     store.setSelectedCourse(newCourse);
-    console.log("Selected Course got updated");
+    //console.log("Selected Course got updated");
     let response = await fetch(`http://win2.fh-timing.com/middleware/${store.eventid}/info/json?setting=splits&course=${newCourse}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -48,7 +48,7 @@ watch(selectedCourse, async (newCourse) => {
     splits.value = jsonResponse[`Splits_${newCourse}`];
     let splitNumbers = splits.value.map((split: { Splitnr: any; }) => Number(split.Splitnr));
     store.setAllSplitIDs(splitNumbers);
-    console.log("Splitnumbers got updated");
+    //console.log("Splitnumbers got updated");
 
     response = await fetch(`http://win2.fh-timing.com/middleware/${store.eventid}/result/json?course=${selectedCourse.value}&splitnr=${store.allSplitIDs.join(',')}&rank=199100&order=asc&detail=start,first,last,club,category,age,gender,status,nat`);
     if (!response.ok) {
@@ -61,13 +61,14 @@ watch(selectedCourse, async (newCourse) => {
     store.setAllResultData(chartdata);
     selectedSplits.value = [];
     store.setSelectedSplitIDs([]);
-    console.log("Chartdata got updated");
+    //console.log("Chartdata got updated");
   }
 });
 
 watch(selectedSplits, (newSplits) => {
-  console.log(newSplits);
-  store.setSelectedSplitIDs(newSplits);
+  //console.log(newSplits);
+  let updatedSplits = newSplits.map(split => split + "_Time");
+  store.setSelectedSplitIDs(updatedSplits);
 });
 
 onMounted(() => {

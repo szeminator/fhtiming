@@ -1,7 +1,6 @@
 <template>
-  
   <div>
-  <table class="styled-table">
+    <table class="styled-table">
       <thead class="header">
         <tr>
           <th v-for="key in combinedKeys" :key="key">
@@ -10,23 +9,23 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="data in chartdata" :key="data.start">
+        <!-- Add renderKey to the key to force a re-render when combinedKeys changes -->
+        <tr v-for="data in chartdata" :key="data.start + combinedKeys.join('-') + renderKey">
           <td v-for="key in combinedKeys" :key="key">
+            {{ console.log('rendering row: ', data[key]) }}
             {{ data[key] }}
           </td>
         </tr>
       </tbody>
     </table>
-
   </div>
 </template>
 
  
 
 <script setup lang="ts">
-import { onMounted, computed } from 'vue';
+import { onMounted, computed, watch, ref } from 'vue';
 import { useStore } from '../store';
-
 
 const store = useStore();
 const courses = store.courses;
@@ -38,10 +37,19 @@ let selectedCourse = computed(() => store.selectedCourse);
 let selectedSplits = computed(() => store.selectedSplitIDs);
 let combinedKeys = computed(() => predefinedChartKeys.concat(selectedSplits.value));
 
+// Create a ref that will be used to force a re-render
+let renderKey = ref(0);
+
+// Watch for changes in combinedKeys
+watch(combinedKeys, () => {
+  // Increment renderKey to force a re-render
+  //console.log('combinedKeys changed', combinedKeys.value);
+  renderKey.value++;
+  //console.log('renderKey changed', renderKey.value);
+});
 
 onMounted(() => {
-  
-  console.log(courses);
+  //console.log(courses);
 });
 
 async function loadChartdata() {
