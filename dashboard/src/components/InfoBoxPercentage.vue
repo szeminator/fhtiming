@@ -10,7 +10,7 @@ const infoboxContent = ref('Default Content');
 const configButton = ref(null);
 const modalPosition = ref({ x: 0, y: 0 });
 
-const emit = defineEmits(['add', 'delete']);
+const emit = defineEmits(['delete']);
 
 const openModal = () => {
   if (configButton.value && configButton.value.offsetParent) {
@@ -30,6 +30,7 @@ const openModal = () => {
   }
 };
 
+
 // Handle selection from Questions.vue
 const handleSelection = (selectedOption) => {
   showModal.value = false;
@@ -37,10 +38,6 @@ const handleSelection = (selectedOption) => {
   // Retrieve and filter info from the store based on selectedOption
   infoboxContent.value = selectedOption.content;
 };
-
-function emitAddEvent() {
-  emit('add');
-}
 
 function emitDeleteEvent() {
   emit('delete');
@@ -50,9 +47,6 @@ function emitDeleteEvent() {
 <template>
 <div class="infobox">
   <div class="control-buttons">
-    <button @click="emitAddEvent" class="add-button">
-      <img src="/add.svg" alt="Add" />
-    </button>
     <button @click="emitDeleteEvent" class="delete-button">
       <img src="/delete.svg" alt="Delete" />
     </button>
@@ -115,7 +109,7 @@ function emitDeleteEvent() {
   gap: 8px;
 }
 
-.add-button, .delete-button {
+.delete-button {
   background-color: #76C657;
   border-radius: 50%;
   padding: 4px;
