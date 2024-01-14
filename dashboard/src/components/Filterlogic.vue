@@ -9,10 +9,10 @@
     <p class="text">Selected Course: {{ selectedCourse }}</p>
     <div class="split-list">
       <div v-for="split in splits" :key="split.Splitnr" class="split-item">
-        <input type="checkbox" :id="`split-${split.Splitnr}`" :value="split.Splitnr" v-model="selectedSplits" class="hidden-checkbox">
-        <label :for="'split-' + split.Splitnr" class="checkbox-label">
+        <input type="checkbox" :id="`split-${split.Splitname}`" :value="split.Splitname" v-model="selectedSplits" class="hidden-checkbox">
+        <label :for="'split-' + split.Splitname" class="checkbox-label">
           <span class="custom-checkbox">
-            <i class="checkmark" v-show="selectedSplits.includes(split.Splitnr)">✓</i>
+            <i class="checkmark" v-show="selectedSplits.includes(split.Splitname)">✓</i>
           </span>{{ split.Splitname }} - {{ split.Splitnr }}</label>
       </div>
     </div>
@@ -65,7 +65,7 @@ watch(selectedCourse, async (newCourse) => {
 
 watch(selectedSplits, (newSplits) => {
   console.log(newSplits);
-  //store.setSelectedSplitIDs(newSplits);
+  store.setSelectedSplitIDs(newSplits);
 });
 
 onMounted(() => {
