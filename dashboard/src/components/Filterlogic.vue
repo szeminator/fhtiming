@@ -23,6 +23,7 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, computed } from 'vue';
 import { useStore } from '../store';
+import {fetchStartersThatDidntGetFar} from '../insights';
 
 const store = useStore();
 let courses = computed(() => store.courses);
@@ -48,6 +49,13 @@ watch(selectedCourse, async (newCourse) => {
     splits.value = jsonResponse[`Splits_${newCourse}`];
     let splitNumbers = splits.value.map((split: { Splitnr: any; }) => Number(split.Splitnr));
     store.setAllSplitIDs(splitNumbers);
+
+    let splitNumberNamePairs = splits.value.map((split: { Splitnr: any; Splitname: any; }) => ({
+      Splitnr: split.Splitnr,
+      Splitname: split.Splitname
+    }));
+    store.setAllSplitIDNamePairs(splitNumberNamePairs);
+
     //console.log("Splitnumbers got updated");
 
     response = await fetch(`http://win2.fh-timing.com/middleware/${store.eventid}/result/json?course=${selectedCourse.value}&splitnr=${store.allSplitIDs.join(',')}&order=asc&detail=start,first,last,club,category,age,gender,status,nat`);
@@ -61,8 +69,10 @@ watch(selectedCourse, async (newCourse) => {
       store.setChartdataKeys(Object.keys(chartdata[0]));
     }
     store.setAllResultData(chartdata);
+
     selectedSplits.value = [];
     store.setSelectedSplitIDs([]);
+    fetchStartersThatDidntGetFar();
     //console.log("Chartdata got updated" + chartdata);
   }
 });

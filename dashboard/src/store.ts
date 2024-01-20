@@ -7,6 +7,7 @@ export const useStore = defineStore({
     courses: [] as any[],
     allResults: [] as any[],
     allSplitIDs: [] as number[],
+    selectedSplitIDNamePairs: [] as any[],
     eventid: 0,
     selectedCourse: 0,
     selectedSplitIDs: [] as string[],
@@ -19,6 +20,9 @@ export const useStore = defineStore({
     },
     setAllResultData(results: any[]) {
       this.allResults = results;
+    },
+    setAllSplitIDNamePairs(allSplitIDNamePairs: any[]) {
+      this.selectedSplitIDNamePairs = allSplitIDNamePairs;
     },
     setAllSplitIDs(splitNumbers: number[]) {
       this.allSplitIDs = splitNumbers;
