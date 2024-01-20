@@ -63,7 +63,7 @@ watch(selectedCourse, async (newCourse) => {
     store.setAllResultData(chartdata);
     selectedSplits.value = [];
     store.setSelectedSplitIDs([]);
-    console.log("Chartdata got updated" + chartdata);
+    //console.log("Chartdata got updated" + chartdata);
   }
 });
 
