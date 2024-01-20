@@ -23,7 +23,17 @@ export function fetchStartersThatDidntGetFar() {
         (!data[splitNameForTurn2] || data[splitNameForTurn2] === "-") &&
         (!data[splitNameForFinish] || data[splitNameForFinish] === "-")
       );
-    console.log(filteredData);
+    //console.log(filteredData);
     return filteredData;
 }
 
+export function selectRunnersForSplit() {
+    let store = useStore();
+    let chartdata = store.allResults;
+    let allSplitIDNamePairs = store.selectedSplitIDNamePairs;
+    let splitID = store.selectedSplitIDs[0];
+    let splitName = allSplitIDNamePairs.find(split => split.Splitnr === splitID)?.Splitname + "_Time"
+    let filteredData = chartdata.filter(data => data[splitName] && data[splitName] !== "-");
+    console.log(filteredData);
+    return filteredData;
+}
