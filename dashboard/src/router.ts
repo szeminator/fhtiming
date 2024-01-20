@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import StartDialog from './components/StartDialog.vue';
 import Dashboard from './components/Dashboard.vue';
+import Graph from './components/Graph.vue';
 import Impressum from './views/Impressum.vue';
 
 const routes = [
@@ -16,6 +17,11 @@ const routes = [
   { 
     path: '/impressum', 
     component: Impressum 
+  },
+  { 
+    path: '/graph', 
+    name: 'graph',
+    component: Graph 
   },
 ];
 
