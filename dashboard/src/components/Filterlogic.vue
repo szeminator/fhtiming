@@ -50,18 +50,20 @@ watch(selectedCourse, async (newCourse) => {
     store.setAllSplitIDs(splitNumbers);
     //console.log("Splitnumbers got updated");
 
-    response = await fetch(`http://win2.fh-timing.com/middleware/${store.eventid}/result/json?course=${selectedCourse.value}&splitnr=${store.allSplitIDs.join(',')}&rank=199100&order=asc&detail=start,first,last,club,category,age,gender,status,nat`);
+    response = await fetch(`http://win2.fh-timing.com/middleware/${store.eventid}/result/json?course=${selectedCourse.value}&splitnr=${store.allSplitIDs.join(',')}&order=asc&detail=start,first,last,club,category,age,gender,status,nat`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     //console.log(response);
     jsonResponse = await response.json();
     chartdata = jsonResponse[`Course_${selectedCourse.value}`];
-    store.setChartdataKeys(Object.keys(chartdata[0]));
+    if (chartdata.length > 0) {
+      store.setChartdataKeys(Object.keys(chartdata[0]));
+    }
     store.setAllResultData(chartdata);
     selectedSplits.value = [];
     store.setSelectedSplitIDs([]);
-    //console.log("Chartdata got updated");
+    console.log("Chartdata got updated" + chartdata);
   }
 });
 
