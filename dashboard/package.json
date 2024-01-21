@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/chart.js": "^2.9.41",
+    "chart.js": "^4.4.1",
     "pinia": "^2.1.7",
     "uuid": "^9.0.1",
     "vue": "^3.3.11",

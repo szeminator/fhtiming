@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, computed } from 'vue';
 import { useStore } from '../store';
-import {fetchStartersThatDidntGetFar} from '../insights';
+import {fetchStartersThatDidntGetFar, selectRunnersForSplit} from '../insights';
 
 const store = useStore();
 let courses = computed(() => store.courses);
@@ -73,6 +73,7 @@ watch(selectedCourse, async (newCourse) => {
     selectedSplits.value = [];
     store.setSelectedSplitIDs([]);
     fetchStartersThatDidntGetFar();
+    selectRunnersForSplit();
     //console.log("Chartdata got updated" + chartdata);
   }
 });
