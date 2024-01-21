@@ -23,7 +23,7 @@ export function fetchStartersThatDidntGetFar() {
         (!data[splitNameForTurn2] || data[splitNameForTurn2] === "-") &&
         (!data[splitNameForFinish] || data[splitNameForFinish] === "-")
       );
-    //console.log(filteredData);
+    console.log(filteredData);
     return filteredData;
 }
 
@@ -36,4 +36,93 @@ export function selectRunnersForSplit() {
     let filteredData = chartdata.filter(data => data[splitName] && data[splitName] !== "-");
     console.log(filteredData);
     return filteredData;
+}
+
+export function countStartersThatDidntGetFar() {
+    let store = useStore();
+    let chartdata = store.allResults;
+    let allSplitIDNamePairs = store.selectedSplitIDNamePairs;
+
+    let splitNameForStart = allSplitIDNamePairs.find(split => split.Splitnr === startSplitID.toString())?.Splitname + "_Time"
+    let splitNameForTurn1 = allSplitIDNamePairs.find(split => split.Splitnr === turn1SplitID.toString())?.Splitname + "_Time"
+    let splitNameForTurn2 = allSplitIDNamePairs.find(split => split.Splitnr === turn2SplitID.toString())?.Splitname + "_Time"
+    let splitNameForFinish = allSplitIDNamePairs.find(split => split.Splitnr === finishSplitID.toString())?.Splitname + "_Time"
+
+    let filteredData = chartdata.filter(data => 
+        data[splitNameForStart] && data[splitNameForStart] !== "-" &&
+        (!data[splitNameForTurn1] || data[splitNameForTurn1] === "-") &&
+        (!data[splitNameForTurn2] || data[splitNameForTurn2] === "-") &&
+        (!data[splitNameForFinish] || data[splitNameForFinish] === "-")
+    );
+
+    return filteredData.length;
+}
+
+export function countStartersThatOnlyGotToTurn1() {
+    let store = useStore();
+    let chartdata = store.allResults;
+    let allSplitIDNamePairs = store.selectedSplitIDNamePairs;
+
+    let splitNameForStart = allSplitIDNamePairs.find(split => split.Splitnr === startSplitID.toString())?.Splitname + "_Time"
+    let splitNameForTurn1 = allSplitIDNamePairs.find(split => split.Splitnr === turn1SplitID.toString())?.Splitname + "_Time"
+    let splitNameForTurn2 = allSplitIDNamePairs.find(split => split.Splitnr === turn2SplitID.toString())?.Splitname + "_Time"
+    let splitNameForFinish = allSplitIDNamePairs.find(split => split.Splitnr === finishSplitID.toString())?.Splitname + "_Time"
+
+    let filteredData = chartdata.filter(data => 
+        data[splitNameForStart] && data[splitNameForStart] !== "-" &&
+        data[splitNameForTurn1] && data[splitNameForTurn1] !== "-" &&
+        (!data[splitNameForTurn2] || data[splitNameForTurn2] === "-") &&
+        (!data[splitNameForFinish] || data[splitNameForFinish] === "-")
+    );
+
+    return filteredData.length;
+}
+
+export function countStartersThatOnlyGotToTurn2() {
+    let store = useStore();
+    let chartdata = store.allResults;
+    let allSplitIDNamePairs = store.selectedSplitIDNamePairs;
+
+    let splitNameForStart = allSplitIDNamePairs.find(split => split.Splitnr === startSplitID.toString())?.Splitname + "_Time"
+    let splitNameForTurn1 = allSplitIDNamePairs.find(split => split.Splitnr === turn1SplitID.toString())?.Splitname + "_Time"
+    let splitNameForTurn2 = allSplitIDNamePairs.find(split => split.Splitnr === turn2SplitID.toString())?.Splitname + "_Time"
+    let splitNameForFinish = allSplitIDNamePairs.find(split => split.Splitnr === finishSplitID.toString())?.Splitname + "_Time"
+
+    let filteredData = chartdata.filter(data => 
+        data[splitNameForStart] && data[splitNameForStart] !== "-" &&
+        data[splitNameForTurn1] && data[splitNameForTurn1] !== "-" &&
+        data[splitNameForTurn2] && data[splitNameForTurn2] !== "-" &&
+        (!data[splitNameForFinish] || data[splitNameForFinish] === "-")
+    );
+
+    return filteredData.length;
+}
+
+export function countStartersThatFinished() {
+    let store = useStore();
+    let chartdata = store.allResults;
+    let allSplitIDNamePairs = store.selectedSplitIDNamePairs;
+
+    let splitNameForStart = allSplitIDNamePairs.find(split => split.Splitnr === startSplitID.toString())?.Splitname + "_Time"
+    let splitNameForTurn1 = allSplitIDNamePairs.find(split => split.Splitnr === turn1SplitID.toString())?.Splitname + "_Time"
+    let splitNameForTurn2 = allSplitIDNamePairs.find(split => split.Splitnr === turn2SplitID.toString())?.Splitname + "_Time"
+    let splitNameForFinish = allSplitIDNamePairs.find(split => split.Splitnr === finishSplitID.toString())?.Splitname + "_Time"
+
+    let filteredData = chartdata.filter(data => 
+        data[splitNameForStart] && data[splitNameForStart] !== "-" &&
+        data[splitNameForTurn1] && data[splitNameForTurn1] !== "-" &&
+        data[splitNameForTurn2] && data[splitNameForTurn2] !== "-" &&
+        data[splitNameForFinish] && data[splitNameForFinish] !== "-"
+    );
+
+    return filteredData.length;
+}
+
+export function countStartersAtEachStage() {
+    let countAtStart = countStartersThatDidntGetFar();
+    let countAtTurn1 = countStartersThatOnlyGotToTurn1();
+    let countAtTurn2 = countStartersThatOnlyGotToTurn2();
+    let countAtFinish = countStartersThatFinished();
+
+    return [countAtStart, countAtTurn1, countAtTurn2, countAtFinish];
 }

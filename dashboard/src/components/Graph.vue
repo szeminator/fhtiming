@@ -7,18 +7,21 @@
   <script setup lang="ts">
   import { onMounted } from 'vue';
   import Chart from 'chart.js/auto';
+  import { countStartersAtEachStage } from '../insights'
 
 
   onMounted(() => {
+    let data = countStartersAtEachStage();
+    console.log(data);
     const ctx = document.getElementById('myChart') as HTMLCanvasElement;
     if (ctx) {
         new Chart(ctx, {
             type: 'bar',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: ['START', 'TURN1', 'TURN2', 'FINISH'],
       datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        label: '# of Teilnehmer',
+        data: data,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
