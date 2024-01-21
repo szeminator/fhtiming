@@ -3,14 +3,43 @@
   line-height: 1.5;
   font-weight: 400;
 
+  --text-color: var(--text-color-light); /* Default to light mode */
+  --bg-color: var(--bg-color-light); /* Default to light mode */
+  --bg-color-light: rgba(255, 255, 255, 0.87);
+  --text-color-light: #000000;
+  --bg-color-dark: #242424; /* Dark mode background color */
+  --text-color-dark: #FFFFFF; /* Dark mode text color */
+  --infobox-shadow: rgba(8, 3, 3, 0.3); /* Default shadow color for light mode */
+  --sidebar-bg: #FFFFFF; /* Default background for sidebar */
+  --table-row-bg: #EBF9F1; /* Default light mode background color for table rows */
+  --table-row-text: #000000;
+
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.light-theme {
+  --text-color: var(--text-color-light);
+  --bg-color: var(--bg-color-light);
+  --table-row-bg-light: #EBF9F1; /* Light mode background color for table rows */
+  --table-row-text-light: #000000; /* Light mode text color for table rows */
+  --sidebar-bg: #FFFFFF; /* Light mode background for sidebar */
+  --infobox-shadow: rgba(8, 3, 3, 0.3); /* Original shadow color for light mode */
+}
+
+/* Dark Theme */
+.dark-theme {
+  --text-color: var(--text-color-dark);
+  --bg-color: var(--bg-color-dark);
+  --table-row-bg-dark: #76C657; /* Dark mode background color for table rows */
+  --table-row-text-dark: #000000; /* Dark mode text color for table rows */
+  --sidebar-bg: #1b1b1b; /* Dark mode background for sidebar */
+  --infobox-shadow: rgba(65, 125, 168, 0.3); /* Fading blue shadow for dark mode */
 }
 
 a {
@@ -23,16 +52,23 @@ a:hover {
 }
 
 body {
-  margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
-  min-height: 100vh;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+:root, body {
+  transition: background-color 0.3s, color 0.3s;
+  /* Add other properties as needed */
 }
 
 button {
@@ -65,17 +101,4 @@ button:focus-visible {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }

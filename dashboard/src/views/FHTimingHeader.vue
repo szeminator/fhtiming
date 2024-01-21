@@ -9,12 +9,23 @@
         <router-link to="/dashboard" class="nav-link">Dashboard</router-link> | 
         <router-link to="/graph" class="nav-link">Graph</router-link> | 
         <router-link to="/table" class="nav-link">Tabelle</router-link> | 
-        <router-link to="/impressum" class="nav-link">Impressum</router-link>
+        <router-link to="/impressum" class="nav-link">Impressum</router-link> |
+        <ModeSwitch @toggle-mode="handleModeToggle" />
       </div>
     </div>
   </nav>
 </template>
 
+<script setup lang="ts">
+import { defineEmits } from 'vue';
+import ModeSwitch from '../components/ModeSwitch.vue';
+
+const emit = defineEmits(['toggle-mode']);
+
+const handleModeToggle = (isDarkMode) => {
+  emit('toggle-mode', isDarkMode);
+};
+</script>
 
 <style scoped>
 .navbar {
@@ -23,11 +34,12 @@
   left: 0;
   width: 100%;
   height: 80px;
-  background-color: white;
   border-bottom: 1px solid #d3d3d3;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   z-index: 1010;
+  background-image: linear-gradient(to right, #ffffff, #76C657);
 }
+
 
 .navbar-grid {
   display: grid;
@@ -47,6 +59,7 @@
   align-items: center;
   justify-content: flex-start;
   padding-left: 20px;
+  color: #000;
 }
 
 .navbar-icon {
@@ -72,5 +85,4 @@
   font-weight: bold;
   color: #76C657;
 }
-
 </style>

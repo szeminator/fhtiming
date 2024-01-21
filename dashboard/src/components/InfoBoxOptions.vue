@@ -53,7 +53,7 @@ onUnmounted(() => {
 
   // Example options data
   const options = [
-  { id: 1, modalTitle: 'Modal Option 1', contentTitle: 'Content Title 1', content: 'Content for Option 1' },
+  { id: 1, modalTitle: 'Wer ist die derzeit schnellste Frau?', contentTitle: 'Derzeit führende Frau', content: 'Content for Option 1' },
 { id: 2, modalTitle: 'Modal Option 2', contentTitle: 'Content Title 2', content: 'Content for Option 2' },
 // Add more options as needed
 ];
@@ -78,7 +78,7 @@ onUnmounted(() => {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--bg-color); /* Use the background color variable */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -87,10 +87,11 @@ onUnmounted(() => {
   
   .modal-content {
     /* Styles for the modal content */
-    background-color: white;
-    padding: 20px;
+    background-color: var(--bg-color); /* Use the background color variable */
     border-radius: 5px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    color: #76C657;
+
   }
   
   ul {
