@@ -7,7 +7,7 @@
   <script setup lang="ts">
   import { onMounted } from 'vue';
   import Chart from 'chart.js/auto';
-  import { countStartersAtEachStage } from '../insights'
+  import { countRunnersAtEachSection } from '../insights'
 
 
   onMounted(() => {
