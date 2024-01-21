@@ -11,7 +11,7 @@
 
 
   onMounted(() => {
-    let data = countStartersAtEachStage();
+    let data = countRunnersAtEachSection();
     console.log(data);
     const ctx = document.getElementById('myChart') as HTMLCanvasElement;
     if (ctx) {
