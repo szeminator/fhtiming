@@ -30,14 +30,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="data
-in chartdata" :key="data.start + combinedKeys.join('-') + renderKey">
-<td v-for="key in combinedKeys" :key="key">
-{{ data[key] }}
-</td>
-</tr>
-</tbody>
-</table>
+        <tr v-for="data in chartdata" :key="data.start + combinedKeys.join('-') + renderKey">
+        <td v-for="key in combinedKeys" :key="key">
+        {{ data[key] }}
+      </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 
@@ -100,17 +99,25 @@ async function loadChartdata() {
 </script>
 
 <style scoped>
-
 .styled-table {
   width: 100%;
   border-collapse: collapse;
 }
 
 .styled-table th.header {
-  font-weight: bold;
+  font-weight: bold; /* Makes the header text bold */
+  border-bottom: 1px solid #000; /* Adds a thin bottom border, change color as needed */
+  padding: 10px; /* Adds padding around the text, adjust as needed */
 }
 
 .styled-table tr:nth-child(even) {
-  background-color: #EBF9F1;
+  background-color: var(--table-row-bg-light);
+  color: var(--table-row-text-light);
+}
+
+.dark-theme .styled-table tr:nth-child(even) {
+  background-color: var(--table-row-bg-dark);
+  color: var(--table-row-text-dark);
 }
 </style>
+

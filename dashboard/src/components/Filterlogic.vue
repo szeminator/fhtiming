@@ -103,7 +103,6 @@ onMounted(() => {
   font-style: normal;
   font-weight: 400;
   line-height: 24px;
-  color: #000;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-family: 'Open Sans', sans-serif;
 }
@@ -166,6 +165,7 @@ select {
   display: block; /* Ensure it doesn't inline with other elements */
   margin-left: auto; /* Centers the dropdown if its width is less than 100% */
   margin-right: auto;
+  color: var(--text-color);
 }
 
 .dropdown-container {
@@ -177,25 +177,24 @@ select {
   position: absolute;
   top: -0.6rem; /* Adjusts to move the label slightly above the select */
   left: 1rem; /* Adjusts to align with the text inside the select */
-  background: #ffffff; /* Assumes your sidebar background color */
   padding: 0 0.4rem;
+  background-color: var(--sidebar-bg); /* Use the background color variable */
   font-size: 0.8rem;
-  color: #76C657;
   transition: all 0.3s;
-  pointer-events: none; 
-  user-select: none; 
+  pointer-events: none;
+  user-select: none;
 }
 
 .dropdown-select {
-font-size: 0.8rem;
-padding: 0.4rem 0.8rem;
-border: 1px solid #76C657;
-border-radius: 4px;
-cursor: pointer;
-width: calc(100% - 30px);
-display: block; 
-margin-top: 1.2rem; 
-margin-left: 5px;
+  font-size: 0.8rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #76C657;
+  border-radius: 4px;
+  cursor: pointer;
+  width: calc(100% - 30px);
+  display: block; 
+  margin-top: 1.2rem; 
+  margin-left: 5px;
+  background-color: var(--sidebar-bg); /* Use the background color variable */
 }
-
 </style>

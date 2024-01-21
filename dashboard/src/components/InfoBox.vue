@@ -71,7 +71,7 @@ function emitDeleteEvent() {
     gap: 10px;
     border-radius: 5px;
     border: 2px solid var(--Bright-Cape-colors-BC-Blue, #417DA8);
-    box-shadow: 5px 5px 5px 0px rgba(8, 3, 3, 0.3);
+    box-shadow: 5px 5px 5px 0px var(--infobox-shadow);
   }
   
   .title {
@@ -124,25 +124,10 @@ function emitDeleteEvent() {
   align-items: center;
 }
 
-
-/* .config-icon {
-  background-color: #76C657;
-  border-radius: 50%;
-  padding: 4px; 
-  width: 24px; 
-  height: 24px; 
-  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
 .delete-button img, .config-icon img {
   display: block;
   margin: auto; /* This centers the image within the flex container */
   width: 24px; /* Adjust if necessary */
   height: 24px; /* Adjust if necessary */
 }
-
-
-  </style>
+</style>
