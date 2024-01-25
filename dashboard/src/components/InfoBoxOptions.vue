@@ -6,10 +6,10 @@
 <h2>Select an Option</h2>
 <ul>
 <li v-for="option in options" :key="option.id">
-<button @click="selectOption(option)">{{ option.modalTitle }}</button>
+<button @click="selectOption(option)" class="button">{{ option.modalTitle }}</button>
 </li>
 </ul>
-<button @click="closeModal">Close</button>
+<button @click="closeModal" class="closeButton">Close</button>
 </div>
 
   </div>
@@ -72,13 +72,12 @@ onUnmounted(() => {
   
   <style scoped>
   .modal {
-    /* Styles for the modal background */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--bg-color); /* Use the background color variable */
+    background-color: var(--bg-color); 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -86,8 +85,7 @@ onUnmounted(() => {
   }
   
   .modal-content {
-    /* Styles for the modal content */
-    background-color: var(--bg-color); /* Use the background color variable */
+    background-color: var(--bg-color); 
     border-radius: 5px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
     color: #76C657;
@@ -103,8 +101,48 @@ onUnmounted(() => {
     margin-bottom: 10px;
   }
   
-  button {
-    /* Add button styles */
-  }
+  .button {
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  border: 1px solid #76C657;
+  width: 100%;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background-color: #9BE77D; /* Lighter green color */
+  color: var(--text-color);
+}
+
+.button:active {
+  background-color: #659C44; /* Darker green for pressed state */
+  transform: scale(0.98); /* Slightly scale down when pressed */
+}
+
+.closeButton {
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  border: 1px solid #c9302e;
+  width: 100%;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+  /* Add more styling as needed */
+  cursor: pointer;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+.closeButton:hover {
+  background-color: #d15f5f; /* Lighter green color */
+  color: var(--text-color);
+}
+
+.closeButton:active {
+  background-color: #c22424ef; /* Darker green for pressed state */
+  transform: scale(0.98); /* Slightly scale down when pressed */
+}
   </style>
   
