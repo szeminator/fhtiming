@@ -82,7 +82,7 @@ const handleModeToggle = (isDarkMode) => {
   justify-content: start;
   gap: 20px; 
   margin-bottom: 40px;
-  margin-top: 120px;
+  margin-top: 135px;
 }
 
 .sidebar {
@@ -158,7 +158,7 @@ const handleModeToggle = (isDarkMode) => {
 
 .router-view-no-infobox {
   /* Styling when there are no InfoBoxes */
-  margin-top: 120px; /* Example value, adjust as needed */
+  margin-top: 0px; /* Example value, adjust as needed */
 }
 
 </style>

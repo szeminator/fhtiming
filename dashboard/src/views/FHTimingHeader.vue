@@ -56,7 +56,7 @@ const handleModeToggle = (isDarkMode) => {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding-left: 20px;
+  padding-left: 35px;
   color: #000;
 }
 
@@ -68,7 +68,7 @@ const handleModeToggle = (isDarkMode) => {
 .nav-link {
   color: #000;
   font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 24px;
   padding: 0 10px;

@@ -52,7 +52,7 @@ const store = useStore();
 const courses = store.courses;
 let chartdata = computed(() => store.allResults);
 let chartdataKeys = computed(() => store.chartdataKeys);
-let predefinedChartKeys = ['start', 'first', 'last', 'club', 'category', 'age', 'gender', 'status', 'nat'];
+let predefinedChartKeys = ['start', 'first', 'last', 'club', 'category', 'age', 'gender', 'status', 'nat', 'rank', 'city', 'dnf'];
 
 let selectedCourse = computed(() => store.selectedCourse);
 let selectedSplits = computed(() => store.selectedSplitIDs);
@@ -67,8 +67,10 @@ const keyMappings = {
   age: 'Age',
   gender: 'Gender',
   status: 'Status',
-  nat:
-'Nationality',
+  nat: 'Nationality',
+  rank: 'Rank',
+  city: 'City',
+  dnf: 'DNF'
 // Add more mappings as needed
 };
 
@@ -94,8 +96,6 @@ async function loadChartdata() {
   console.log("Chartdata Keys: " + chartdataKeys);
   console.log("Chartdata Amount of Keys: " + chartdataKeys.value.length);
 }
-
-
 </script>
 
 <style scoped>
@@ -106,8 +106,20 @@ async function loadChartdata() {
 
 .styled-table th.header {
   font-weight: bold; /* Makes the header text bold */
-  border-bottom: 1px solid #000; /* Adds a thin bottom border, change color as needed */
   padding: 10px; /* Adds padding around the text, adjust as needed */
+}
+
+.th.header{
+  border-bottom: 1px solid #76C657
+}
+
+.styled-table th, .styled-table td {
+  border-right: 1px solid #417DA8; /* Adds a thin right border to each cell */
+  padding: 10px; /* Adds padding around the text, adjust as needed */
+}
+
+.styled-table th:last-child, .styled-table td:last-child {
+  border-right: none; /* Removes the right border for the last cell */
 }
 
 .styled-table tr:nth-child(even) {
