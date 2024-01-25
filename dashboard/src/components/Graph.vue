@@ -30,7 +30,7 @@
         new Chart(ctx, {
             type: 'bar',
     data: {
-      labels: ['START', 'TURN1', 'TURN2', 'FINISH'],
+      labels: ['START - TURN1', 'TURN1 - TURN2', 'TURN2 - FINISH', 'FINISHED'],
       datasets: [{
         label: '# of Teilnehmer',
         data: data,
