@@ -35,7 +35,6 @@ const props = defineProps({
 
 .sidebar-content {
   padding-top: 150px; /* Start the content below the header */
-  padding-left: 15px;
   text-size-adjust: 80%;
 }
 

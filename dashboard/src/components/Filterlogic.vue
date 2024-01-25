@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="filter-container">
     <form @submit.prevent="loadEvent">
     <div class="input-container">
       <label for="textInput" class="form-label">Enter Race ID</label>
@@ -27,6 +27,16 @@
       </div>
     </div>
   </div>
+  <p class="text" style="margin-top: 50px">Select Parameters</p>
+  <div class="split-list">
+      <div v-for="key in keyMappings" :key="key" class="split-item">
+        <input type="checkbox" :id="`${key}`" :value="`${key}`" v-model="selectedKeys" class="hidden-checkbox">
+        <label :for="`${key}`" class="checkbox-label">
+          <span class="custom-checkbox">
+            <i class="checkmark" v-show="selectedKeys.includes(key)">✓</i>
+          </span> {{ key }}</label>
+      </div>
+    </div>
   </div>
 </template>
  
@@ -45,9 +55,27 @@ let isError = ref(false);
 const courses = ref([]);
 let splits = ref([]) as any;
 let chartdata = [] as any;
+let selectedKeys = ref([]) as any;
+const keyMappings = {
+  start: 'Start Number',
+  first: 'First Name',
+  last: 'Last Name',
+  club: 'Club',
+  category: 'Category',
+  age: 'Age',
+  gender: 'Gender',
+  status: 'Status',
+  nat: 'Nationality',
+  rank: 'Rank',
+  city: 'City',
+  dnf: 'DNF'
+// Add more mappings as needed
+};
+
 
 const selectedCourse = ref(null);
 const selectedSplits = ref([]);
+
 
 watch(textInput, (newVal) => {
     
@@ -75,8 +103,8 @@ watch(textInput, (newVal) => {
     //console.log(jsonResponse);
     courses.value = jsonResponse.Courses;
     store.setCourses(jsonResponse.Courses);
-    router.push('/dashboard');
-    //router.push({ name: 'dashboard', params: { courses: courses.value } });
+    router.push('/table');
+    //router.push({ name: 'table', params: { courses: courses.value } });
     if (courses.value.length > 0) {
     selectedCourse.value = courses.value[0].Coursenr;
   }
@@ -153,8 +181,9 @@ onMounted(() => {
   align-items: center;
   border-radius: 4px;
   margin-bottom: 8px;
-  padding-left: 5px;
-  font-family: 'Arial', sans-serif; /* Your preferred font */
+  left: 20px; /* Adjusts to align with the text inside the select */
+  font-family: 'Open Sans', sans-serif;
+  margin-left: 15px;
 }
 .split-item input[type="checkbox"] {
   margin-right: 10px; /* Space between the checkbox and the label */
@@ -163,9 +192,10 @@ onMounted(() => {
 .text {
   font-size: 16px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 24px;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  color: #76C657;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -194,6 +224,9 @@ onMounted(() => {
   align-items: center;
   cursor: pointer;
   font-size: 0.75rem;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 24px;
 }
 
 .custom-checkbox {
@@ -225,20 +258,20 @@ select {
   cursor: pointer;
   width: auto; /* Adjust width to content or set a specific size */
   display: block; /* Ensure it doesn't inline with other elements */
-  margin-left: auto; /* Centers the dropdown if its width is less than 100% */
-  margin-right: auto;
   color: var(--text-color);
 }
 
 .dropdown-container {
   position: relative;
   margin-bottom: 1rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .dropdown-label {
   position: absolute;
   top: -0.6rem; /* Adjusts to move the label slightly above the select */
-  left: 1rem; /* Adjusts to align with the text inside the select */
+  left: 20px; /* Adjusts to align with the text inside the select */
   padding: 0 0.4rem;
   background-color: var(--sidebar-bg); /* Use the background color variable */
   font-size: 0.8rem;
@@ -250,14 +283,14 @@ select {
 
 .dropdown-select {
   font-size: 0.8rem;
-  padding: 0.4rem 0.8rem;
+  padding: 0.6rem 0.8rem;
   border: 1px solid #76C657;
   border-radius: 4px;
   cursor: pointer;
   width: calc(100% - 30px);
   display: block; 
   margin-top: 1.2rem; 
-  margin-left: 5px;
+  margin-left: 15px;
   background-color: var(--sidebar-bg); /* Use the background color variable */
 }
 
@@ -268,7 +301,7 @@ select {
 }
 
 .input-field {
-  padding: 0.4rem 0.8rem;
+  padding: 0.6rem 0.8rem;
   border: 1px solid #76C657;
   border-radius: 4px;
   color: var(--text-color);
@@ -276,12 +309,13 @@ select {
   width: calc(100% - 30px);
   margin-top: 1.2rem; /* Space for the label */
   /* Other styles as needed */
+  margin-left: 15px;
 }
 
 .form-label {
   position: absolute;
   top: 0.4rem; /* Adjust this to position the label inside the border */
-  left: 1rem; /* Adjust as needed */
+  left: 20px; /* Adjust as needed */
   background-color: var(--sidebar-bg); /* Use the background color variable */
   padding: 0 0.4rem;
   font-size: 0.8rem;
@@ -306,4 +340,5 @@ select {
   .start-button:hover {
     opacity: 1;
   }
+
 </style>
