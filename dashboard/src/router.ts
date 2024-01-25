@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import StartDialog from './components/StartDialog.vue';
-import Dashboard from './components/Dashboard.vue';
+import Table from './components/Table.vue';
 import Graph from './components/Graph.vue';
 import Impressum from './views/Impressum.vue';
 
@@ -10,9 +10,9 @@ const routes = [
     component: StartDialog 
   },
   { 
-    path: '/dashboard', 
-    name: 'dashboard',
-    component: Dashboard 
+    path: '/table', 
+    name: 'table',
+    component: Table 
   },
   { 
     path: '/impressum', 

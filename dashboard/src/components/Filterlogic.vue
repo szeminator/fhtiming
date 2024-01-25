@@ -1,4 +1,14 @@
 <template>
+  <div>
+    <form @submit.prevent="loadEvent">
+    <div class="input-container">
+      <label for="textInput" class="form-label">Enter Race ID</label>
+      <input type="text" id="textInput" v-model="textInput" placeholder="Enter a number" class="input-field">
+    </div>
+    <p class="error-text" v-if="isError">Bitte eine gültige RaceID eingeben</p>
+    <button class="start-button" type="submit">START</button>
+  </form>
+
   <div class="dropdown-container">
     <label for="courseSelect" class="dropdown-label">Select a course</label>
     <select v-model="selectedCourse" id="courseSelect" class="dropdown-select">
@@ -17,21 +27,60 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
  
 
 <script setup lang="ts">
 import { ref, watch, onMounted, computed } from 'vue';
 import { useStore } from '../store';
+import { useRouter } from 'vue-router';
 import {fetchStartersThatDidntGetFar, selectRunnersForSplit} from '../insights';
 
 const store = useStore();
-let courses = computed(() => store.courses);
+const router = useRouter();
+const textInput = ref('2305270');
+const numberInput = ref<number | null>(null);
+let isError = ref(false);
+const courses = ref([]);
 let splits = ref([]) as any;
 let chartdata = [] as any;
 
 const selectedCourse = ref(null);
 const selectedSplits = ref([]);
+
+watch(textInput, (newVal) => {
+    
+    if (!isNaN(Number(newVal))) {
+        if (newVal) {
+            numberInput.value = parseInt(newVal);
+            store.setEventID(numberInput.value);
+            isError.value = false;
+        } else {
+            numberInput.value = null;
+            isError.value = true;
+        }
+    } else {
+        isError.value = true;
+    }
+    console.log('numberInput changed to:', numberInput.value);
+  });
+  const loadEvent = async () => {
+    let response = await fetch("http://win2.fh-timing.com/middleware/" + numberInput.value + "/info/json?setting=courses");
+    if (!response.ok) {
+      //throw new Error(`HTTP error! status: ${response.status}`);
+      isError.value = true;
+    }
+    let jsonResponse = await response.json();
+    //console.log(jsonResponse);
+    courses.value = jsonResponse.Courses;
+    store.setCourses(jsonResponse.Courses);
+    router.push('/dashboard');
+    //router.push({ name: 'dashboard', params: { courses: courses.value } });
+    if (courses.value.length > 0) {
+    selectedCourse.value = courses.value[0].Coursenr;
+  }
+  };
 
 watch(selectedCourse, async (newCourse) => {
   if (newCourse) {
@@ -140,7 +189,7 @@ onMounted(() => {
   color: white;
 }
 
-.checkbox-label {
+ .checkbox-label {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -196,6 +245,7 @@ select {
   transition: all 0.3s;
   pointer-events: none;
   user-select: none;
+  color: #76C657;
 }
 
 .dropdown-select {
@@ -210,4 +260,56 @@ select {
   margin-left: 5px;
   background-color: var(--sidebar-bg); /* Use the background color variable */
 }
+
+.input-container {
+  position: relative;
+  margin-bottom: 1rem;
+  width: calc(100% - 30px);
+}
+
+.input-field {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #76C657;
+  border-radius: 4px;
+  color: var(--text-color);
+  background-color: var(--sidebar-bg); /* Use the background color variable */
+  width: calc(100% - 30px);
+  margin-top: 1.2rem; /* Space for the label */
+  /* Other styles as needed */
+}
+
+.form-label {
+  position: absolute;
+  top: 0.4rem; /* Adjust this to position the label inside the border */
+  left: 1rem; /* Adjust as needed */
+  background-color: var(--sidebar-bg); /* Use the background color variable */
+  padding: 0 0.4rem;
+  font-size: 0.8rem;
+  transition: all 0.3s;
+  pointer-events: none;
+  user-select: none;
+  color: #76C657;
+}
+
+.start-button {
+  width: fit-content; /* Adjust this value to your liking */
+  margin: 10px auto; /* Centers the elements */
+  display: block; /* Needed for margin auto to work */
+}
+  
+  .start-button {
+    background-color: #4CAF50;
+    color: white;
+    opacity: 0.9;
+  }
+  
+  .start-button:hover {
+    opacity: 1;
+  }
+
+  .error-text {
+  color: red;
+  font-size: 12px;
+}
+
 </style>
