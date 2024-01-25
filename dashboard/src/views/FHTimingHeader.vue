@@ -5,8 +5,6 @@
         <img src="/logo.png" alt="FH-Timing Icon" class="navbar-icon" />
       </router-link>
       <div class="nav-links">
-        <router-link to="/" class="nav-link">Home</router-link> | 
-        <router-link to="/dashboard" class="nav-link">Dashboard</router-link> | 
         <router-link to="/graph" class="nav-link">Graph</router-link> | 
         <router-link to="/table" class="nav-link">Tabelle</router-link> | 
         <router-link to="/impressum" class="nav-link">Impressum</router-link> |
