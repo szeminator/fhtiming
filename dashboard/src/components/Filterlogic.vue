@@ -163,6 +163,12 @@ watch(selectedSplits, (newSplits) => {
   store.setSelectedSplitIDs(updatedSplits);
 });
 
+watch(selectedKeys, (newKeys) => {
+  selectedKeys.value = newKeys;
+  console.log("Selected Keys got updated: " + selectedKeys.value);
+  store.setSelectedKeys(selectedKeys);
+});
+
 onMounted(() => {
   //courses = computed(() => store.courses);
   console.log(courses);

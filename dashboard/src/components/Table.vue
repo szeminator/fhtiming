@@ -25,7 +25,7 @@
       <thead class="header">
         <tr>
           <th v-for="key in combinedKeys" :key="key">
-            {{ keyMappings[key] || key }}
+            {{ key }}
           </th>
         </tr>
       </thead>
@@ -56,23 +56,10 @@ let predefinedChartKeys = ['start', 'first', 'last', 'club', 'category', 'age', 
 
 let selectedCourse = computed(() => store.selectedCourse);
 let selectedSplits = computed(() => store.selectedSplitIDs);
-let combinedKeys = computed(() => predefinedChartKeys.concat(selectedSplits.value));
+let keyMappings = computed(() => store.selectedKeys);
+let combinedKeys = computed(() => keyMappings.value.concat(selectedSplits.value));
 
-const keyMappings = {
-  start: 'Start Number',
-  first: 'First Name',
-  last: 'Last Name',
-  club: 'Club',
-  category: 'Category',
-  age: 'Age',
-  gender: 'Gender',
-  status: 'Status',
-  nat: 'Nationality',
-  rank: 'Rank',
-  city: 'City',
-  dnf: 'DNF'
-// Add more mappings as needed
-};
+
 
 // Create a ref that will be used to force a re-render
 let renderKey = ref(0);
@@ -80,9 +67,12 @@ let renderKey = ref(0);
 // Watch for changes in combinedKeys
 watch(combinedKeys, () => {
   // Increment renderKey to force a re-render
-  //console.log('combinedKeys changed', combinedKeys.value);
+ // console.log('combinedKeys changed', combinedKeys.value);
   renderKey.value++;
   //console.log('renderKey changed', renderKey.value);
+});
+watch(keyMappings, () => {
+ // console.log('keyMappings changed', keyMappings.value);
 });
 
 onMounted(() => {
