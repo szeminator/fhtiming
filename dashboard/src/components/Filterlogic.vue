@@ -306,10 +306,4 @@ select {
   .start-button:hover {
     opacity: 1;
   }
-
-  .error-text {
-  color: red;
-  font-size: 12px;
-}
-
 </style>

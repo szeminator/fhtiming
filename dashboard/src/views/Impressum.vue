@@ -41,11 +41,12 @@
 }
 
 .contact a {
-    color: #000;
+    color: var(--text-color);
     text-decoration: none;
 }
 
 .contact a:hover {
     text-decoration: underline;
+    color: #76C657;
 }
 </style>

@@ -8,10 +8,9 @@ const props = defineProps({
 
 </script>
 <template>
-
 <aside id="default-sidebar" class="sidebar">
     <div class="sidebar-content">   
-        <div class="h-full px-3 overflow-y-auto bg-gray-50 dark:bg-gray-800 pt-20">
+        <div class="h-full overflow-y-auto bg-gray-50 dark:bg-gray-800 pt-20">
     <Filterlogic />
    </div>
 </div>

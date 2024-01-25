@@ -67,8 +67,7 @@ const keyMappings = {
   age: 'Age',
   gender: 'Gender',
   status: 'Status',
-  nat:
-'Nationality',
+  nat: 'Nationality',
 // Add more mappings as needed
 };
 
@@ -94,8 +93,6 @@ async function loadChartdata() {
   console.log("Chartdata Keys: " + chartdataKeys);
   console.log("Chartdata Amount of Keys: " + chartdataKeys.value.length);
 }
-
-
 </script>
 
 <style scoped>
@@ -108,6 +105,15 @@ async function loadChartdata() {
   font-weight: bold; /* Makes the header text bold */
   border-bottom: 1px solid #000; /* Adds a thin bottom border, change color as needed */
   padding: 10px; /* Adds padding around the text, adjust as needed */
+}
+
+.styled-table th, .styled-table td {
+  border-right: 0.5px solid var(--text-color); /* Adds a thin right border to each cell */
+  padding: 10px; /* Adds padding around the text, adjust as needed */
+}
+
+.styled-table th:last-child, .styled-table td:last-child {
+  border-right: none; /* Removes the right border for the last cell */
 }
 
 .styled-table tr:nth-child(even) {
