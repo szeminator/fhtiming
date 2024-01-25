@@ -1,6 +1,6 @@
 <template>
     <div>
-        <canvas id="myChart"></canvas>
+        <canvas id="myChart" width="600px"></canvas>
     </div>
   </template>
   
@@ -11,7 +11,19 @@
 
 
   onMounted(() => {
-    let data = countRunnersAtEachSection();
+    let rawData = countRunnersAtEachSection();
+    let offset = 0;
+    let data = rawData.map((value) => {
+      console.log(value);
+      let start = offset;
+      let end = offset + value;
+      offset = end;
+      return [start, end];
+    });
+    let differences = data.map((value) => {
+        return value[1] - value[0];
+    });
+
     console.log(data);
     const ctx = document.getElementById('myChart') as HTMLCanvasElement;
     if (ctx) {
@@ -46,7 +58,18 @@
         y: {
           beginAtZero: true
         }
-      }
+      },
+      plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let index = context.dataIndex;
+                                let difference = differences[index];
+                                return `Teilnehmer: ${difference}`;
+                            }
+                        }
+                    }
+                }
     }
         });
     }
@@ -55,5 +78,7 @@
   </script>
   
   <style scoped>
-  
+  #myChart {
+    display: flex;
+  }
   </style>
