@@ -60,6 +60,20 @@
         }
       },
       plugins: {
+        title: {
+        display: true,
+        text: '# of Participants per Section',
+        padding: {
+          top: 10,
+          bottom: 30
+        },
+        font: {
+          size: 18
+        }
+      },
+      legend: {
+        display: false // This hides the legend
+      },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
