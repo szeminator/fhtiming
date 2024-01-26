@@ -11,8 +11,10 @@
   --text-color-dark: #FFFFFF; /* Dark mode text color */
   --infobox-shadow: rgba(8, 3, 3, 0.3); /* Default shadow color for light mode */
   --sidebar-bg: #FFFFFF; /* Default background for sidebar */
-  --table-row-bg: #EBF9F1; /* Default light mode background color for table rows */
-  --table-row-text: #000000;
+  --table-row-bg: var(--table-row-bg-light); /* Default light mode background color for table rows */
+  --table-row-text: var(--table-row-text-light);
+  --table-row-bg-light: #EBF9F1; /* Light mode background color for table rows */
+
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -28,7 +30,7 @@
   --bg-color: var(--bg-color-light);
   --table-row-bg-light: #EBF9F1; /* Light mode background color for table rows */
   --table-row-text-light: #000000; /* Light mode text color for table rows */
-  --sidebar-bg: #FFFFFF; /* Light mode background for sidebar */
+  --sidebar-bg: #f5fff6; /* Light mode background for sidebar */
   --infobox-shadow: rgba(8, 3, 3, 0.3); /* Original shadow color for light mode */
 }
 

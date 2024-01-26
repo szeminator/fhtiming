@@ -1,4 +1,3 @@
-// store.js
 import { defineStore } from 'pinia';
 
 export const useStore = defineStore({
@@ -12,7 +11,7 @@ export const useStore = defineStore({
     selectedCourse: 0,
     selectedSplitIDs: [] as string[],
     chartdataKeys: [] as string[],
-    selectedKeys: [] as string[], // change to any, cause the store to save an object with key value. 
+    selectedKeys: [] as string[], // TODO: change to any, cause the store to save an object with key value. 
   }),
   actions: {
     setCourses(courses: any[]) {
