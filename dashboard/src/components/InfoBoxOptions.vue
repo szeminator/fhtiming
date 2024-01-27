@@ -55,8 +55,9 @@ onUnmounted(() => {
   const options = [
   { id: 1, modalTitle: 'Who is currently the fastest woman?', contentTitle: 'Currently leading woman', content: 'Content for Option 1' },
 { id: 2, modalTitle: 'Who is currently the fastest man?', contentTitle: 'Currently leading man', content: 'Content for Option 2' },
-{ id: 3, modalTitle: 'How many people are still in section 1?', contentTitle: '# Persons in 1st section', content: 'Content for Option 2' },
-{ id: 4, modalTitle: 'Who will reach the finish line next?', contentTitle: 'Next person at the finish', content: 'Content for Option 2' },
+{ id: 3, modalTitle: 'How many people are still in section 1?', contentTitle: '# of Persons in 1st section', content: 'Content for Option 2' },
+{ id: 4, modalTitle: 'How many people are still in section 2?', contentTitle: '# of Persons in 2nd section', content: 'Content for Option 2' },
+{ id: 5, modalTitle: 'Who will reach the finish line next?', contentTitle: 'Next person at the finish', content: 'Content for Option 2' },
 // Add more options as needed
 ];
   

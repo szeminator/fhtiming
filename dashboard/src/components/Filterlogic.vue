@@ -41,7 +41,6 @@
     <button class="reset-button" @click="resetKeysFilter">Reset Parameters</button>
   </div>
 </template>
- 
 
 <script setup lang="ts">
 import { ref, watch, onMounted, computed } from 'vue';
@@ -73,6 +72,7 @@ const keyMappings = {
   dnf: 'DNF'
 // Add more mappings as needed
 };
+
 
 
 const selectedCourse = ref(null);

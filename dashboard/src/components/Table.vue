@@ -1,24 +1,4 @@
 <template>
-<!-- <div>
-    <table class="styled-table">
-      <thead class="header">
-        <tr>
-          <th v-for="key in combinedKeys" :key="key">
-            {{ key }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="data in chartdata" :key="data.start + combinedKeys.join('-') + renderKey">
-          <td v-for="key in combinedKeys" :key="key">
-            {{ console.log('rendering row: ', data[key]) }}
-            {{ data[key] }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div> -->
-
 
   <div>
     <table class="styled-table">
@@ -41,9 +21,6 @@
 
 
 </template>
-
- 
-
 <script setup lang="ts">
 import { onMounted, computed, watch, ref } from 'vue';
 import { useStore } from '../store';
