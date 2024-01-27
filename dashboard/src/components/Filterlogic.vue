@@ -26,6 +26,7 @@
           </span>{{ split.Splitname }} - {{ split.Splitnr }}</label>
       </div>
     </div>
+    <button class="reset-button" @click="resetSplitsFilter">Reset Splits</button>
   </div>
   <p class="text" style="margin-top: 50px">Select Parameters</p>
   <div class="split-list">
@@ -37,6 +38,7 @@
           </span> {{ key }}</label>
       </div>
     </div>
+    <button class="reset-button" @click="resetKeysFilter">Reset Parameters</button>
   </div>
 </template>
  
@@ -173,6 +175,14 @@ onMounted(() => {
   //courses = computed(() => store.courses);
   console.log(courses);
 });
+
+const resetSplitsFilter = () => {
+  selectedSplits.value = []; // Adjust this as needed for the default state
+};
+
+const resetKeysFilter = () => {
+  selectedKeys.value = []; // Adjust this as needed for the default state
+};
 
 </script>
 
@@ -335,22 +345,48 @@ select {
   width: fit-content; /* Adjust this value to your liking */
   margin: 10px auto; /* Centers the elements */
   display: block; /* Needed for margin auto to work */
-}
-  
-  .start-button {
-    background-color: #4CAF50;
-    color: white;
-    opacity: 0.9;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adds shadow */
+  transition: box-shadow 0.3s ease; /* Smooth transition for the shadow */
+  background-color: #4CAF50;
+  color: white;
+  opacity: 0.9;
+  margin-top: 10px;
   }
   
 
   .start-button:hover {
   background-color: #9BE77D; /* Lighter green color */
   color: var(--text-color);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* Slightly larger shadow on hover */
 }
 
 .start-button:active {
   background-color: #659C44; /* Darker green for pressed state */
+  transform: scale(0.98); /* Slightly scale down when pressed */
+}
+
+.reset-button {
+  background-color: #c22424ef;
+  color: white;
+  opacity: 0.9;
+  border: none; /* Optional: removes the default border */
+  padding: 10px 15px; /* Adjust padding as needed */
+  border-radius: 5px; /* Optional: rounds the corners of the button */
+  cursor: pointer; /* Changes the cursor to a pointer when hovering over the button */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adds shadow */
+  transition: box-shadow 0.3s ease; /* Smooth transition for the shadow */
+  margin-top: 10px;
+}
+
+  .reset-button:hover {
+  background-color: #c22424ef; 
+  color: var(--text-color);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* Slightly larger shadow on hover */
+
+}
+
+.reset-button:active {
+  background-color: #7e1c1cef; /* Darker green for pressed state */
   transform: scale(0.98); /* Slightly scale down when pressed */
 }
 

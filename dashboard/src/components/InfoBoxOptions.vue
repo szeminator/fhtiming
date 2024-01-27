@@ -53,8 +53,10 @@ onUnmounted(() => {
 
   // Example options data
   const options = [
-  { id: 1, modalTitle: 'Wer ist die derzeit schnellste Frau?', contentTitle: 'Derzeit führende Frau', content: 'Content for Option 1' },
-{ id: 2, modalTitle: 'Modal Option 2', contentTitle: 'Content Title 2', content: 'Content for Option 2' },
+  { id: 1, modalTitle: 'Who is currently the fastest woman?', contentTitle: 'Currently leading woman', content: 'Content for Option 1' },
+{ id: 2, modalTitle: 'Who is currently the fastest man?', contentTitle: 'Currently leading man', content: 'Content for Option 2' },
+{ id: 3, modalTitle: 'How many people are still in section 1?', contentTitle: '# Persons in 1st section', content: 'Content for Option 2' },
+{ id: 4, modalTitle: 'Who will reach the finish line next?', contentTitle: 'Next person at the finish', content: 'Content for Option 2' },
 // Add more options as needed
 ];
   
@@ -122,7 +124,6 @@ onUnmounted(() => {
   background-color: #659C44; /* Darker green for pressed state */
   transform: scale(0.98); /* Slightly scale down when pressed */
 }
-
 .closeButton {
   color: var(--text-color);
   background-color: var(--bg-color);
@@ -136,12 +137,12 @@ onUnmounted(() => {
   border-radius: 5px;
 }
 .closeButton:hover {
-  background-color: #d15f5f; /* Lighter green color */
+  background-color: #d15f5f; 
   color: var(--text-color);
 }
 
 .closeButton:active {
-  background-color: #c22424ef; /* Darker green for pressed state */
+  background-color: #c22424ef; 
   transform: scale(0.98); /* Slightly scale down when pressed */
 }
   </style>
