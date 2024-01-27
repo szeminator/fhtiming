@@ -17,6 +17,8 @@
   
   <script setup lang="ts">
   import { defineEmits, computed, ref, onMounted, onUnmounted} from 'vue';
+  import { countRunnersThatFinished } from '../insights.ts';
+
   const props = defineProps({
   position: {
     type: Object,
@@ -54,16 +56,35 @@ onUnmounted(() => {
   // Example options data
   const options = [
   { id: 1, modalTitle: 'Who is currently the fastest woman?', contentTitle: 'Currently leading woman', content: 'Content for Option 1' },
-{ id: 2, modalTitle: 'Who is currently the fastest man?', contentTitle: 'Currently leading man', content: 'Content for Option 2' },
-{ id: 3, modalTitle: 'How many people are still in section 1?', contentTitle: '# of Persons in 1st section', content: 'Content for Option 2' },
-{ id: 4, modalTitle: 'How many people are still in section 2?', contentTitle: '# of Persons in 2nd section', content: 'Content for Option 2' },
-{ id: 5, modalTitle: 'Who will reach the finish line next?', contentTitle: 'Next person at the finish', content: 'Content for Option 2' },
+  { id: 2, modalTitle: 'Who is currently the fastest man?', contentTitle: 'Currently leading man', content: 'Content for Option 2' },
+  { id: 3, modalTitle: 'How many people are still in section 1?', contentTitle: '# Persons in 1st section', content: 'Content for Option 2' },
+  { id: 4, modalTitle: 'Who will reach the finish line next?', contentTitle: 'Next person at the finish', content: 'Content for Option 2' },
+  { id: 5, modalTitle: 'Wieviele sind schon im Ziel?', contentTitle: 'Läufer im Ziel:', content: 'noch keine' },
 // Add more options as needed
 ];
   
   // Method to emit selected option
   const selectOption = (option) => {
-  emit('select', { contentTitle: option.contentTitle, content: option.content });
+    let result = 0;
+    
+    switch (option.id) {
+
+      case 2:
+        console.log('Option 2 selected');
+        break;
+      case 5:
+        console.log('Option 1 selected');
+        result = countRunnersThatFinished();
+        if (result == 0) {
+          result = option.content;
+        }
+        emit('select', { contentTitle: option.contentTitle, content: result});
+        break;
+      default:
+        break;
+    }
+
+  
 };
 
   
@@ -147,4 +168,3 @@ onUnmounted(() => {
   transform: scale(0.98); /* Slightly scale down when pressed */
 }
   </style>
-  
