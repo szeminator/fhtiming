@@ -343,8 +343,15 @@ select {
     opacity: 0.9;
   }
   
+
   .start-button:hover {
-    opacity: 1;
-  }
+  background-color: #9BE77D; /* Lighter green color */
+  color: var(--text-color);
+}
+
+.start-button:active {
+  background-color: #659C44; /* Darker green for pressed state */
+  transform: scale(0.98); /* Slightly scale down when pressed */
+}
 
 </style>
