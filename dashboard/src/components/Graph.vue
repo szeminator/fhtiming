@@ -1,6 +1,7 @@
 <template>
     <div>
         <canvas id="myChart" width="600px"></canvas>
+        <div id="detailTable" class="detail-table"></div>
     </div>
   </template>
   
@@ -8,6 +9,26 @@
   import { onMounted } from 'vue';
   import Chart from 'chart.js/auto';
   import { countRunnersAtEachSection } from '../insights'
+
+  function displayDetailTable(dataIndex) {
+  // Fetch or generate data for the selected bar
+  const details = getDetailsForBar(dataIndex); // Implement this function based on your data
+
+  // Update the HTML of the detail table
+  const detailTableDiv = document.getElementById('detailTable');
+  detailTableDiv.innerHTML = generateTableHTML(details); // Implement this function to generate HTML
+}
+
+function getDetailsForBar(index) {
+  // Implement logic to fetch or generate detailed data for the given index
+  // This will depend on your data structure and what you want to show
+}
+
+function generateTableHTML(details) {
+  // Generate and return HTML string based on the details data
+  // Example:
+  return `<table>${details.map(detail => `<tr><td>${detail.name}</td></tr>`).join('')}</table>`;
+}
 
 
   onMounted(() => {
@@ -57,8 +78,18 @@
       scales: {
         y: {
           beginAtZero: true
+        },
+        x: {
         }
       },
+      onClick: (event, activeElements) => {
+      if (activeElements.length > 0) {
+        const chartElement = activeElements[0];
+        // Assuming your data set includes an identifier to fetch detailed information
+        const dataIndex = chartElement.index;
+        displayDetailTable(dataIndex);
+      }
+    },
       plugins: {
         title: {
         display: true,
@@ -74,19 +105,19 @@
       legend: {
         display: false // This hides the legend
       },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let index = context.dataIndex;
-                                let difference = differences[index];
-                                return `Teilnehmer: ${difference}`;
-                            }
-                        }
-                    }
-                }
-    }
-        });
-    }
+      tooltip: {
+          callbacks: {
+              label: function(context) {
+                  let index = context.dataIndex;
+                  let difference = differences[index];
+                  return `Teilnehmer: ${difference}`;
+              }
+          }
+      }
+  }
+}
+    });
+}
 });
 
   </script>
@@ -95,4 +126,8 @@
   #myChart {
     display: flex;
   }
+
+  .detail-table {
+  /* Add styling for your detail table here */
+}
   </style>
