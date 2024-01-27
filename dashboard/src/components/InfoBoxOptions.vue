@@ -59,7 +59,7 @@ onUnmounted(() => {
   { id: 2, modalTitle: 'Who is currently the fastest man?', contentTitle: 'Currently leading man', content: 'Content for Option 2' },
   { id: 3, modalTitle: 'How many people are still in section 1?', contentTitle: '# Persons in 1st section', content: 'Content for Option 2' },
   { id: 4, modalTitle: 'Who will reach the finish line next?', contentTitle: 'Next person at the finish', content: 'Content for Option 2' },
-  { id: 5, modalTitle: 'Wieviele sind schon im Ziel?', contentTitle: 'Läufer im Ziel:', content: 'noch keine' },
+  { id: 5, modalTitle: 'Wieviele sind schon im Ziel?', contentTitle: 'Läufer im Ziel:', content: 'noch niemand' },
 // Add more options as needed
 ];
   

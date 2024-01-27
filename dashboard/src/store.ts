@@ -11,7 +11,7 @@ export const useStore = defineStore({
     selectedCourse: 0,
     selectedSplitIDs: [] as string[],
     chartdataKeys: [] as string[],
-    selectedKeys: [] as string[], // TODO: change to any, cause the store to save an object with key value. 
+    selectedKeys: [] as any[],
   }),
   actions: {
     setCourses(courses: any[]) {
@@ -38,7 +38,7 @@ export const useStore = defineStore({
     setChartdataKeys(chartdataKeys: string[]) {
       this.chartdataKeys = chartdataKeys;
     },
-    setSelectedKeys(selectedKeys: string[]) {
+    setSelectedKeys(selectedKeys: any[]) {
       this.selectedKeys = selectedKeys;
     },
   }
