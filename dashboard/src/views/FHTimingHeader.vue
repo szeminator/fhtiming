@@ -6,7 +6,7 @@
       </router-link>
       <div class="nav-links">
         <router-link to="/graph" class="nav-link">Graph</router-link> | 
-        <router-link to="/table" class="nav-link">Tabelle</router-link> | 
+        <router-link to="/table" class="nav-link">Table</router-link> | 
         <router-link to="/impressum" class="nav-link">Impressum</router-link> |
         <ModeSwitch @toggle-mode="handleModeToggle" />
       </div>
