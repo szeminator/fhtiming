@@ -17,7 +17,7 @@
   
   <script setup lang="ts">
   import { defineEmits, computed, ref, onMounted, onUnmounted} from 'vue';
-  import { countRunnersThatFinished } from '../insights.ts';
+  import { countRunnersThatFinished, countRunnersInTurn1Section, countRunnersInTurn2Section, countRunnersInStartSection } from '../insights.ts';
 
   const props = defineProps({
   position: {
@@ -55,12 +55,15 @@ onUnmounted(() => {
 
   // Example options data
   const options = [
-  { id: 1, modalTitle: 'Who is currently the fastest woman?', contentTitle: 'Currently leading woman', content: 'Content for Option 1' },
-  { id: 2, modalTitle: 'Who is currently the fastest man?', contentTitle: 'Currently leading man', content: 'Content for Option 2' },
-  { id: 3, modalTitle: 'How many people are still in section 1?', contentTitle: '# Persons in 1st section', content: 'Content for Option 2' },
-  { id: 4, modalTitle: 'Who will reach the finish line next?', contentTitle: 'Next person at the finish', content: 'Content for Option 2' },
-  { id: 5, modalTitle: 'Wieviele sind schon im Ziel?', contentTitle: 'Läufer im Ziel:', content: 'noch niemand' },
-// Add more options as needed
+  { id: 1, modalTitle: 'Who is currently the fastest woman?', contentTitle: 'Currently leading woman', content: '' },
+  { id: 2, modalTitle: 'Who is currently the fastest man?', contentTitle: 'Currently leading man', content: '' },
+  { id: 3, modalTitle: 'Who will reach the finish line next?', contentTitle: 'Next person at the finish', content: '' },
+  { id: 4, modalTitle: 'How many people are still in section 1?', contentTitle: '# of Persons in 1st section', content: '' },
+  { id: 5, modalTitle: 'How many people are still in section 2?', contentTitle: '# of Persons in 2nd section', content: '' },
+  { id: 6, modalTitle: 'How many have already crossed the finish line?', contentTitle: 'Runners at the finish:', content: 'None yet' },
+  { id: 7, modalTitle: 'How many are still at the start?', contentTitle: 'Runners at the start:', content: 'None' },
+
+  // Add more options as needed
 ];
   
   // Method to emit selected option
@@ -68,13 +71,40 @@ onUnmounted(() => {
     let result = 0;
     
     switch (option.id) {
-
+      case 1:
+        result = countRunnersThatFinished();
+        if (result == 0) {
+          result = option.content;
+        }
+        emit('select', { contentTitle: option.contentTitle, content: result});
+        break;
       case 2:
-        console.log('Option 2 selected');
+        break;
+      case 3:
+        break;
+      case 4:
+        result = countRunnersInTurn1Section();
+        if (result == 0) {
+          result = option.content;
+        }
+        emit('select', { contentTitle: option.contentTitle, content: result});
         break;
       case 5:
-        console.log('Option 1 selected');
+        result = countRunnersInTurn2Section();
+        if (result == 0) {
+          result = option.content;
+        }
+        emit('select', { contentTitle: option.contentTitle, content: result});
+        break;
+      case 6:
         result = countRunnersThatFinished();
+        if (result == 0) {
+          result = option.content;
+        }
+        emit('select', { contentTitle: option.contentTitle, content: result});
+        break;
+      case 7:
+        result = countRunnersInStartSection();
         if (result == 0) {
           result = option.content;
         }
@@ -83,8 +113,6 @@ onUnmounted(() => {
       default:
         break;
     }
-
-  
 };
 
   
@@ -168,4 +196,3 @@ onUnmounted(() => {
   transform: scale(0.98); /* Slightly scale down when pressed */
 }
   </style>
-  
