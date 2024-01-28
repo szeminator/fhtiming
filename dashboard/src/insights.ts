@@ -1,8 +1,6 @@
 import { useStore } from './store';
 import { startSplitID, turn1SplitID, turn2SplitID, finishSplitID } from './hardcodedvalues';
 
-
-
 export function fetchStartersThatDidntGetFar() {
 
     let store = useStore();
@@ -22,7 +20,7 @@ export function fetchStartersThatDidntGetFar() {
         (!data[splitNameForTurn1] || data[splitNameForTurn1] === "-") &&
         (!data[splitNameForTurn2] || data[splitNameForTurn2] === "-") &&
         (!data[splitNameForFinish] || data[splitNameForFinish] === "-")
-      );
+    );
     console.log(filteredData);
     return filteredData;
 }
@@ -53,10 +51,7 @@ export function countRunnersInStartSection() {
         (!data[splitNameForTurn1] || data[splitNameForTurn1] === "-") &&
         (!data[splitNameForTurn2] || data[splitNameForTurn2] === "-") &&
         (!data[splitNameForFinish] || data[splitNameForFinish] === "-")
-
-
     );
-
     return filteredData.length;
 }
 
