@@ -1,26 +1,26 @@
 <template>
-
   <div>
     <table class="styled-table">
       <thead class="header">
         <tr>
-          <th v-for="key in combinedDisplayNames" :key="key">
+          <th v-for="key in combinedDisplayNames" :key="key" @click="sort(key)">
             {{ key }}
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="data in chartdata" :key="data.start + combinedKeys.join('-') + renderKey">
-        <td v-for="key in combinedKeys" :key="key">
-        {{ data[key] }}
-      </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
+        <tr v-for="data in sortedChartData" :key="data.start + combinedKeys.join('-') + renderKey">
+          <td v-for="key in combinedKeys" :key="key">
+            {{ data[key] }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
+
+
+
 <script setup lang="ts">
 import { onMounted, computed, watch, ref } from 'vue';
 import { useStore } from '../store';
@@ -38,6 +38,45 @@ let keyMappings = computed(() => store.selectedKeys);
 let combinedKeys = computed(() => keyMappings.value.map(Object.keys).concat(selectedSplits.value));
 let combinedDisplayNames = computed(() => keyMappings.value.map(Object.entries).map(item => item[0][1]).concat(selectedSplits.value));
 
+let sortKey = ref(null);
+let sortOrder = ref(1); // 1 for ascending, -1 for descending
+
+
+function sort(key) {
+  //console.log('sort', key);
+  sortKey.value = key || 'last';
+  sortOrder.value = 1; // set sort order to ascending
+}
+
+let sortedChartData = computed(() => {
+  let sorted = [...chartdata.value];
+  sorted.sort((a, b) => {
+    //console.log("sort_Key.value: " + sortKey.value);
+    //console.log("a: " + a);
+    //console.log('a[sortKey.value]:', a[sortKey.value]); // Add this line
+    if (a[sortKey.value] === undefined) {
+      let foundKey = findKey(sortKey.value)
+      console.log('foundKey:', foundKey); // Add this line
+      if (a[foundKey] < b[foundKey]) return -1 * sortOrder.value;
+      if (a[foundKey] > b[foundKey]) return 1 * sortOrder.value;
+    }
+    else {
+      if (a[sortKey.value] < b[sortKey.value]) return -1 * sortOrder.value;
+      if (a[sortKey.value] > b[sortKey.value]) return 1 * sortOrder.value;
+    }
+
+    return 0;
+  });
+  //console.log('sortedChartData:', sorted); // Add this line
+  return sorted;
+});
+
+
+function findKey(value) {
+  //console.log(keyMappings.value);
+  let mapping = keyMappings.value.find(item => Object.values(item)[0] === value);
+  return mapping ? Object.keys(mapping)[0] : null;
+}
 
 
 // Create a ref that will be used to force a re-render
