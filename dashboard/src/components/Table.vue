@@ -4,7 +4,7 @@
     <table class="styled-table">
       <thead class="header">
         <tr>
-          <th v-for="key in combinedKeys" :key="key">
+          <th v-for="key in combinedDisplayNames" :key="key">
             {{ key }}
           </th>
         </tr>
@@ -34,7 +34,9 @@ let predefinedChartKeys = ['start', 'first', 'last', 'club', 'category', 'age', 
 let selectedCourse = computed(() => store.selectedCourse);
 let selectedSplits = computed(() => store.selectedSplitIDs);
 let keyMappings = computed(() => store.selectedKeys);
-let combinedKeys = computed(() => keyMappings.value.concat(selectedSplits.value));
+
+let combinedKeys = computed(() => keyMappings.value.map(Object.keys).concat(selectedSplits.value));
+let combinedDisplayNames = computed(() => keyMappings.value.map(Object.entries).map(item => item[0][1]).concat(selectedSplits.value));
 
 
 

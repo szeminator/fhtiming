@@ -165,11 +165,41 @@ watch(selectedSplits, (newSplits) => {
   store.setSelectedSplitIDs(updatedSplits);
 });
 
+
+/*
+const keyMappings = {
+  start: 'Start Number',
+  first: 'First Name',
+  last: 'Last Name',
+  club: 'Club',
+  category: 'Category',
+  age: 'Age',
+  gender: 'Gender',
+  status: 'Status',
+  nat: 'Nationality',
+  rank: 'Rank',
+  city: 'City',
+  dnf: 'DNF'
+};
+
+*/
+
 watch(selectedKeys, (newKeys) => {
   selectedKeys.value = newKeys;
-  console.log("Selected Keys got updated: " + selectedKeys.value);
-  store.setSelectedKeys(selectedKeys);
-});
+  let completlyNewArray: { [x: string]: string; }[] = [];
+  //console.log(newKeys);
+  newKeys.forEach((value: string) => {
+    //console.log(value);
+    let foundKey = Object.keys(keyMappings).find(key => keyMappings[key] === value) as string;
+    let newObject = {
+      [foundKey]: value
+    };
+    completlyNewArray.push(newObject);
+    });
+  //console.log(completlyNewArray);
+  store.setSelectedKeys(completlyNewArray);
+  }, {}
+);  
 
 onMounted(() => {
   //courses = computed(() => store.courses);
