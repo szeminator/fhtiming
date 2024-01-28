@@ -56,7 +56,7 @@ let sortedChartData = computed(() => {
     //console.log('a[sortKey.value]:', a[sortKey.value]); // Add this line
     if (a[sortKey.value] === undefined) {
       let foundKey = findKey(sortKey.value)
-      console.log('foundKey:', foundKey); // Add this line
+      //console.log('foundKey:', foundKey); // Add this line
       if (a[foundKey] < b[foundKey]) return -1 * sortOrder.value;
       if (a[foundKey] > b[foundKey]) return 1 * sortOrder.value;
     }
