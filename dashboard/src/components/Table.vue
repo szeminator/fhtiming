@@ -21,7 +21,6 @@
 
 
   <div>
-    {{ console.log(combinedDisplayNames) }}
     <table class="styled-table">
       <thead class="header">
         <tr>
