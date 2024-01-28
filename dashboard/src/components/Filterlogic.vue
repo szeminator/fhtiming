@@ -186,21 +186,20 @@ const keyMappings = {
 
 watch(selectedKeys, (newKeys) => {
   selectedKeys.value = newKeys;
-  console.log("Selected Keys got updated: " + newKeys);
-
-  let result = newKeys.reduce((acc, value) => {
-    let foundKey = Object.keys(keyMappings).find(key => keyMappings[key] === value);
-    if (foundKey) {
-        acc[foundKey] = value;
-    }
-    return acc;
-  }, {});
-  
-  let newKeyArray = store.selectedKeys;
-  newKeyArray.push(result);
-  store.setSelectedKeys(newKeyArray);
-  console.log("result after reduce is: " + newKeyArray);
-});
+  let completlyNewArray: { [x: string]: string; }[] = [];
+  //console.log(newKeys);
+  newKeys.forEach((value: string) => {
+    //console.log(value);
+    let foundKey = Object.keys(keyMappings).find(key => keyMappings[key] === value) as string;
+    let newObject = {
+      [foundKey]: value
+    };
+    completlyNewArray.push(newObject);
+    });
+  //console.log(completlyNewArray);
+  store.setSelectedKeys(completlyNewArray);
+  }, {}
+);  
 
 onMounted(() => {
   //courses = computed(() => store.courses);
