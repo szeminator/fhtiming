@@ -1,7 +1,11 @@
 <template>
   <div>
+  <button @click="refresh()" class="refresh-button">
+    <img src="/refresh.svg" alt="Refresh" />
+      </button>
+  </div>
+  <div>
     <table class="styled-table">
-      <button @click="refresh()" class="reset-button">Refresh</button>
       <thead class="header">
         <tr>
           <th v-for="key in combinedDisplayNames" :key="key" @click="sort(key)">
@@ -178,6 +182,16 @@ async function loadChartdata() {
 .dark-theme .styled-table tr:nth-child(even) {
   background-color: var(--table-row-bg-dark);
   color: var(--table-row-text-dark);
+}
+
+.refresh-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
 }
 </style>
 
