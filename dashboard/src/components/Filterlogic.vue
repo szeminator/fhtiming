@@ -16,7 +16,6 @@
         {{ course.Coursename }} - {{ course.Coursenr }}
       </option>
     </select>
-    <p class="text">Selected Course: {{ selectedCourse }}</p>
     <div class="split-list">
       <div v-for="split in splits" :key="split.Splitnr" class="split-item">
         <input type="checkbox" :id="`split-${split.Splitname}`" :value="split.Splitname" v-model="selectedSplits" class="hidden-checkbox">
@@ -28,7 +27,6 @@
     </div>
     <button class="reset-button" @click="resetSplitsFilter">Reset Splits</button>
   </div>
-  <p class="text" style="margin-top: 50px">Select Parameters</p>
   <div class="split-list">
       <div v-for="key in keyMappings" :key="key" class="split-item">
         <input type="checkbox" :id="`${key}`" :value="`${key}`" v-model="selectedKeys" class="hidden-checkbox">
@@ -265,7 +263,7 @@ const resetKeysFilter = () => {
   color: white;
 }
 
- .checkbox-label {
+.checkbox-label {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -337,6 +335,7 @@ select {
   display: block; 
   margin-top: 1.2rem; 
   margin-left: 15px;
+  margin-bottom: 15px;
   background-color: var(--sidebar-bg); /* Use the background color variable */
 }
 
@@ -381,6 +380,7 @@ select {
   color: white;
   opacity: 0.9;
   margin-top: 10px;
+  margin-bottom: 25px;
   }
   
 
@@ -406,6 +406,7 @@ select {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adds shadow */
   transition: box-shadow 0.3s ease; /* Smooth transition for the shadow */
   margin-top: 10px;
+  margin-bottom: 25px;
 }
 
   .reset-button:hover {

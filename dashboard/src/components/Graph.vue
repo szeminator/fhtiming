@@ -10,6 +10,7 @@
   import Chart from 'chart.js/auto';
   import { countRunnersAtEachSection } from '../insights'
 
+
   function displayDetailTable(dataIndex) {
   // Fetch or generate data for the selected bar
   const details = getDetailsForBar(dataIndex); // Implement this function based on your data
@@ -32,15 +33,14 @@ function generateTableHTML(details) {
 
 
   onMounted(() => {
-    let rawData = countRunnersAtEachSection();
-    let offset = 0;
-    let data = rawData.map((value) => {
-      console.log(value);
-      let start = offset;
-      let end = offset + value;
-      offset = end;
-      return [start, end];
-    });
+    state.rawData = countRunnersAtEachSection();
+      let offset = 0;
+      state.data = state.rawData.map((value) => {
+        let start = offset;
+        let end = offset + value;
+        offset = end;
+        return [start, end];
+      });
     let differences = data.map((value) => {
         return value[1] - value[0];
     });
