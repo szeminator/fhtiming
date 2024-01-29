@@ -1,26 +1,27 @@
 <template>
-
   <div>
     <table class="styled-table">
+      <button @click="refresh()" class="reset-button">Refresh</button>
       <thead class="header">
         <tr>
-          <th v-for="key in combinedDisplayNames" :key="key">
+          <th v-for="key in combinedDisplayNames" :key="key" @click="sort(key)">
             {{ key }}
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="data in chartdata" :key="data.start + combinedKeys.join('-') + renderKey">
-        <td v-for="key in combinedKeys" :key="key">
-        {{ data[key] }}
-      </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
+        <tr v-for="data in sortedChartData" :key="data.start + combinedKeys.join('-') + renderKey">
+          <td v-for="key in combinedKeys" :key="key">
+            {{ data[key] }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
+
+
+
 <script setup lang="ts">
 import { onMounted, computed, watch, ref } from 'vue';
 import { useStore } from '../store';
@@ -38,6 +39,84 @@ let keyMappings = computed(() => store.selectedKeys);
 let combinedKeys = computed(() => keyMappings.value.map(Object.keys).concat(selectedSplits.value));
 let combinedDisplayNames = computed(() => keyMappings.value.map(Object.entries).map(item => item[0][1]).concat(selectedSplits.value));
 
+let sortKey = ref(null);
+let sortOrder = ref(1); // 1 for ascending, -1 for descending
+
+
+async function refresh() {
+  //console.log('refresh');
+  let selectedCourse = store.selectedCourse
+
+  let response = await fetch(`http://win2.fh-timing.com/middleware/${store.eventid}/info/json?setting=splits&course=${selectedCourse}`);
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  //console.log(response);  
+  let jsonResponse = await response.json();
+  //console.log(jsonResponse);  
+  // Well it depends on the course that the splits are called Splits_100, Splits_102, Splits_103, etc.
+  // So we need to use the course number to get the correct splits.
+  let splits = jsonResponse[`Splits_${selectedCourse}`];
+  let splitNumbers = splits.value.map((split: { Splitnr: any; }) => Number(split.Splitnr));
+  store.setAllSplitIDs(splitNumbers);
+
+  let splitNumberNamePairs = splits.value.map((split: { Splitnr: any; Splitname: any; }) => ({
+    Splitnr: split.Splitnr,
+    Splitname: split.Splitname
+  }));
+  store.setAllSplitIDNamePairs(splitNumberNamePairs);
+
+  //console.log("Splitnumbers got updated");
+
+  response = await fetch(`http://win2.fh-timing.com/middleware/${store.eventid}/result/json?course=${selectedCourse}&splitnr=${store.allSplitIDs.join(',')}&order=asc&detail=start,first,last,club,category,age,gender,status,nat`);
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  //console.log(response);
+  jsonResponse = await response.json();
+  chartdata = jsonResponse[`Course_${selectedCourse}`];
+  if (chartdata.value.length > 0) {
+    store.setChartdataKeys(Object.keys(chartdata.value[0]));
+  }
+  store.setAllResultData(chartdata);
+    //console.log("Chartdata got updated" + chartdata);
+  }
+
+function sort(key) {
+  //console.log('sort', key);
+  sortKey.value = key || 'last';
+  sortOrder.value = 1; // set sort order to ascending
+}
+
+let sortedChartData = computed(() => {
+  let sorted = [...chartdata.value];
+  sorted.sort((a, b) => {
+    //console.log("sort_Key.value: " + sortKey.value);
+    //console.log("a: " + a);
+    //console.log('a[sortKey.value]:', a[sortKey.value]); // Add this line
+    if (a[sortKey.value] === undefined) {
+      let foundKey = findKey(sortKey.value)
+      //console.log('foundKey:', foundKey); // Add this line
+      if (a[foundKey] < b[foundKey]) return -1 * sortOrder.value;
+      if (a[foundKey] > b[foundKey]) return 1 * sortOrder.value;
+    }
+    else {
+      if (a[sortKey.value] < b[sortKey.value]) return -1 * sortOrder.value;
+      if (a[sortKey.value] > b[sortKey.value]) return 1 * sortOrder.value;
+    }
+
+    return 0;
+  });
+  //console.log('sortedChartData:', sorted); // Add this line
+  return sorted;
+});
+
+
+function findKey(value) {
+  //console.log(keyMappings.value);
+  let mapping = keyMappings.value.find(item => Object.values(item)[0] === value);
+  return mapping ? Object.keys(mapping)[0] : null;
+}
 
 
 // Create a ref that will be used to force a re-render

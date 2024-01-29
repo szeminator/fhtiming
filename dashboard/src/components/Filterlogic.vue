@@ -201,7 +201,7 @@ watch(selectedKeys, (newKeys) => {
 
 onMounted(() => {
   //courses = computed(() => store.courses);
-  console.log(courses);
+  //console.log(courses);
 });
 
 const resetSplitsFilter = () => {
