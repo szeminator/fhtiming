@@ -62,6 +62,7 @@ onUnmounted(() => {
   { id: 5, modalTitle: 'How many people are still in section 2?', contentTitle: '# of Persons in 2nd section', content: '' },
   { id: 6, modalTitle: 'How many have already crossed the finish line?', contentTitle: 'Runners at the finish:', content: 'None yet' },
   { id: 7, modalTitle: 'How many are still at the start?', contentTitle: 'Runners at the start:', content: 'None' },
+  { id: 8, modalTitle: 'How many are supposed to start?', contentTitle: 'Runners altogether:', content: 'None' },
 
   // Add more options as needed
 ];

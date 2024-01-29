@@ -183,15 +183,5 @@ async function loadChartdata() {
   background-color: var(--table-row-bg-dark);
   color: var(--table-row-text-dark);
 }
-
-.refresh-button {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-}
 </style>
 

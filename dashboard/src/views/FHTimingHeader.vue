@@ -23,6 +23,7 @@ const emit = defineEmits(['toggle-mode']);
 const handleModeToggle = (isDarkMode) => {
   emit('toggle-mode', isDarkMode);
 };
+
 </script>
 
 <style scoped>
