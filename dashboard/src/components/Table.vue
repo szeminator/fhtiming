@@ -101,6 +101,10 @@ watch(keyMappings, () => {
  // console.log('keyMappings changed', keyMappings.value);
 });
 
+watch(() => selectedCourse.value, () => {
+    sortKey.value = null;
+});
+
 onMounted(() => {
   //console.log(courses);
 });
