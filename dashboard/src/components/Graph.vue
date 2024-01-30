@@ -6,9 +6,20 @@
   </template>
   
   <script setup lang="ts">
-  import { onMounted } from 'vue';
+  import { onMounted, reactive, watch, computed } from 'vue';
   import Chart from 'chart.js/auto';
   import { countRunnersAtEachSection } from '../insights'
+  import { useStore } from '../store';
+
+
+
+
+  const store = useStore();
+  const state = reactive({
+    rawData: [],
+    data: [],
+  });
+  let chart = null;
 
 
   function displayDetailTable(dataIndex) {
@@ -31,30 +42,45 @@ function generateTableHTML(details) {
   return `<table>${details.map(detail => `<tr><td>${detail.name}</td></tr>`).join('')}</table>`;
 }
 
+  watch(() => store.allResults, () => {
+    state.rawData = countRunnersAtEachSection();
+    let offset = 0;
+    state.data = state.rawData.map((value) => {
+      let start = offset;
+      let end = offset + value;
+      offset = end;
+      return [start, end];
+    });
+
+    console.log("updated graph " + chart);
+    chart.data.datasets[0].data = state.data;
+    chart.update();
+  });
 
   onMounted(() => {
+    
     state.rawData = countRunnersAtEachSection();
-      let offset = 0;
-      state.data = state.rawData.map((value) => {
-        let start = offset;
-        let end = offset + value;
-        offset = end;
-        return [start, end];
-      });
-    let differences = data.map((value) => {
+    let offset = 0;
+    state.data = state.rawData.map((value) => {
+      let start = offset;
+      let end = offset + value;
+      offset = end;
+      return [start, end];
+    });
+    let differences = state.data.map((value) => {
         return value[1] - value[0];
     });
 
-    console.log(data);
+    console.log(state.data);
     const ctx = document.getElementById('myChart') as HTMLCanvasElement;
     if (ctx) {
-        new Chart(ctx, {
+      chart = new Chart(ctx, {
             type: 'bar',
     data: {
       labels: ['START - TURN1', 'TURN1 - TURN2', 'TURN2 - FINISH', 'FINISHED'],
       datasets: [{
         label: '# of Teilnehmer',
-        data: data,
+        data: state.data,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',

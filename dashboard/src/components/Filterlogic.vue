@@ -151,14 +151,16 @@ async function refresh() {
   }
   //console.log(response);  
   let jsonResponse = await response.json();
-  //console.log(jsonResponse);  
+  console.log(jsonResponse);  
+  console.log("selectedCourse: " + selectedCourse);
   // Well it depends on the course that the splits are called Splits_100, Splits_102, Splits_103, etc.
   // So we need to use the course number to get the correct splits.
   let splits = jsonResponse[`Splits_${selectedCourse}`];
-  let splitNumbers = splits.value.map((split: { Splitnr: any; }) => Number(split.Splitnr));
+  console.log("splits: " + splits);
+  let splitNumbers = splits.map((split: { Splitnr: any; }) => Number(split.Splitnr));
   store.setAllSplitIDs(splitNumbers);
 
-  let splitNumberNamePairs = splits.value.map((split: { Splitnr: any; Splitname: any; }) => ({
+  let splitNumberNamePairs = splits.map((split: { Splitnr: any; Splitname: any; }) => ({
     Splitnr: split.Splitnr,
     Splitname: split.Splitname
   }));
@@ -173,8 +175,8 @@ async function refresh() {
   //console.log(response);
   jsonResponse = await response.json();
   chartdata = jsonResponse[`Course_${selectedCourse}`];
-  if (chartdata.value.length > 0) {
-    store.setChartdataKeys(Object.keys(chartdata.value[0]));
+  if (chartdata.length > 0) {
+    store.setChartdataKeys(Object.keys(chartdata[0]));
   }
   store.setAllResultData(chartdata);
     //console.log("Chartdata got updated" + chartdata);
