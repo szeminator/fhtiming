@@ -37,9 +37,7 @@ const handleModeToggle = (isDarkMode) => {
     <button @click="toggleSidebar" class="toggle-button">
       <img :src="toggleIcon" alt="Toggle Sidebar" />
     </button>
-    <button @click="refresh()" class="refresh-button">
-          <img src="/refresh.svg" alt="Refresh" />
-        </button>
+
     <Sidebar v-show="isSidebarVisible" />
   </div>
   <div :class="isSidebarVisible ? 'content-with-sidebar' : 'content-full-width'">
