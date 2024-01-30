@@ -29,6 +29,7 @@ const removeInfoBox = (id) => {
 const handleModeToggle = (isDarkMode) => {
   document.documentElement.classList.toggle('dark', isDarkMode);
 };
+
 </script>
 
 <template>

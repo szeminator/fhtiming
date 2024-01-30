@@ -38,6 +38,10 @@
     </div>
     <button class="reset-button" @click="resetKeysFilter">Reset Parameters</button>
   </div>
+  <div class="toggle-container">
+    <input type="checkbox" id="autoRefresh" v-model="autoRefresh" class="toggle-checkbox">
+    <label for="autoRefresh" class="toggle-label">Autorefresh</label>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -55,6 +59,8 @@ const courses = ref([]);
 let splits = ref([]) as any;
 let chartdata = [] as any;
 let selectedKeys = ref([]) as any;
+let autoRefresh = ref(false);
+
 const keyMappings = {
   start: 'Start Number',
   first: 'First Name',
@@ -75,7 +81,7 @@ const keyMappings = {
 
 const selectedCourse = ref(null);
 const selectedSplits = ref([]);
-
+let intervalId = null;
 
 watch(textInput, (newVal) => {
     
@@ -109,6 +115,55 @@ watch(textInput, (newVal) => {
     selectedCourse.value = courses.value[0].Coursenr;
   }
   };
+
+
+watch(autoRefresh, (newVal) => {
+  
+  if (newVal) {
+    intervalId = setInterval(refresh, 5000);
+  } else {
+    clearInterval(intervalId);
+  }
+});
+
+async function refresh() {
+  //console.log('refresh');
+  let selectedCourse = store.selectedCourse
+
+  let response = await fetch(`http://win2.fh-timing.com/middleware/${store.eventid}/info/json?setting=splits&course=${selectedCourse}`);
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  //console.log(response);  
+  let jsonResponse = await response.json();
+  //console.log(jsonResponse);  
+  // Well it depends on the course that the splits are called Splits_100, Splits_102, Splits_103, etc.
+  // So we need to use the course number to get the correct splits.
+  let splits = jsonResponse[`Splits_${selectedCourse}`];
+  let splitNumbers = splits.value.map((split: { Splitnr: any; }) => Number(split.Splitnr));
+  store.setAllSplitIDs(splitNumbers);
+
+  let splitNumberNamePairs = splits.value.map((split: { Splitnr: any; Splitname: any; }) => ({
+    Splitnr: split.Splitnr,
+    Splitname: split.Splitname
+  }));
+  store.setAllSplitIDNamePairs(splitNumberNamePairs);
+
+  //console.log("Splitnumbers got updated");
+
+  response = await fetch(`http://win2.fh-timing.com/middleware/${store.eventid}/result/json?course=${selectedCourse}&splitnr=${store.allSplitIDs.join(',')}&order=asc&detail=start,first,last,club,category,age,gender,status,nat`);
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  //console.log(response);
+  jsonResponse = await response.json();
+  chartdata = jsonResponse[`Course_${selectedCourse}`];
+  if (chartdata.value.length > 0) {
+    store.setChartdataKeys(Object.keys(chartdata.value[0]));
+  }
+  store.setAllResultData(chartdata);
+    //console.log("Chartdata got updated" + chartdata);
+}
 
 watch(selectedCourse, async (newCourse) => {
   if (newCourse) {

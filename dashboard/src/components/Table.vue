@@ -1,10 +1,5 @@
 <template>
   <div>
-  <button @click="refresh()" class="refresh-button">
-    <img src="/refresh.svg" alt="Refresh" />
-      </button>
-  </div>
-  <div>
     <table class="styled-table">
       <thead class="header">
         <tr>
@@ -47,44 +42,7 @@ let sortKey = ref(null);
 let sortOrder = ref(1); // 1 for ascending, -1 for descending
 
 
-async function refresh() {
-  //console.log('refresh');
-  let selectedCourse = store.selectedCourse
 
-  let response = await fetch(`http://win2.fh-timing.com/middleware/${store.eventid}/info/json?setting=splits&course=${selectedCourse}`);
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-  //console.log(response);  
-  let jsonResponse = await response.json();
-  //console.log(jsonResponse);  
-  // Well it depends on the course that the splits are called Splits_100, Splits_102, Splits_103, etc.
-  // So we need to use the course number to get the correct splits.
-  let splits = jsonResponse[`Splits_${selectedCourse}`];
-  let splitNumbers = splits.value.map((split: { Splitnr: any; }) => Number(split.Splitnr));
-  store.setAllSplitIDs(splitNumbers);
-
-  let splitNumberNamePairs = splits.value.map((split: { Splitnr: any; Splitname: any; }) => ({
-    Splitnr: split.Splitnr,
-    Splitname: split.Splitname
-  }));
-  store.setAllSplitIDNamePairs(splitNumberNamePairs);
-
-  //console.log("Splitnumbers got updated");
-
-  response = await fetch(`http://win2.fh-timing.com/middleware/${store.eventid}/result/json?course=${selectedCourse}&splitnr=${store.allSplitIDs.join(',')}&order=asc&detail=start,first,last,club,category,age,gender,status,nat`);
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-  //console.log(response);
-  jsonResponse = await response.json();
-  chartdata = jsonResponse[`Course_${selectedCourse}`];
-  if (chartdata.value.length > 0) {
-    store.setChartdataKeys(Object.keys(chartdata.value[0]));
-  }
-  store.setAllResultData(chartdata);
-    //console.log("Chartdata got updated" + chartdata);
-  }
 
 function sort(key) {
   //console.log('sort', key);
