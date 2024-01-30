@@ -155,8 +155,9 @@ async function refresh() {
   console.log("selectedCourse: " + selectedCourse);
   // Well it depends on the course that the splits are called Splits_100, Splits_102, Splits_103, etc.
   // So we need to use the course number to get the correct splits.
-  let splits = jsonResponse[`Splits_${selectedCourse}`];
-  console.log("splits: " + splits);
+  let firstKey = Object.keys(jsonResponse)[0];
+  let splits = jsonResponse[firstKey]; //jsonResponse[`Splits_${newCourse}`];  console.log("splits: " + splits);
+
   let splitNumbers = splits.map((split: { Splitnr: any; }) => Number(split.Splitnr));
   store.setAllSplitIDs(splitNumbers);
 
@@ -174,7 +175,8 @@ async function refresh() {
   }
   //console.log(response);
   jsonResponse = await response.json();
-  chartdata = jsonResponse[`Course_${selectedCourse}`];
+  firstKey = Object.keys(jsonResponse)[0];
+  chartdata = jsonResponse[firstKey];
   if (chartdata.length > 0) {
     store.setChartdataKeys(Object.keys(chartdata[0]));
   }
@@ -195,7 +197,9 @@ watch(selectedCourse, async (newCourse) => {
     //console.log(jsonResponse);  
     // Well it depends on the course that the splits are called Splits_100, Splits_102, Splits_103, etc.
     // So we need to use the course number to get the correct splits.
-    splits.value = jsonResponse[`Splits_${newCourse}`];
+    let firstKey = Object.keys(jsonResponse)[0];
+
+    splits.value = jsonResponse[firstKey]; //jsonResponse[`Splits_${newCourse}`];
     let splitNumbers = splits.value.map((split: { Splitnr: any; }) => Number(split.Splitnr));
     store.setAllSplitIDs(splitNumbers);
 
@@ -213,7 +217,8 @@ watch(selectedCourse, async (newCourse) => {
     }
     //console.log(response);
     jsonResponse = await response.json();
-    chartdata = jsonResponse[`Course_${selectedCourse.value}`];
+    firstKey = Object.keys(jsonResponse)[0];
+    chartdata = jsonResponse[firstKey]; //chartdata = jsonResponse[`Course_${selectedCourse.value}`];
     if (chartdata.length > 0) {
       store.setChartdataKeys(Object.keys(chartdata[0]));
     }
