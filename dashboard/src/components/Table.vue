@@ -3,7 +3,7 @@
     <table class="styled-table">
       <thead class="header">
         <tr>
-          <th v-for="key in combinedDisplayNames" :key="key" @click="sort(key)">
+          <th v-for="key in combinedDisplayNames" :key="key" @click="sort(key)" :class="{ 'highlighted': sortKey === key }">
             {{ key }}
           </th>
         </tr>
@@ -146,6 +146,10 @@ async function loadChartdata() {
 .dark-theme .styled-table tr:nth-child(even) {
   background-color: var(--table-row-bg-dark);
   color: var(--table-row-text-dark);
+}
+
+.highlighted {
+  background-color: #f0f0f0;
 }
 </style>
 
