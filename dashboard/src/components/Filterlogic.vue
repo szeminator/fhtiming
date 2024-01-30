@@ -41,6 +41,7 @@
   <div class="toggle-container">
     <input type="checkbox" id="autoRefresh" v-model="autoRefresh" class="toggle-checkbox">
     <label for="autoRefresh" class="toggle-label">Autorefresh</label>
+    <progress id="progressBar" max="100" :value="progress"></progress>
   </div>
 </template>
 
@@ -60,6 +61,10 @@ let splits = ref([]) as any;
 let chartdata = [] as any;
 let selectedKeys = ref([]) as any;
 let autoRefresh = ref(false);
+let progress = ref(0);
+let progressIntervalId = null;
+let intervalId = null;
+
 
 const keyMappings = {
   start: 'Start Number',
@@ -81,7 +86,6 @@ const keyMappings = {
 
 const selectedCourse = ref(null);
 const selectedSplits = ref([]);
-let intervalId = null;
 
 watch(textInput, (newVal) => {
     
@@ -118,12 +122,23 @@ watch(textInput, (newVal) => {
 
 
 watch(autoRefresh, (newVal) => {
-  
   if (newVal) {
-    intervalId = setInterval(refresh, 5000);
-  } else {
-    clearInterval(intervalId);
-  }
+      progressIntervalId = setInterval(() => {
+        progress.value = (progress.value + 2) % 100;
+      }, 100);
+      intervalId = setInterval(refresh, 5000);
+
+    } else {
+      if (progressIntervalId) {
+        clearInterval(progressIntervalId);
+        progressIntervalId = null;
+      }
+      if(intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+      progress.value = 0;
+    }
 });
 
 async function refresh() {
