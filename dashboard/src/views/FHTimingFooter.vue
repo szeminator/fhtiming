@@ -22,9 +22,7 @@
 </template>
 
 <script setup lang="ts">
-export default {
-  name: 'Welcome'
-}
+
 </script>
 
 <style scoped>
