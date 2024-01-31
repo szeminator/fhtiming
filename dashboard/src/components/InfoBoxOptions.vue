@@ -1,4 +1,5 @@
 <template>
+  <!-- @vue-ignore -->
   <div class="modal"
       :style="modalStyle" 
       @click.self="closeModal">
@@ -6,6 +7,7 @@
 <h2>Select an Option</h2>
 <ul>
 <li v-for="option in options" :key="option.id">
+<!-- @vue-ignore -->
 <button @click="selectOption(option)" class="button">{{ option.modalTitle }}</button>
 </li>
 </ul>
@@ -37,7 +39,9 @@ const modalStyle = computed(() => ({
   const emit = defineEmits(['select', 'close']);
   const modalContent = ref(null);
 
-  const handleClickOutside = (event) => {
+  const handleClickOutside = (event: { target: any; }) => {
+  // @ts-ignore
+
   if (modalContent.value && !modalContent.value.contains(event.target)) {
     closeModal();
   }
@@ -68,7 +72,7 @@ onUnmounted(() => {
 ];
   
   // Method to emit selected option
-  const selectOption = (option) => {
+  const selectOption = (option: { id: any; content: number; contentTitle: any; }) => {
     let result = 0;
     
     switch (option.id) {
