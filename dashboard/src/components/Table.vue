@@ -10,8 +10,12 @@
       </thead>
       <tbody>
         <tr v-for="data in sortedChartData" :key="data.start + combinedKeys.join('-') + renderKey">
-          <td v-for="key in combinedKeys" :key="key">
-            {{ data[key] }}
+          <!-- @vue-ignore -->
+          <td v-for="key in combinedKeys" :key="key.toString()">
+            {{
+                // @ts-ignore
+              data[key] 
+            }}
           </td>
         </tr>
       </tbody>
@@ -26,24 +30,24 @@ import { onMounted, computed, watch, ref } from 'vue';
 import { useStore } from '../store';
 
 const store = useStore();
-const courses = store.courses;
+//const courses = store.courses;
 let chartdata = computed(() => store.allResults);
-let chartdataKeys = computed(() => store.chartdataKeys);
-let predefinedChartKeys = ['start', 'first', 'last', 'club', 'category', 'age', 'gender', 'status', 'nat', 'rank', 'city', 'dnf'];
+//let chartdataKeys = computed(() => store.chartdataKeys);
+//let predefinedChartKeys = ['start', 'first', 'last', 'club', 'category', 'age', 'gender', 'status', 'nat', 'rank', 'city', 'dnf'];
 
 let selectedCourse = computed(() => store.selectedCourse);
 let selectedSplits = computed(() => store.selectedSplitIDs);
 let keyMappings = computed(() => store.selectedKeys);
 
 let combinedKeys = computed(() => keyMappings.value.map(Object.keys).concat(selectedSplits.value));
-let combinedDisplayNames = computed(() => keyMappings.value.map(Object.entries).map(item => item[0][1]).concat(selectedSplits.value));
+let combinedDisplayNames = computed(() => keyMappings.value.map(Object.entries).map(item => item[0][1]).concat(selectedSplits.value).flat());
 
 let sortKey = ref(null);
 let sortOrder = ref(1); // 1 for ascending, -1 for descending
 
 
 
-
+ // @ts-ignore
 function sort(key) {
   //console.log('sort', key);
   sortKey.value = key || 'last';
@@ -56,7 +60,9 @@ let sortedChartData = computed(() => {
     //console.log("sort_Key.value: " + sortKey.value);
     //console.log("a: " + a);
     //console.log('a[sortKey.value]:', a[sortKey.value]); // Add this line
+     // @ts-ignore
     let aValue = a[sortKey.value] !== undefined ? a[sortKey.value] : a[findKey(sortKey.value)];
+     // @ts-ignore
     let bValue = b[sortKey.value] !== undefined ? b[sortKey.value] : b[findKey(sortKey.value)];
 
     // Check if both values are numeric
@@ -79,7 +85,7 @@ let sortedChartData = computed(() => {
   return sorted;
 });
 
-
+ // @ts-ignore
 function findKey(value) {
   //console.log(keyMappings.value);
   let mapping = keyMappings.value.find(item => Object.values(item)[0] === value);
@@ -109,6 +115,7 @@ onMounted(() => {
   //console.log(courses);
 });
 
+/*
 async function loadChartdata() {
   console.log(selectedCourse);
   console.log(selectedSplits);
@@ -116,6 +123,7 @@ async function loadChartdata() {
   console.log("Chartdata Keys: " + chartdataKeys);
   console.log("Chartdata Amount of Keys: " + chartdataKeys.value.length);
 }
+*/
 </script>
 
 <style scoped>
