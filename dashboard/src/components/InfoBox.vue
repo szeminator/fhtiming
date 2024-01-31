@@ -13,8 +13,11 @@ const modalPosition = ref({ x: 0, y: 0 });
 const emit = defineEmits(['delete']);
 
 const openModal = () => {
+  // @ts-ignore
   if (configButton.value && configButton.value.offsetParent) {
+    // @ts-ignore
     const rect = configButton.value.getBoundingClientRect();
+    // @ts-ignore
     const offsetParentRect = configButton.value.offsetParent.getBoundingClientRect();
     const buttonRightEdgeX = rect.right;
     const offsetParentLeft = offsetParentRect.left;
@@ -31,7 +34,7 @@ const openModal = () => {
 };
 
 
-const handleSelection = (selectedOption) => {
+const handleSelection = (selectedOption: { contentTitle: string; content: string; }) => {
   showModal.value = false;
   infoboxTitle.value = selectedOption.contentTitle; // Make sure this matches the emitted object's property
   infoboxContent.value = selectedOption.content;
