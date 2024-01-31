@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import Filterlogic from '../components/Filterlogic.vue';
 
-const props = defineProps({
-  isVisible: Boolean
-});
 
 
 </script>
