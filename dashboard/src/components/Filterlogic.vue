@@ -39,10 +39,18 @@
     <button class="reset-button" @click="resetKeysFilter">Reset Parameters</button>
   </div>
   <div class="toggle-container">
-    <input type="checkbox" id="autoRefresh" v-model="autoRefresh" class="toggle-checkbox">
-    <label for="autoRefresh" class="toggle-label">Autorefresh</label>
-    <progress id="progressBar" max="100" :value="progress"></progress>
+  <div class="checkbox-container">
+    <input type="checkbox" id="autoRefresh" v-model="autoRefresh" class="hidden-checkbox">
+    <label for="autoRefresh" class="checkbox-label">
+      <span class="custom-checkbox">
+        <i class="checkmark" v-show="autoRefresh"></i>
+      </span>
+      Autorefresh
+    </label>
   </div>
+  <progress id="progressBar" max="100" :value="progress" class="custom-progress"></progress>
+</div>
+
 </template>
 
 <script setup lang="ts">
@@ -426,6 +434,7 @@ select {
   padding: 0.6rem 0.8rem;
   border: 1px solid #76C657;
   border-radius: 4px;
+  font-size: 0.8rem;
   color: var(--text-color);
   background-color: var(--sidebar-bg); /* Use the background color variable */
   width: calc(100% - 30px);
@@ -461,7 +470,7 @@ select {
   }
   
 
-  .start-button:hover {
+.start-button:hover {
   background-color: #9BE77D; /* Lighter green color */
   color: var(--text-color);
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* Slightly larger shadow on hover */
@@ -486,7 +495,7 @@ select {
   margin-bottom: 25px;
 }
 
-  .reset-button:hover {
+.reset-button:hover {
   background-color: #c22424ef; 
   color: var(--text-color);
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* Slightly larger shadow on hover */
@@ -498,4 +507,82 @@ select {
   transform: scale(0.98); /* Slightly scale down when pressed */
 }
 
+/* Custom styles for progress bar */
+/* Style for the autorefresh checkbox to match other checkboxes */
+.toggle-container .split-item .hidden-checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+
+.toggle-container .split-item .checkbox-label {
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 24px;
+  color: #76C657;
+}
+
+.toggle-container .split-item .custom-checkbox {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  border: 2px solid #76C657;
+  border-radius: 4px;
+  position: relative;
+}
+
+.toggle-container .split-item .checkmark {
+  color: #76C657;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* Custom progress bar styling */
+.custom-progress {
+  width: 100%;
+  height: 20px;
+  background-color: var(--sidebar-bg);
+  border-radius: 10px;
+  overflow: hidden;
+  -webkit-appearance: none;
+  appearance: none;
+  border: 1px solid #76C657;
+  cursor: pointer;
+  width: calc(100% - 30px);
+}
+
+.custom-progress::-webkit-progress-bar {
+  background-color: var(--sidebar-bg);
+  border-radius: 10px;
+}
+
+.custom-progress::-webkit-progress-value {
+  background-color: #76C657;
+  border-radius: 10px;
+}
+
+.custom-progress::-moz-progress-bar {
+  background-color: #76C657;
+  border-radius: 10px;
+}
+
+.split-item, .toggle-container .checkbox-container {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  left: 20px; /* Adjust if needed */
+  font-family: 'Open Sans', sans-serif;
+  margin-left: 15px;
+}
+
+.hidden-checkbox:checked + .checkbox-label .checkmark {
+  display: inline; /* Show checkmark when checkbox is checked */
+}
 </style>
