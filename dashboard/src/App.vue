@@ -19,14 +19,14 @@ const addInfoBox = () => {
   infoBoxes.value.push({ id: uuidv4(), title: `Info${infoBoxes.value.length + 1}` });
 };
 
-const removeInfoBox = (id) => {
+const removeInfoBox = (id: any) => {
   const index = infoBoxes.value.findIndex(box => box.id === id);
   if (index > -1) {
     infoBoxes.value.splice(index, 1);
   }
 };
 
-const handleModeToggle = (isDarkMode) => {
+const handleModeToggle = (isDarkMode: boolean | undefined) => {
   document.documentElement.classList.toggle('dark', isDarkMode);
 };
 

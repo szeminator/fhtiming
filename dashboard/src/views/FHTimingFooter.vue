@@ -21,10 +21,8 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Welcome'
-}
+<script setup lang="ts">
+
 </script>
 
 <style scoped>

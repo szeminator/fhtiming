@@ -21,6 +21,7 @@
         <input type="checkbox" :id="`split-${split.Splitname}`" :value="split.Splitname" v-model="selectedSplits" class="hidden-checkbox">
         <label :for="'split-' + split.Splitname" class="checkbox-label">
           <span class="custom-checkbox">
+            <!-- @vue-ignore -->
             <i class="checkmark" v-show="selectedSplits.includes(split.Splitname)">✓</i>
           </span>{{ split.Splitname }} - {{ split.Splitnr }}</label>
       </div>
@@ -54,24 +55,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, computed } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import { useStore } from '../store';
 import { useRouter } from 'vue-router';
 import {fetchStartersThatDidntGetFar, selectRunnersForSplit} from '../insights';
+
+
+interface Course {
+    Coursenr: number;
+    Coursename: string;
+    // add other properties as needed
+  }
 
 const store = useStore();
 const router = useRouter();
 const textInput = ref('2305270');
 const numberInput = ref<number | null>(null);
 let isError = ref(false);
-const courses = ref([]);
-let splits = ref([]) as any;
-let chartdata = [] as any;
+const courses = ref<Course[]>([]);
+let splits = ref<any[]>([]);
+let chartdata = [] as any[];
 let selectedKeys = ref([]) as any;
 let autoRefresh = ref(false);
 let progress = ref(0);
-let progressIntervalId = null;
-let intervalId = null;
+let progressIntervalId: number | null | undefined = null;
+let intervalId: number | null | undefined = null;
 
 
 const keyMappings = {
@@ -124,7 +132,8 @@ watch(textInput, (newVal) => {
     router.push('/table');
     //router.push({ name: 'table', params: { courses: courses.value } });
     if (courses.value.length > 0) {
-    selectedCourse.value = courses.value[0].Coursenr;
+      // @ts-ignore
+      selectedCourse.value = courses.value[0].Coursenr;
   }
   };
 
@@ -273,6 +282,7 @@ watch(selectedKeys, (newKeys) => {
   //console.log(newKeys);
   newKeys.forEach((value: string) => {
     //console.log(value);
+    // @ts-ignore
     let foundKey = Object.keys(keyMappings).find(key => keyMappings[key] === value) as string;
     let newObject = {
       [foundKey]: value

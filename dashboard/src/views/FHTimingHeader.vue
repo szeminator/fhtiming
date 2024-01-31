@@ -20,7 +20,7 @@ import ModeSwitch from '../components/ModeSwitch.vue';
 
 const emit = defineEmits(['toggle-mode']);
 
-const handleModeToggle = (isDarkMode) => {
+const handleModeToggle = (isDarkMode: any) => {
   emit('toggle-mode', isDarkMode);
 };
 

@@ -6,7 +6,7 @@
   </template>
   
   <script setup lang="ts">
-  import { onMounted, reactive, watch, computed } from 'vue';
+  import { onMounted, reactive, watch } from 'vue';
   import Chart from 'chart.js/auto';
   import { countRunnersAtEachSection } from '../insights'
   import { useStore } from '../store';
@@ -19,32 +19,39 @@
     rawData: [],
     data: [],
   });
-  let chart = null;
+  let chart: string | Chart<"bar", never[], string> | null = null;
 
 
-  function displayDetailTable(dataIndex) {
+  function displayDetailTable(dataIndex: number) {
   // Fetch or generate data for the selected bar
   const details = getDetailsForBar(dataIndex); // Implement this function based on your data
 
   // Update the HTML of the detail table
   const detailTableDiv = document.getElementById('detailTable');
-  detailTableDiv.innerHTML = generateTableHTML(details); // Implement this function to generate HTML
+  if (detailTableDiv) {
+    // @ts-ignore
+    detailTableDiv.innerHTML = generateTableHTML(details); // Implement this function to generate HTML
+  } else {
+    console.error('Element with id "detailTable" not found');
+  }
 }
 
-function getDetailsForBar(index) {
+function getDetailsForBar(_index: any) {
   // Implement logic to fetch or generate detailed data for the given index
   // This will depend on your data structure and what you want to show
 }
 
-function generateTableHTML(details) {
+function generateTableHTML(details: any[]) {
   // Generate and return HTML string based on the details data
   // Example:
-  return `<table>${details.map(detail => `<tr><td>${detail.name}</td></tr>`).join('')}</table>`;
+  return `<table>${details.map((detail: { name: any; }) => `<tr><td>${detail.name}</td></tr>`).join('')}</table>`;
 }
 
   watch(() => store.allResults, () => {
-    state.rawData = countRunnersAtEachSection();
+    // @ts-ignore
+    state.rawData = countRunnersAtEachSection() as number[];
     let offset = 0;
+    // @ts-ignore
     state.data = state.rawData.map((value) => {
       let start = offset;
       let end = offset + value;
@@ -53,14 +60,18 @@ function generateTableHTML(details) {
     });
 
     console.log("updated graph " + chart);
+    // @ts-ignore
     chart.data.datasets[0].data = state.data;
+
+    // @ts-ignore
     chart.update();
   });
 
   onMounted(() => {
-    
+    // @ts-ignore
     state.rawData = countRunnersAtEachSection();
     let offset = 0;
+    // @ts-ignore
     state.data = state.rawData.map((value) => {
       let start = offset;
       let end = offset + value;
@@ -109,7 +120,7 @@ function generateTableHTML(details) {
         x: {
         }
       },
-      onClick: (event, activeElements) => {
+      onClick: (_event, activeElements) => {
       if (activeElements.length > 0) {
         const chartElement = activeElements[0];
         // Assuming your data set includes an identifier to fetch detailed information
