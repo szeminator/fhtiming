@@ -80,7 +80,7 @@
 import { ref, watch, onMounted, computed } from 'vue';
 import { useStore } from '../store';
 import { useRouter } from 'vue-router';
-import {fetchStartersThatDidntGetFar, selectRunnersForSplit, filterFemales} from '../insights';
+import {fetchStartersThatDidntGetFar, selectRunnersForSplit, filterFemales, filterMales} from '../insights';
 
 
 
@@ -131,11 +131,39 @@ const selectedSplits = ref([]);
 watch(checkbox_filterFemales, (newVal) => {
   if (newVal) {
     console.log("filterFemales True");
+    if (checkbox_filterMales.value) {
+      refresh();
+    }
     console.log(filterFemales());
+    store.setAllResultData(filterFemales());
   } else {
     console.log("filterFemales False");
+    if (checkbox_filterMales.value == false) {
+      refresh();
+    } else
+    {
+      store.setAllResultData(filterMales());
+    }
   }
-  
+});
+
+watch(checkbox_filterMales, (newVal) => {
+  if (newVal) {
+    console.log("filterMales True");
+    if (checkbox_filterFemales.value) {
+      refresh();
+    }
+    console.log(filterFemales());
+    store.setAllResultData(filterMales());
+  } else {
+    console.log("filterMales False");
+    if (checkbox_filterFemales.value == false) {
+      refresh();
+    } else
+    {
+      store.setAllResultData(filterFemales());
+    }
+  }
 });
 
 watch(textInput, (newVal) => {
