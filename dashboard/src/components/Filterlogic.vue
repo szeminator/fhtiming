@@ -59,7 +59,7 @@
     <span class="custom-checkbox">
       <i class="checkmark" v-show="checkbox_filterFemales">✓</i>
     </span>
-    Female participants only
+    Female Participants only
   </label>
 </div>
 <div class="checkbox-container">
@@ -68,7 +68,7 @@
     <span class="custom-checkbox">
       <i class="checkmark" v-show="checkbox_filterMales">✓</i>
     </span>
-    Male participants only
+    Male Participants only
   </label>
 </div>
 </div>

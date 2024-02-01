@@ -150,7 +150,7 @@ const handleModeToggle = (isDarkMode: boolean | undefined) => {
 }
 
 .add-button-sidebar-hidden {
-  left: 30px; /* Align with the content when sidebar is hidden */
+  left: 65px; /* Align with the content when sidebar is hidden */
 }
 
 .router-view-with-infobox {
