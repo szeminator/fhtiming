@@ -54,19 +54,19 @@
 
 <div class="gender-filter-container">
   <div class="checkbox-container">
-  <input type="checkbox" id="filterFemales" class="hidden-checkbox">
+  <input type="checkbox" id="filterFemales" v-model="checkbox_filterFemales" class="hidden-checkbox">
   <label for="filterFemales" class="checkbox-label">
     <span class="custom-checkbox">
-      <i class="checkmark" v-show="filterFemales">✓</i>
+      <i class="checkmark" v-show="checkbox_filterFemales">✓</i>
     </span>
     Female participants only
   </label>
 </div>
 <div class="checkbox-container">
-  <input type="checkbox" id="filterMales" v-model="filterMales" class="hidden-checkbox">
+  <input type="checkbox" id="filterMales" v-model="checkbox_filterMales" class="hidden-checkbox">
   <label for="filterMales" class="checkbox-label">
     <span class="custom-checkbox">
-      <i class="checkmark" v-show="filterMales">✓</i>
+      <i class="checkmark" v-show="checkbox_filterMales">✓</i>
     </span>
     Male participants only
   </label>
@@ -103,8 +103,9 @@ let autoRefresh = ref(false);
 let progress = ref(0);
 let progressIntervalId: number | null | undefined = null;
 let intervalId: number | null | undefined = null;
+const checkbox_filterFemales = ref(false);
+const checkbox_filterMales = ref(false);
 
-const femaleParticipants = computed(() => filterFemales());
 
 const keyMappings = {
   start: 'Start Number',
@@ -126,6 +127,16 @@ const keyMappings = {
 
 const selectedCourse = ref(null);
 const selectedSplits = ref([]);
+
+watch(checkbox_filterFemales, (newVal) => {
+  if (newVal) {
+    console.log("filterFemales True");
+    console.log(filterFemales());
+  } else {
+    console.log("filterFemales False");
+  }
+  
+});
 
 watch(textInput, (newVal) => {
     
