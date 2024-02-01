@@ -33,6 +33,14 @@ export function filterFemales(){
         return onlyFemales; 
 }
 
+export function filterMales(){
+    let store = useStore();
+    let chartdata = store.allResults;
+    let onlyMales = chartdata.filter(
+        data => data['gender']==="M");
+        return onlyMales; 
+}
+
 export function selectRunnersForSplit() {
     let store = useStore();
     let chartdata = store.allResults;
