@@ -44,7 +44,7 @@
     <input type="checkbox" id="autoRefresh" v-model="autoRefresh" class="hidden-checkbox">
     <label for="autoRefresh" class="checkbox-label">
       <span class="custom-checkbox">
-        <i class="checkmark" v-show="autoRefresh"></i>
+        <i class="checkmark" v-show="autoRefresh">✓</i>
       </span>
       Autorefresh
     </label>
@@ -52,13 +52,36 @@
   <progress id="progressBar" max="100" :value="progress" class="custom-progress"></progress>
 </div>
 
+<div class="gender-filter-container">
+  <div class="checkbox-container">
+  <input type="checkbox" id="filterFemales" class="hidden-checkbox">
+  <label for="filterFemales" class="checkbox-label">
+    <span class="custom-checkbox">
+      <i class="checkmark" v-show="filterFemales">✓</i>
+    </span>
+    Female participants only
+  </label>
+</div>
+<div class="checkbox-container">
+  <input type="checkbox" id="filterMales" v-model="filterMales" class="hidden-checkbox">
+  <label for="filterMales" class="checkbox-label">
+    <span class="custom-checkbox">
+      <i class="checkmark" v-show="filterMales">✓</i>
+    </span>
+    Male participants only
+  </label>
+</div>
+</div>
+
+
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted, computed } from 'vue';
 import { useStore } from '../store';
 import { useRouter } from 'vue-router';
-import {fetchStartersThatDidntGetFar, selectRunnersForSplit} from '../insights';
+import {fetchStartersThatDidntGetFar, selectRunnersForSplit, filterFemales} from '../insights';
+
 
 
 interface Course {
@@ -81,6 +104,7 @@ let progress = ref(0);
 let progressIntervalId: number | null | undefined = null;
 let intervalId: number | null | undefined = null;
 
+const femaleParticipants = computed(() => filterFemales());
 
 const keyMappings = {
   start: 'Start Number',
@@ -384,8 +408,9 @@ const resetKeysFilter = () => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 14px; /* Adjusted for the smaller checkbox size */
-  line-height: 1; /* Aligns the checkmark vertically */
+  font-size: 14px;
+  line-height: 1;
+  display: none;  /* Aligns the checkmark vertically */
 }
 
 select {
@@ -594,5 +619,51 @@ select {
 
 .hidden-checkbox:checked + .checkbox-label .checkmark {
   display: inline; /* Show checkmark when checkbox is checked */
+}
+
+.gender-filter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 20px; /* Adjust the padding value as needed */
+  margin-left: 15px; /* Align with other containers */
+}
+
+.gender-filter-container .checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px; /* Consistent spacing between checkbox items */
+}
+
+.gender-filter-container .checkbox-container .hidden-checkbox {
+  margin-right: 10px; /* Space between the checkbox and the label */
+}
+
+.gender-filter-container .checkbox-container .checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--text-color);
+}
+
+.gender-filter-container .checkbox-container .custom-checkbox {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #76C657;
+  border-radius: 4px;
+  position: relative;
+}
+
+.gender-filter-container .checkbox-container .checkmark {
+  color: #76C657;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  line-height: 1;
 }
 </style>

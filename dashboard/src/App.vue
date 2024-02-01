@@ -116,31 +116,6 @@ const handleModeToggle = (isDarkMode: boolean | undefined) => {
   outline: none; /* Remove focus ring for accessibility */
 }
 
-.refresh-button {
-  position: fixed;
-  top: 90px; /* Adjust as needed */
-  left: 60px; /* Adjust as needed */
-  background: none; /* Remove background if you want only the SVG to be visible */
-  cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
-  z-index: 1500;
-  padding: 0px;
-  border-radius: 50%;
-  outline: none; /* Remove focus ring for accessibility */
-}
-.refresh-button img {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  padding: 8px;
-  background: #76C657;
-  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
-  outline: none; /* Removes the outline on focus as well */
-}
-
 .toggle-button:active {
   box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15); /* Reduced shadow for pressed effect */
   transform: translateY(2px); /* Slightly move the button down to mimic pressing */
@@ -175,7 +150,7 @@ const handleModeToggle = (isDarkMode: boolean | undefined) => {
 }
 
 .add-button-sidebar-hidden {
-  left: 107px; /* Align with the content when sidebar is hidden */
+  left: 30px; /* Align with the content when sidebar is hidden */
 }
 
 .router-view-with-infobox {

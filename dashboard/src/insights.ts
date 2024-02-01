@@ -25,6 +25,14 @@ export function fetchStartersThatDidntGetFar() {
     return filteredData;
 }
 
+export function filterFemales(){
+    let store = useStore();
+    let chartdata = store.allResults;
+    let onlyFemales = chartdata.filter(
+        data => data['gender']==="W");
+        return onlyFemales; 
+}
+
 export function selectRunnersForSplit() {
     let store = useStore();
     let chartdata = store.allResults;
