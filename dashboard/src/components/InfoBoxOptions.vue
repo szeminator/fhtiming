@@ -19,7 +19,9 @@
   
   <script setup lang="ts">
   import { defineEmits, computed, ref, onMounted, onUnmounted} from 'vue';
+  import { useStore } from '../store';
 
+  const store = useStore();
   const props = defineProps({
   position: {
     type: Object,
@@ -55,16 +57,7 @@ onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside, true); // Match the event listener exactly
 });
 
-  const boxOptions = [
-  { id: 1, modalTitle: 'Who is currently the fastest woman?'},
-  { id: 2, modalTitle: 'Who is currently the fastest man?'},
-  { id: 3, modalTitle: 'Who will reach the finish line next?' },
-  { id: 4, modalTitle: 'How many people are still in section 1?' },
-  { id: 5, modalTitle: 'How many people are still in section 2?'},
-  { id: 6, modalTitle: 'How many have already crossed the finish line?' },
-  { id: 7, modalTitle: 'How many are still at the start?' },
-  { id: 8, modalTitle: 'How many are supposed to start?' },
-  ];
+  const boxOptions = store.boxOptions;
   
   
   // Method to emit selected option

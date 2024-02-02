@@ -38,16 +38,7 @@ const openModal = () => {
   }
 };
 
-const options = [
-  { id: 1, modalTitle: 'Who is currently the fastest woman?', contentTitle: 'Currently Leading Woman', content: '' },
-  { id: 2, modalTitle: 'Who is currently the fastest man?', contentTitle: 'Currently Leading Man', content: '' },
-  { id: 3, modalTitle: 'Who will reach the finish line next?', contentTitle: 'Next Person at the Finish', content: '' },
-  { id: 4, modalTitle: 'How many people are still in section 1?', contentTitle: '# of Persons in 1st Section', content: '' },
-  { id: 5, modalTitle: 'How many people are still in section 2?', contentTitle: '# of Persons in 2nd Section', content: '' },
-  { id: 6, modalTitle: 'How many have already crossed the finish line?', contentTitle: 'Runners at the Finish:', content: 'None yet' },
-  { id: 7, modalTitle: 'How many are still at the start?', contentTitle: 'Runners at the Start:', content: 'None' },
-  { id: 8, modalTitle: 'How many are supposed to start?', contentTitle: 'Runners altogether:', content: 'None' },
-  ];
+const options = store.boxOptions;
 
 const handleSelection = (selectedOption: { boxOptionID: number }) => {
   boxID = selectedOption.boxOptionID;
