@@ -6,7 +6,7 @@
 <div class="modal-content" ref="modalContent">
 <h2>Select an Option</h2>
 <ul>
-<li v-for="option in options" :key="option.id">
+<li v-for="option in boxOptions" :key="option.id">
 <!-- @vue-ignore -->
 <button @click="selectOption(option)" class="button">{{ option.modalTitle }}</button>
 </li>
@@ -19,7 +19,6 @@
   
   <script setup lang="ts">
   import { defineEmits, computed, ref, onMounted, onUnmounted} from 'vue';
-  import { countRunnersThatFinished, countRunnersInTurn1Section, countRunnersInTurn2Section, countRunnersInStartSection } from '../insights.ts';
 
   const props = defineProps({
   position: {
@@ -56,68 +55,21 @@ onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside, true); // Match the event listener exactly
 });
 
-
-  // Example options data
-  const options = [
-  { id: 1, modalTitle: 'Who is currently the fastest woman?', contentTitle: 'Currently Leading Woman', content: '' },
-  { id: 2, modalTitle: 'Who is currently the fastest man?', contentTitle: 'Currently Leading Man', content: '' },
-  { id: 3, modalTitle: 'Who will reach the finish line next?', contentTitle: 'Next Person at the Finish', content: '' },
-  { id: 4, modalTitle: 'How many people are still in section 1?', contentTitle: '# of Persons in 1st Section', content: '' },
-  { id: 5, modalTitle: 'How many people are still in section 2?', contentTitle: '# of Persons in 2nd Section', content: '' },
-  { id: 6, modalTitle: 'How many have already crossed the finish line?', contentTitle: 'Runners at the Finish:', content: 'None yet' },
-  { id: 7, modalTitle: 'How many are still at the start?', contentTitle: 'Runners at the Start:', content: 'None' },
-  { id: 8, modalTitle: 'How many are supposed to start?', contentTitle: 'Runners altogether:', content: 'None' },
-
-  // Add more options as needed
-];
+  const boxOptions = [
+  { id: 1, modalTitle: 'Who is currently the fastest woman?'},
+  { id: 2, modalTitle: 'Who is currently the fastest man?'},
+  { id: 3, modalTitle: 'Who will reach the finish line next?' },
+  { id: 4, modalTitle: 'How many people are still in section 1?' },
+  { id: 5, modalTitle: 'How many people are still in section 2?'},
+  { id: 6, modalTitle: 'How many have already crossed the finish line?' },
+  { id: 7, modalTitle: 'How many are still at the start?' },
+  { id: 8, modalTitle: 'How many are supposed to start?' },
+  ];
+  
   
   // Method to emit selected option
-  const selectOption = (option: { id: any; content: number; contentTitle: any; }) => {
-    let result = 0;
-    
-    switch (option.id) {
-      case 1:
-        result = countRunnersThatFinished();
-        if (result == 0) {
-          result = option.content;
-        }
-        emit('select', { contentTitle: option.contentTitle, content: result});
-        break;
-      case 2:
-        break;
-      case 3:
-        break;
-      case 4:
-        result = countRunnersInTurn1Section();
-        if (result == 0) {
-          result = option.content;
-        }
-        emit('select', { contentTitle: option.contentTitle, content: result});
-        break;
-      case 5:
-        result = countRunnersInTurn2Section();
-        if (result == 0) {
-          result = option.content;
-        }
-        emit('select', { contentTitle: option.contentTitle, content: result});
-        break;
-      case 6:
-        result = countRunnersThatFinished();
-        if (result == 0) {
-          result = option.content;
-        }
-        emit('select', { contentTitle: option.contentTitle, content: result});
-        break;
-      case 7:
-        result = countRunnersInStartSection();
-        if (result == 0) {
-          result = option.content;
-        }
-        emit('select', { contentTitle: option.contentTitle, content: result});
-        break;
-      default:
-        break;
-    }
+  const selectOption = (boxOption: { id: any}) => {
+    emit('select', { boxOptionID: boxOption.id});
 };
 
   
