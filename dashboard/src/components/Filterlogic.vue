@@ -77,7 +77,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, computed } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import { useStore } from '../store';
 import { useRouter } from 'vue-router';
 import {fetchStartersThatDidntGetFar, selectRunnersForSplit, filterFemales, filterMales} from '../insights';
