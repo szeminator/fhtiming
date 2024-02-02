@@ -21,7 +21,7 @@ import Filterlogic from '../components/Filterlogic.vue';
   position: fixed; /* Fixed position */
   top: 0; /* Start from the top of the page */
   left: 0; /* Align to the left */
-  width: 256px; /* Or any other width you prefer */
+  width: 280px; /* Or any other width you prefer */
   height: 100vh; /* Full height of the viewport */
   z-index: 1000; /* Ensure it's above other elements */
   overflow-y: auto; /* Add scroll for overflow content */
