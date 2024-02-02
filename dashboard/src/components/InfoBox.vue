@@ -1,9 +1,13 @@
 <script setup lang="ts">
 
-import { ref } from 'vue';
+import { ref, watch} from 'vue';
 import Options from './InfoBoxOptions.vue'; // import your Questions.vue component
+import { countRunnersThatFinished, countRunnersInTurn1Section, countRunnersInTurn2Section, countRunnersInStartSection } from '../insights.ts';
+import { useStore } from '../store';
 
 // Reactive state
+const store = useStore();
+
 const showModal = ref(false);
 const infoboxTitle = ref('Default Title');
 const infoboxContent = ref('Default Content');
@@ -11,6 +15,7 @@ const configButton = ref(null);
 const modalPosition = ref({ x: 0, y: 0 });
 
 const emit = defineEmits(['delete']);
+let boxID = 0;
 
 const openModal = () => {
   // @ts-ignore
@@ -33,13 +38,81 @@ const openModal = () => {
   }
 };
 
+const options = [
+  { id: 1, modalTitle: 'Who is currently the fastest woman?', contentTitle: 'Currently Leading Woman', content: '' },
+  { id: 2, modalTitle: 'Who is currently the fastest man?', contentTitle: 'Currently Leading Man', content: '' },
+  { id: 3, modalTitle: 'Who will reach the finish line next?', contentTitle: 'Next Person at the Finish', content: '' },
+  { id: 4, modalTitle: 'How many people are still in section 1?', contentTitle: '# of Persons in 1st Section', content: '' },
+  { id: 5, modalTitle: 'How many people are still in section 2?', contentTitle: '# of Persons in 2nd Section', content: '' },
+  { id: 6, modalTitle: 'How many have already crossed the finish line?', contentTitle: 'Runners at the Finish:', content: 'None yet' },
+  { id: 7, modalTitle: 'How many are still at the start?', contentTitle: 'Runners at the Start:', content: 'None' },
+  { id: 8, modalTitle: 'How many are supposed to start?', contentTitle: 'Runners altogether:', content: 'None' },
+  ];
 
-const handleSelection = (selectedOption: { contentTitle: string; content: string; }) => {
+const handleSelection = (selectedOption: { boxOptionID: number }) => {
+  boxID = selectedOption.boxOptionID;
   showModal.value = false;
-  infoboxTitle.value = selectedOption.contentTitle; // Make sure this matches the emitted object's property
-  infoboxContent.value = selectedOption.content;
+  infoboxTitle.value = options[selectedOption.boxOptionID].contentTitle;
+  infoboxContent.value = options[selectedOption.boxOptionID].content;
+  fillInfoboxAccordingToID(selectedOption.boxOptionID);
 };
 
+
+function fillInfoboxAccordingToID (id: number) {
+  let result = null;
+  switch (id) {
+      case 1:
+        result = countRunnersThatFinished();
+        if (result == 0) {
+          result = options[id].content;
+        }
+        infoboxTitle.value = options[id].contentTitle;
+        infoboxContent.value = result.toString();
+        break;
+      case 2:
+        break;
+      case 3:
+        break;
+      case 4:
+        result = countRunnersInTurn1Section();
+        if (result == 0) {
+          result = options[id].content;
+        }
+        infoboxTitle.value = options[id].contentTitle;
+        infoboxContent.value = result.toString();
+        break;
+      case 5:
+        result = countRunnersInTurn2Section();
+        if (result == 0) {
+          result = options[id].content;
+        }
+        infoboxTitle.value = options[id].contentTitle;
+        infoboxContent.value = result.toString();
+        break;
+      case 6:
+        result = countRunnersThatFinished();
+        if (result == 0) {
+          result = options[id].content;
+        }
+        infoboxTitle.value = options[id].contentTitle;
+        infoboxContent.value = result.toString();
+        break;
+      case 7:
+        result = countRunnersInStartSection();
+        if (result == 0) {
+          result = options[id].content;
+        }
+        infoboxTitle.value = options[id].contentTitle;
+        infoboxContent.value = result.toString();
+        break;
+      default:
+        break;
+    }
+}
+
+watch(() => store.allResults, () => {
+  fillInfoboxAccordingToID(boxID);
+});
 
 function emitDeleteEvent() {
   emit('delete');
