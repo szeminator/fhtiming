@@ -28,6 +28,8 @@ export function fetchStartersThatDidntGetFar() {
 export function fastestWoman() {    
     let store = useStore();
     let chartdata = store.allResults;
+    let splitIDs = store.selectedSplitIDNamePairs;
+    let nettoTimeIdentifier = store.nettoTimeIdentifier;
     let females = chartdata.filter(
         data => data['gender']==="W"); 
 

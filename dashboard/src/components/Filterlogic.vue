@@ -10,7 +10,7 @@
   </form>
   <div class="input-container">
     <label for="nettoTimeID" class="form-label">Enter Netto Splitnr.</label>
-    <input type="text" id="nettoTimeID" v-model="nettoTime" placeholder="199100" class="input-field">
+    <input type="text" id="nettoTimeID" v-model="nettoTime" class="input-field">
   </div>
   <div class="dropdown-container">
     <label for="courseSelect" class="dropdown-label">Select a course</label>
@@ -85,8 +85,6 @@ import { useStore } from '../store';
 import { useRouter } from 'vue-router';
 import {fetchStartersThatDidntGetFar, selectRunnersForSplit, filterFemales, filterMales} from '../insights';
 
-
-
 interface Course {
     Coursenr: number;
     Coursename: string;
@@ -95,8 +93,8 @@ interface Course {
 
 const store = useStore();
 const router = useRouter();
-const textInput = ref('2305270');
-const nettoTime = ref('199100');
+let textInput = ref('2305270');
+let nettoTime = ref('199100');
 const numberInput = ref<number | null>(null);
 let isError = ref(false);
 const courses = ref<Course[]>([]);
@@ -131,6 +129,20 @@ const keyMappings = {
 
 const selectedCourse = ref(null);
 const selectedSplits = ref([]);
+
+watch(nettoTime, (newVal) => {
+  if (!isNaN(Number(newVal))) {
+    if (newVal) {
+      store.setNettoTimeIdentifier(parseInt(newVal));
+      isError.value = false;
+    } else {
+      isError.value = true;
+    }
+  } else {
+    isError.value = true;
+  }
+  console.log('numberInput changed to:', numberInput.value);
+});
 
 watch(checkbox_filterFemales, (newVal) => {
   if (newVal) {
@@ -361,9 +373,13 @@ watch(selectedKeys, (newKeys) => {
   }, {}
 );  
 
+
+
 onMounted(() => {
   //courses = computed(() => store.courses);
   //console.log(courses);
+  nettoTime.value = '199100';
+  textInput.value = '2305270'; 
 });
 
 const resetSplitsFilter = () => {

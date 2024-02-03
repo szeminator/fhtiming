@@ -8,6 +8,7 @@ export const useStore = defineStore({
     allSplitIDs: [] as number[],
     selectedSplitIDNamePairs: [] as any[],
     eventid: 0,
+    nettoTimeIdentifier: 0,
     nettoTime: 0,
     selectedCourse: 0,
     selectedSplitIDs: [] as string[],
@@ -39,6 +40,9 @@ export const useStore = defineStore({
     },
     setEventID(eventid: number) {
       this.eventid = eventid;
+    },
+    setNettoTimeIdentifier(identifier: number) {
+      this.nettoTimeIdentifier = identifier;
     },
     setSelectedCourse(selectedCourse: number) {
       this.selectedCourse = selectedCourse;
