@@ -113,6 +113,10 @@ watch(() => store.allResults, () => {
   fillInfoboxAccordingToID(boxID);
 });
 
+watch(() => store.nettoTimeIdentifier, () => {
+  fillInfoboxAccordingToID(boxID);
+});
+
 function emitDeleteEvent() {
   emit('delete');
 }

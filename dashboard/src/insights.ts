@@ -32,7 +32,7 @@ export function fastestWoman() {
     let nettoTimeIdentifier = store.nettoTimeIdentifier;
     let nettoSplit = splitIDs.filter(split => split.Splitnr === nettoTimeIdentifier.toString());
     if (nettoSplit.length === 0) {
-        return "no netto time identifier"; // No netto time identifier in the data
+        return "no time identifier"; // No netto time identifier in the data
     }
     let nettoSplitName = nettoSplit[0].Splitname + "_Time"; 
 
@@ -40,14 +40,14 @@ export function fastestWoman() {
         data => data['gender']==="W"); 
 
     if (females.length === 0) {
-        return "no female participants"; // No females in the data
+        return "-"; // No females in the data
     }
 
     females = females.filter(
         data => data[nettoSplitName]!="-"); 
 
     if (females.length === 0) {
-        return "no female finished"; // No females in the data
+        return "-"; // No females in the data
     }
 
     let leadingWoman = [];

@@ -133,19 +133,7 @@ const keyMappings = {
 const selectedCourse = ref(null);
 const selectedSplits = ref([]);
 
-watch(nettoTime, (newVal) => {
-  if (!isNaN(Number(newVal))) {
-    if (newVal) {
-      store.setNettoTimeIdentifier(parseInt(newVal));
-      isError.value = false;
-    } else {
-      isError.value = true;
-    }
-  } else {
-    isError.value = true;
-  }
-  console.log('numberInput changed to:', numberInput.value);
-});
+
 
 watch(checkbox_filterFemales, (newVal) => {
   if (newVal) {
@@ -183,6 +171,20 @@ watch(checkbox_filterMales, (newVal) => {
       store.setAllResultData(filterFemales());
     }
   }
+});
+
+watch(nettoTime, (newVal) => {
+  if (!isNaN(Number(newVal))) {
+    if (newVal) {
+      store.setNettoTimeIdentifier(parseInt(newVal));
+      isError.value = false;
+    } else {
+      isError.value = true;
+    }
+  } else {
+    isError.value = true;
+  }
+  console.log('numberInput changed to:', numberInput.value);
 });
 
 watch(textInput, (newVal) => {
