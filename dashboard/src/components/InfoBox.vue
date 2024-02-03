@@ -54,7 +54,7 @@ function fillInfoboxAccordingToID (id: number) {
   switch (id) {
       case 0:
         result = fastestWoman();
-        if (result == 0) {
+        if (result === null) {
           result = options[id].content;
         }
         infoboxTitle.value = options[id].contentTitle;
