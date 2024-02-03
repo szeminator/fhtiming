@@ -40,14 +40,14 @@ export function fastestWoman() {
         data => data['gender']==="W"); 
 
     if (females.length === 0) {
-        return "-"; // No females in the data
+        return "no data"; // No females in the data
     }
 
     females = females.filter(
         data => data[nettoSplitName]!="-"); 
 
     if (females.length === 0) {
-        return "-"; // No females in the data
+        return "no data"; // No females in the data
     }
 
     let leadingWoman = [];
@@ -61,6 +61,35 @@ export function fastestWoman() {
     console.log(leadingWoman.first);
     console.log(leadingWoman.last);
     return leadingWoman.first + " " + leadingWoman.last;
+}
+
+export function nextSpeakerRunner() {
+    let store = useStore();
+    let chartdata = store.allResults;
+    let splitIDs = store.selectedSplitIDNamePairs;
+    let speakerTimeIdentifier = '196';
+    let speakerSplit = splitIDs.filter(split => split.Splitnr === speakerTimeIdentifier.toString());
+    if (speakerSplit.length === 0) {
+        return "no time identifier"; // No speaker time identifier in the data
+    }
+    let speakerSplitName = speakerSplit[0].Splitname + "_Time"; 
+
+    let runners = chartdata.filter(data => data[speakerSplitName]!="-"); 
+    if (runners.length === 0) {
+        return "no data"; // None at speaker in the data
+    }
+
+    let nextRunner = [];
+    for (let i = 0; i < runners.length; i++) {
+        if (nextRunner.length == 0 || runners[i][speakerSplitName] > nextRunner[speakerSplitName]) {
+            nextRunner = runners[i];
+        }
+    }
+
+    console.log(nextRunner);
+    console.log(nextRunner.first);
+    console.log(nextRunner.last);
+    return nextRunner.first + " " + nextRunner.last;
 }
 
 export function filterFemales(){
