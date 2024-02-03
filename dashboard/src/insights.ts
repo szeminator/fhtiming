@@ -57,10 +57,48 @@ export function fastestWoman() {
         }
     }
 
-    console.log(leadingWoman);
-    console.log(leadingWoman.first);
-    console.log(leadingWoman.last);
+    //console.log(leadingWoman);
+    //console.log(leadingWoman.first);
+    //console.log(leadingWoman.last);
     return leadingWoman.first + " " + leadingWoman.last;
+}
+
+export function fastestMan() {    
+    let store = useStore();
+    let chartdata = store.allResults;
+    let splitIDs = store.selectedSplitIDNamePairs;
+    let nettoTimeIdentifier = store.nettoTimeIdentifier;
+    let nettoSplit = splitIDs.filter(split => split.Splitnr === nettoTimeIdentifier.toString());
+    if (nettoSplit.length === 0) {
+        return "no time identifier"; // No netto time identifier in the data
+    }
+    let nettoSplitName = nettoSplit[0].Splitname + "_Time"; 
+
+    let males = chartdata.filter(
+        data => data['gender']==="M"); 
+
+    if (males.length === 0) {
+        return "no data"; // No females in the data
+    }
+
+    males = males.filter(
+        data => data[nettoSplitName]!="-"); 
+
+    if (males.length === 0) {
+        return "no data"; // No females in the data
+    }
+
+    let leadingMan = [];
+    for (let i = 0; i < males.length; i++) {
+        if (leadingMan.length == 0 || males[i][nettoSplitName] < leadingMan[nettoSplitName]) {
+            leadingMan = males[i];
+        }
+    }
+
+    //console.log(leadingMan);
+    //console.log(leadingMan.first);
+    //console.log(leadingMan.last);
+    return leadingMan.first + " " + leadingMan.last;
 }
 
 export function nextSpeakerRunner() {
@@ -119,6 +157,36 @@ export function selectRunnersForSplit() {
     return filteredData;
 }
 
+export function countAllRunners() {
+    let store = useStore();
+    let chartdata = store.allResults;
+    return chartdata.length;
+
+}
+
+
+export function countRunnersThatDidntStartYet() {
+    let store = useStore();
+    let chartdata = store.allResults;
+    let allSplitIDNamePairs = store.selectedSplitIDNamePairs;
+
+    let splitNameForStart = allSplitIDNamePairs.find(split => split.Splitnr === startSplitID.toString())?.Splitname + "_Time"
+
+    let filteredData = chartdata.filter(data => 
+        data[splitNameForStart] && data[splitNameForStart] == "-" && data['status'] != "DNF"
+    );
+    return filteredData.length;
+}
+
+export function countRunnersThatDNF() {
+    let store = useStore();
+    let chartdata = store.allResults;
+    let filteredData = chartdata.filter(data => 
+        data['status'] === "DNF"
+    );
+    return filteredData.length;
+}
+
 export function countRunnersInStartSection() {
     let store = useStore();
     let chartdata = store.allResults;
@@ -133,7 +201,7 @@ export function countRunnersInStartSection() {
         data[splitNameForStart] && data[splitNameForStart] !== "-" &&
         (!data[splitNameForTurn1] || data[splitNameForTurn1] === "-") &&
         (!data[splitNameForTurn2] || data[splitNameForTurn2] === "-") &&
-        (!data[splitNameForFinish] || data[splitNameForFinish] === "-")
+        (!data[splitNameForFinish] || data[splitNameForFinish] === "-") && data['status'] != "DNF"
     );
     return filteredData.length;
 }
@@ -150,7 +218,7 @@ export function countRunnersInTurn1Section() {
     let filteredData = chartdata.filter(data => 
         data[splitNameForTurn1] && data[splitNameForTurn1] !== "-" &&
         (!data[splitNameForTurn2] || data[splitNameForTurn2] === "-") &&
-        (!data[splitNameForFinish] || data[splitNameForFinish] === "-")
+        (!data[splitNameForFinish] || data[splitNameForFinish] === "-") && data['status'] != "DNF"
     );
 
     return filteredData.length;
@@ -166,7 +234,7 @@ export function countRunnersInTurn2Section() {
 
     let filteredData = chartdata.filter(data => 
         data[splitNameForTurn2] && data[splitNameForTurn2] !== "-" &&
-        (!data[splitNameForFinish] || data[splitNameForFinish] === "-")
+        (!data[splitNameForFinish] || data[splitNameForFinish] === "-") && data['status'] != "DNF"
     );
 
     return filteredData.length;
@@ -180,7 +248,7 @@ export function countRunnersThatFinished() {
     let splitNameForFinish = allSplitIDNamePairs.find(split => split.Splitnr === finishSplitID.toString())?.Splitname + "_Time"
 
     let filteredData = chartdata.filter(data => 
-        data[splitNameForFinish] && data[splitNameForFinish] !== "-"
+        data[splitNameForFinish] && data[splitNameForFinish] !== "-" && data['status'] != "DNF"
     );
 
     return filteredData.length;

@@ -2,7 +2,7 @@
 
 import { ref, watch} from 'vue';
 import Options from './InfoBoxOptions.vue'; // import your Questions.vue component
-import { fastestWoman, countRunnersThatFinished, countRunnersInTurn1Section, countRunnersInTurn2Section, countRunnersInStartSection } from '../insights.ts';
+import { fastestWoman, countRunnersThatFinished, countRunnersInTurn1Section, countRunnersInTurn2Section, countRunnersInStartSection, countRunnersThatDidntStartYet, countAllRunners, nextSpeakerRunner, countRunnersThatDNF, fastestMan } from '../insights.ts';
 import { useStore } from '../store';
 
 // Reactive state
@@ -61,34 +61,22 @@ function fillInfoboxAccordingToID (id: number) {
         infoboxContent.value = result.toString();
         break;
       case 1:
+        result = fastestMan();
+        if (result === null) {
+          result = options[id].content;
+        }
+        infoboxTitle.value = options[id].contentTitle;
+        infoboxContent.value = result.toString();
         break;
       case 2:
+         result = nextSpeakerRunner();
+        if (result === null) {
+          result = options[id].content;
+        }
+        infoboxTitle.value = options[id].contentTitle;
+        infoboxContent.value = result.toString();
         break;
       case 3:
-        result = countRunnersInTurn1Section();
-        if (result == 0) {
-          result = options[id].content;
-        }
-        infoboxTitle.value = options[id].contentTitle;
-        infoboxContent.value = result.toString();
-        break;
-      case 4:
-        result = countRunnersInTurn2Section();
-        if (result == 0) {
-          result = options[id].content;
-        }
-        infoboxTitle.value = options[id].contentTitle;
-        infoboxContent.value = result.toString();
-        break;
-      case 5:
-        result = countRunnersThatFinished();
-        if (result == 0) {
-          result = options[id].content;
-        }
-        infoboxTitle.value = options[id].contentTitle;
-        infoboxContent.value = result.toString();
-        break;
-      case 6:
         result = countRunnersInStartSection();
         if (result == 0) {
           result = options[id].content;
@@ -96,13 +84,53 @@ function fillInfoboxAccordingToID (id: number) {
         infoboxTitle.value = options[id].contentTitle;
         infoboxContent.value = result.toString();
         break;
+      case 4:
+        result = countRunnersInTurn1Section();
+        if (result == 0) {
+          result = options[id].content;
+        }
+        infoboxTitle.value = options[id].contentTitle;
+        infoboxContent.value = result.toString();
+        break;
+      case 5:
+        result = countRunnersInTurn2Section();
+        if (result == 0) {
+          result = options[id].content;
+        }
+        infoboxTitle.value = options[id].contentTitle;
+        infoboxContent.value = result.toString();
+        break;
+      case 6:
+        result = countRunnersThatFinished();
+        if (result == 0) {
+          result = options[id].content;
+        }
+        infoboxTitle.value = options[id].contentTitle;
+        infoboxContent.value = result.toString();
+        break;
       case 7:
-      result = countRunnersInStartSection();
-      if (result == 0) {
-        result = options[id].content;
-      }
-      infoboxTitle.value = options[id].contentTitle;
-      infoboxContent.value = result.toString();
+        result = countRunnersThatDNF();
+        if (result == 0) {
+          result = options[id].content;
+        }
+        infoboxTitle.value = options[id].contentTitle;
+        infoboxContent.value = result.toString();
+        break;
+      case 8:
+        result = countRunnersThatDidntStartYet();
+        if (result == 0) {
+          result = options[id].content;
+        }
+        infoboxTitle.value = options[id].contentTitle;
+        infoboxContent.value = result.toString();
+        break;
+      case 9:
+        result = countAllRunners();
+        if (result == 0) {
+          result = options[id].content;
+        }
+        infoboxTitle.value = options[id].contentTitle;
+        infoboxContent.value = result.toString();
       break;
       default:
         break;
