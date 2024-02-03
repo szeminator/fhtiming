@@ -35,14 +35,14 @@ export function fastestWoman() {
         return null; // No females in the data
         }
 
-        let leadingWoman = females[0];
-        for (let i = 1; i < females.length; i++) {
+    let leadingWoman = females[0];
+    for (let i = 1; i < females.length; i++) {
         if (females[i]['nettoTime'] < leadingWoman['nettoTime']) {
             leadingWoman = females[i];
         }
-        }
-        console.log(leadingWoman);
-        return leadingWoman;
+    }
+    console.log(leadingWoman);
+    return leadingWoman.first + " " + leadingWoman.last;
 }
 
 export function filterFemales(){
