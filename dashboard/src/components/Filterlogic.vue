@@ -5,10 +5,13 @@
       <label for="textInput" class="form-label">Enter Race ID</label>
       <input type="text" id="textInput" v-model="textInput" placeholder="Enter a number" class="input-field">
     </div>
-    <p class="error-text" v-if="isError">Bitte eine gültige RaceID eingeben</p>
+    <p class="error-text" v-if="isError">Please enter a valid Race ID</p>
     <button class="start-button" type="submit">START</button>
   </form>
-
+  <div class="input-container">
+    <label for="nettoTimeID" class="form-label">Enter Netto Splitnr.</label>
+    <input type="text" id="nettoTimeID" v-model="nettoTime" placeholder="199100" class="input-field">
+  </div>
   <div class="dropdown-container">
     <label for="courseSelect" class="dropdown-label">Select a course</label>
     <select v-model="selectedCourse" id="courseSelect" class="dropdown-select">
@@ -93,6 +96,7 @@ interface Course {
 const store = useStore();
 const router = useRouter();
 const textInput = ref('2305270');
+const nettoTime = ref('199100');
 const numberInput = ref<number | null>(null);
 let isError = ref(false);
 const courses = ref<Course[]>([]);
@@ -106,6 +110,7 @@ let intervalId: number | null | undefined = null;
 const checkbox_filterFemales = ref(false);
 const checkbox_filterMales = ref(false);
 
+console.log(store.nettoTime);
 
 const keyMappings = {
   start: 'Start Number',

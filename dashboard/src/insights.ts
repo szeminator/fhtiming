@@ -25,6 +25,26 @@ export function fetchStartersThatDidntGetFar() {
     return filteredData;
 }
 
+export function fastestWoman() {    
+    let store = useStore();
+    let chartdata = store.allResults;
+    let females = chartdata.filter(
+        data => data['gender']==="W"); 
+
+    if (females.length === 0) {
+        return null; // No females in the data
+        }
+
+        let leadingWoman = females[0];
+        for (let i = 1; i < females.length; i++) {
+        if (females[i]['nettoTime'] < leadingWoman['nettoTime']) {
+            leadingWoman = females[i];
+        }
+        }
+        console.log(leadingWoman);
+        return leadingWoman;
+}
+
 export function filterFemales(){
     let store = useStore();
     let chartdata = store.allResults;

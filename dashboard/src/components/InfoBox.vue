@@ -2,7 +2,7 @@
 
 import { ref, watch} from 'vue';
 import Options from './InfoBoxOptions.vue'; // import your Questions.vue component
-import { countRunnersThatFinished, countRunnersInTurn1Section, countRunnersInTurn2Section, countRunnersInStartSection } from '../insights.ts';
+import { fastestWoman, countRunnersThatFinished, countRunnersInTurn1Section, countRunnersInTurn2Section, countRunnersInStartSection } from '../insights.ts';
 import { useStore } from '../store';
 
 // Reactive state
@@ -52,19 +52,19 @@ const handleSelection = (selectedOption: { boxOptionID: number }) => {
 function fillInfoboxAccordingToID (id: number) {
   let result = null;
   switch (id) {
-      case 1:
-        result = countRunnersThatFinished();
+      case 0:
+        result = fastestWoman();
         if (result == 0) {
           result = options[id].content;
         }
         infoboxTitle.value = options[id].contentTitle;
         infoboxContent.value = result.toString();
         break;
+      case 1:
+        break;
       case 2:
         break;
       case 3:
-        break;
-      case 4:
         result = countRunnersInTurn1Section();
         if (result == 0) {
           result = options[id].content;
@@ -72,7 +72,7 @@ function fillInfoboxAccordingToID (id: number) {
         infoboxTitle.value = options[id].contentTitle;
         infoboxContent.value = result.toString();
         break;
-      case 5:
+      case 4:
         result = countRunnersInTurn2Section();
         if (result == 0) {
           result = options[id].content;
@@ -80,7 +80,7 @@ function fillInfoboxAccordingToID (id: number) {
         infoboxTitle.value = options[id].contentTitle;
         infoboxContent.value = result.toString();
         break;
-      case 6:
+      case 5:
         result = countRunnersThatFinished();
         if (result == 0) {
           result = options[id].content;
@@ -88,7 +88,7 @@ function fillInfoboxAccordingToID (id: number) {
         infoboxTitle.value = options[id].contentTitle;
         infoboxContent.value = result.toString();
         break;
-      case 7:
+      case 6:
         result = countRunnersInStartSection();
         if (result == 0) {
           result = options[id].content;
@@ -96,6 +96,14 @@ function fillInfoboxAccordingToID (id: number) {
         infoboxTitle.value = options[id].contentTitle;
         infoboxContent.value = result.toString();
         break;
+      case 7:
+      result = countRunnersInStartSection();
+      if (result == 0) {
+        result = options[id].content;
+      }
+      infoboxTitle.value = options[id].contentTitle;
+      infoboxContent.value = result.toString();
+      break;
       default:
         break;
     }
@@ -145,7 +153,7 @@ function emitDeleteEvent() {
     align-self: flex-start;
     margin: 0px;
     text-align: left;
-    font-size: 24px;
+    font-size: 22px;
     font-style: normal;
     font-weight: 700;
   }
@@ -155,7 +163,7 @@ function emitDeleteEvent() {
     margin-bottom: 0px;
     align-self: flex-end;
     color: #76C657;
-    font-size: 28px;
+    font-size: 22px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
