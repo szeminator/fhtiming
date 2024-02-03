@@ -329,6 +329,8 @@ watch(selectedCourse, async (newCourse) => {
     store.setSelectedSplitIDs([]);
     fetchStartersThatDidntGetFar();
     selectRunnersForSplit();
+    checkbox_filterFemales.value = false;
+    checkbox_filterMales.value = false;
     //console.log("Chartdata got updated" + chartdata);
   }
 });
