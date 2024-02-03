@@ -93,8 +93,11 @@ interface Course {
 
 const store = useStore();
 const router = useRouter();
+
 let textInput = ref('2305270');
+store.setEventID(2305270);
 let nettoTime = ref('199100');
+store.setNettoTimeIdentifier(199100);
 const numberInput = ref<number | null>(null);
 let isError = ref(false);
 const courses = ref<Course[]>([]);

@@ -30,20 +30,36 @@ export function fastestWoman() {
     let chartdata = store.allResults;
     let splitIDs = store.selectedSplitIDNamePairs;
     let nettoTimeIdentifier = store.nettoTimeIdentifier;
+    let nettoSplit = splitIDs.filter(split => split.Splitnr === nettoTimeIdentifier.toString());
+    if (nettoSplit.length === 0) {
+        return "no netto time identifier"; // No netto time identifier in the data
+    }
+    let nettoSplitName = nettoSplit[0].Splitname + "_Time"; 
+
     let females = chartdata.filter(
         data => data['gender']==="W"); 
 
     if (females.length === 0) {
-        return null; // No females in the data
-        }
+        return "no female participants"; // No females in the data
+    }
 
-    let leadingWoman = females[0];
-    for (let i = 1; i < females.length; i++) {
-        if (females[i]['nettoTime'] < leadingWoman['nettoTime']) {
+    females = females.filter(
+        data => data[nettoSplitName]!="-"); 
+
+    if (females.length === 0) {
+        return "no female finished"; // No females in the data
+    }
+
+    let leadingWoman = [];
+    for (let i = 0; i < females.length; i++) {
+        if (leadingWoman.length == 0 || females[i][nettoSplitName] < leadingWoman[nettoSplitName]) {
             leadingWoman = females[i];
         }
     }
+
     console.log(leadingWoman);
+    console.log(leadingWoman.first);
+    console.log(leadingWoman.last);
     return leadingWoman.first + " " + leadingWoman.last;
 }
 
