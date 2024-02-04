@@ -2,12 +2,15 @@ name: Build and Push Docker Image
 
 on:
   push:
-    branches: [main] # Trigger the workflow on push to main branch
+    branches:
+      - main # Trigger the workflow on push to main branch
+    tags:
+      - "*" # Also trigger the workflow on push to any tag
 
 jobs:
-  build:
+  build_and_push_latest:
     runs-on: ubuntu-latest
-
+    if: github.ref == 'refs/heads/main' # Only run this job for pushes to main branch
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -35,3 +38,44 @@ jobs:
           context: ./dashboard # Adjust the context to the directory containing the Dockerfile
           push: true
           tags: szeminator/fhtiming:latest
+
+  build_push_tag_and_deploy:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/') # Only run this job for tag pushes
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: "20" # Specify the Node.js version
+
+      - name: Install dependencies and build
+        run: |
+          cd dashboard
+          npm ci
+          npm run build
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker
+        uses: docker/build-push-action@v2
+        with:
+          context: ./dashboard # Adjust the context to the directory containing the Dockerfile
+          push: true
+          tags: szeminator/fhtiming:latest
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: valheim.specialheroes.at
+          port: 1234
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            echo '${{ secrets.SERVER_PASSWORD }}' | sudo -S sh -c 'cd /opt/docker/fhtiming && docker-compose stop && docker-compose pull && docker-compose up -d'
