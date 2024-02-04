@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="start-container">
       <h1>FH Timing Streckenauswertung</h1>
       <p>
         Streckenauswertung bietet eine visuelle Darstellung der Zeitdaten von Läufer:innen, Fahrer:innen und Radfahrer:innen. 
@@ -7,5 +7,5 @@
         Dies ermöglicht eine effektive Analyse und verbessert das Verständnis der Rennbedingungen.
       </p>
     </div>
-  </template>
+</template>
   

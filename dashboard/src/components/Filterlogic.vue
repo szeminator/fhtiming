@@ -11,6 +11,7 @@
   <div class="input-container">
     <label for="nettoTimeID" class="form-label">Enter Time Identifier</label>
     <input type="text" id="nettoTimeID" v-model="nettoTime" class="input-field">
+    <p class="error-text" v-if="isTimeError">Please enter a valid Time Identifier</p>
   </div>
   <div class="dropdown-container">
     <label for="courseSelect" class="dropdown-label">Select a course</label>
@@ -100,6 +101,7 @@ let nettoTime = ref('199100');
 store.setNettoTimeIdentifier(199100);
 const numberInput = ref<number | null>(null);
 let isError = ref(false);
+let isTimeError = ref(false);
 const courses = ref<Course[]>([]);
 let splits = ref<any[]>([]);
 let chartdata = [] as any[];
@@ -167,12 +169,12 @@ watch(nettoTime, (newVal) => {
   if (!isNaN(Number(newVal))) {
     if (newVal) {
       store.setNettoTimeIdentifier(parseInt(newVal));
-      isError.value = false;
+      isTimeError.value = false;
     } else {
-      isError.value = true;
+      isTimeError.value = true;
     }
   } else {
-    isError.value = true;
+    isTimeError.value = true;
   }
 });
 
