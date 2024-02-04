@@ -1,10 +1,10 @@
 <template>
     <div class="start-container">
-      <h1>FH Timing Streckenauswertung</h1>
+      <h1>FH TT - Timing Tracker</h1>
       <p>
-        Streckenauswertung bietet eine visuelle Darstellung der Zeitdaten von Läufer:innen, Fahrer:innen und Radfahrer:innen. 
-        Durch Diagramme und Tabellen können Sie leicht die Leistung jedes/jeder Teilnehmers/Teilnehmerin verfolgen und vergleichen. 
-        Dies ermöglicht eine effektive Analyse und verbessert das Verständnis der Rennbedingungen. Und durch die flexible Splitnummer können Sie die Leistung in verschiedenen Abschnitten der Strecke vergleichen.
+        Course evaluation provides a visual representation of the time data of runners, riders and cyclists. 
+        Charts and tables allow you to easily track and compare the performance of each participant. 
+        This enables effective analysis and improves understanding of race conditions. And the flexible split number allows you to compare performance in different sections of the course.
       </p>
     </div>
 </template>
