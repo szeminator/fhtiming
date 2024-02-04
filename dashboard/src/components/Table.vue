@@ -82,17 +82,12 @@ function findKey(value) {
 
 // Create a ref that will be used to force a re-render
 let renderKey = ref(0);
-
 // Watch for changes in combinedKeys
 watch(combinedKeys, () => {
   // Increment renderKey to force a re-render
- // console.log('combinedKeys changed', combinedKeys.value);
   renderKey.value++;
-  //console.log('renderKey changed', renderKey.value);
 });
-watch(keyMappings, () => {
- // console.log('keyMappings changed', keyMappings.value);
-});
+
 
 watch(() => selectedCourse.value, () => {
     sortKey.value = null;
