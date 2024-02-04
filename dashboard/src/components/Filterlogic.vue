@@ -333,7 +333,6 @@ watch(selectedKeys, (newKeys) => {
 
 
 onMounted(() => {
-
   nettoTime.value = '199100';
   textInput.value = '2305270'; 
 });
