@@ -110,6 +110,7 @@ let progressIntervalId: number | null | undefined = null;
 let intervalId: number | null | undefined = null;
 const checkbox_filterFemales = ref(false);
 const checkbox_filterMales = ref(false);
+let intervalLengthInSeconds = 10;
 
 
 const keyMappings = {
@@ -225,9 +226,9 @@ watch(textInput, (newVal) => {
 watch(autoRefresh, (newVal) => {
   if (newVal) {
       progressIntervalId = setInterval(() => {
-        progress.value = (progress.value + 2) % 100;
-      }, 100);
-      intervalId = setInterval(refresh, 5000);
+        progress.value = (progress.value + 1) % 100;
+      }, intervalLengthInSeconds * 10);
+      intervalId = setInterval(refresh, intervalLengthInSeconds * 1000);
 
     } else {
       if (progressIntervalId) {
