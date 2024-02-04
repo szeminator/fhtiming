@@ -1,6 +1,6 @@
 <template>
     <div class="impressum">
-        <div class="content">
+        <div class="impressum-content">
             <p class="lead">The FH-timing team at Carinthia University of Applied Sciences (Fachhochschule Kärnten)</p>
             <p class="address">
                 Fachhochschule Kärnten<br>
@@ -17,36 +17,3 @@
         </div>
     </div>
 </template>
-
-<style scoped>
-.impressum {
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.content {
-    max-width: 600px;
-}
-
-.lead {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-}
-
-.address, .contact {
-    line-height: 1.6;
-}
-
-.contact a {
-    color: var(--text-color);
-    text-decoration: none;
-}
-
-.contact a:hover {
-    text-decoration: underline;
-    color: #76C657;
-}
-</style>

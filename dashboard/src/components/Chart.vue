@@ -11,9 +11,6 @@
   import { countRunnersAtEachSection } from '../insights'
   import { useStore } from '../store';
 
-
-
-
   const store = useStore();
   const state = reactive({
     rawData: [],
@@ -21,31 +18,6 @@
   });
   let chart: string | Chart<"bar", never[], string> | null = null;
 
-
-  function displayDetailTable(dataIndex: number) {
-  // Fetch or generate data for the selected bar
-  const details = getDetailsForBar(dataIndex); // Implement this function based on your data
-
-  // Update the HTML of the detail table
-  const detailTableDiv = document.getElementById('detailTable');
-  if (detailTableDiv) {
-    // @ts-ignore
-    detailTableDiv.innerHTML = generateTableHTML(details); // Implement this function to generate HTML
-  } else {
-    console.error('Element with id "detailTable" not found');
-  }
-}
-
-function getDetailsForBar(_index: any) {
-  // Implement logic to fetch or generate detailed data for the given index
-  // This will depend on your data structure and what you want to show
-}
-
-function generateTableHTML(details: any[]) {
-  // Generate and return HTML string based on the details data
-  // Example:
-  return `<table>${details.map((detail: { name: any; }) => `<tr><td>${detail.name}</td></tr>`).join('')}</table>`;
-}
 
   watch(() => store.allResults, () => {
     // @ts-ignore
@@ -59,7 +31,7 @@ function generateTableHTML(details: any[]) {
       return [start, end];
     });
 
-    console.log("updated graph " + chart);
+    
     // @ts-ignore
     chart.data.datasets[0].data = state.data;
 
@@ -81,8 +53,6 @@ function generateTableHTML(details: any[]) {
     let differences = state.data.map((value) => {
         return value[1] - value[0];
     });
-
-    console.log(state.data);
     const ctx = document.getElementById('myChart') as HTMLCanvasElement;
     if (ctx) {
       chart = new Chart(ctx, {
@@ -120,14 +90,6 @@ function generateTableHTML(details: any[]) {
         x: {
         }
       },
-      onClick: (_event, activeElements) => {
-      if (activeElements.length > 0) {
-        const chartElement = activeElements[0];
-        // Assuming your data set includes an identifier to fetch detailed information
-        const dataIndex = chartElement.index;
-        displayDetailTable(dataIndex);
-      }
-    },
       plugins: {
         title: {
         display: true,
@@ -159,13 +121,3 @@ function generateTableHTML(details: any[]) {
 });
 
   </script>
-  
-  <style scoped>
-  #myChart {
-    display: flex;
-  }
-
-  .detail-table {
-  /* Add styling for your detail table here */
-}
-  </style>

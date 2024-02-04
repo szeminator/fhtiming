@@ -104,3 +104,763 @@ button:focus-visible {
   padding: 2rem;
   text-align: center;
 }
+
+/* InfoBox*/
+
+.infobox {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 188px;
+  min-height: 108px;
+  padding: 9px;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 5px;
+  border: 2px solid var(--Bright-Cape-colors-BC-Blue, #417DA8);
+  box-shadow: 5px 5px 5px 0px var(--infobox-shadow);
+}
+
+.title {
+  align-self: flex-start;
+  margin: 0px;
+  text-align: left;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.content {
+  margin-top: auto;
+  margin-bottom: 0px;
+  align-self: flex-end;
+  color: #76C657;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.14px;
+  text-align: right;
+}
+
+.title, .content {
+  padding: 2px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.control-buttons {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  display: flex;
+  gap: 8px;
+}
+
+.delete-button, .config-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #76C657;
+  border-radius: 50%;
+  padding: 4px;
+  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+}
+
+.delete-button img, .config-icon img {
+  display: block;
+  margin: auto;
+  width: 24px;
+  height: 24px;
+}
+
+/* Table */
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.styled-table th.header {
+  font-weight: bold; /* Makes the header text bold */
+  padding: 10px; /* Adds padding around the text, adjust as needed */
+}
+
+.th.header{
+  border-bottom: 1px solid #76C657
+}
+
+.styled-table th, .styled-table td {
+  border-right: 1px solid #417DA8; /* Adds a thin right border to each cell */
+  padding: 10px; /* Adds padding around the text, adjust as needed */
+}
+
+.styled-table th:last-child, .styled-table td:last-child {
+  border-right: none; /* Removes the right border for the last cell */
+}
+
+.styled-table tr:nth-child(even) {
+  background-color: var(--table-row-bg-light);
+  color: var(--table-row-text-light);
+}
+
+.dark-theme .styled-table tr:nth-child(even) {
+  background-color: var(--table-row-bg-dark);
+  color: var(--table-row-text-dark);
+}
+
+.highlighted {
+  background-color: #f0f0f0;
+}
+
+
+/* Impressum */
+
+.impressum {
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  max-width: 600px;
+
+}
+
+.impressum-content {
+  max-width: 600px;
+}
+
+.lead {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.address, .contact {
+  line-height: 1.6;
+}
+
+.contact a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.contact a:hover {
+  text-decoration: underline;
+  color: #76C657;
+}
+
+/* App */
+
+.header-sidebar-container {
+  position: relative; /* Container for header and sidebar */
+}
+
+.content-with-sidebar {
+  margin-left: 276px; /* Adjust to match the sidebar's width */
+  width: calc(100% - 256px); /* Adjust the width */
+  padding-top: 0px;
+  z-index: 1500;
+}
+
+.content-full-width {
+  margin-left: 20px;
+  width: 100%;
+  padding-top: 0px;
+  padding-left: 15px;
+}
+.info-container {
+  display: flex;
+  justify-content: start;
+  gap: 20px; 
+  margin-bottom: 40px;
+  margin-top: 135px;
+}
+
+.sidebar {
+  transition: transform 0.3s;
+  transform: translateX(0); /* Default state */
+  background-color: var(--sidebar-bg); /* Use the background color variable */
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar-hidden {
+  transform: translateX(-100%); /* Hidden state */
+}
+.dark-theme .sidebar {
+  background-color: var(--sidebar-bg);
+}
+.toggle-button:focus {
+  outline: none; /* Removes the outline on focus as well */
+}
+.toggle-button {
+  position: fixed;
+  top: 90px; /* Adjust as needed */
+  left: 15px; /* Adjust as needed */
+  background: none; /* Remove background if you want only the SVG to be visible */
+  cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+  z-index: 1500;
+  padding: 0px;
+  border-radius: 50%;
+  outline: none; /* Remove focus ring for accessibility */
+}
+
+.toggle-button:active {
+  box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15); /* Reduced shadow for pressed effect */
+  transform: translateY(2px); /* Slightly move the button down to mimic pressing */
+}
+.toggle-button img {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  padding: 8px;
+  background: #76C657;
+  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+  outline: none; /* Removes the outline on focus as well */
+}
+
+.add-button {
+  position: fixed; /* Use fixed positioning */
+  top: 90px; /* Align vertically with the toggle button */
+  background-color: #76C657;
+  border-radius: 50%;
+  padding: 8px;
+  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add-button-sidebar-visible {
+  left: calc(276px + 30px); /* Adjust this to align with the sidebar */
+}
+
+.add-button-sidebar-hidden {
+  left: 65px; /* Align with the content when sidebar is hidden */
+}
+
+.router-view-with-infobox {
+  /* Styling when there are InfoBoxes */
+  margin-top: 20px; /* Example value, adjust as needed */
+}
+
+.router-view-no-infobox {
+  /* Styling when there are no InfoBoxes */
+  margin-top: 0px; /* Example value, adjust as needed */
+}
+
+/* Sidebar */
+
+.sidebar-container {
+  position: fixed; /* Fixed position */
+  top: 0; /* Start from the top of the page */
+  left: 0; /* Align to the left */
+  width: 280px; /* Or any other width you prefer */
+  height: 100vh; /* Full height of the viewport */
+  z-index: 1000; /* Ensure it's above other elements */
+  overflow-y: auto; /* Add scroll for overflow content */
+  border-right: 1px solid #d3d3d3; /* Greyish border at the bottom */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Slight shadow for depth */
+  background-color: var(--sidebar-bg); /* Use the background color variable */
+}
+
+.sidebar-content {
+  padding-top: 150px; /* Start the content below the header */
+  text-size-adjust: 80%;
+}
+
+/* InfoBoxOptions */
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-color); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal-content {
+  background-color: var(--bg-color); 
+  border-radius: 5px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  color: #76C657;
+
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+.modal-button {
+color: var(--text-color);
+background-color: var(--bg-color);
+border: 1px solid #76C657;
+width: 100%;
+transition: background-color 0.3s, color 0.3s, transform 0.2s;
+cursor: pointer;
+padding: 10px;
+font-size: 16px;
+border-radius: 5px;
+}
+
+.modal-button:hover {
+background-color: #9BE77D; /* Lighter green color */
+color: var(--text-color);
+}
+
+.modal-button:active {
+background-color: #659C44; /* Darker green for pressed state */
+transform: scale(0.98); /* Slightly scale down when pressed */
+}
+.closeButton {
+color: var(--text-color);
+background-color: var(--bg-color);
+border: 1px solid #c9302e;
+width: 100%;
+transition: background-color 0.3s, color 0.3s, transform 0.2s;
+/* Add more styling as needed */
+cursor: pointer;
+padding: 10px;
+font-size: 16px;
+border-radius: 5px;
+}
+.closeButton:hover {
+background-color: #d15f5f; 
+color: var(--text-color);
+}
+
+.closeButton:active {
+background-color: #c22424ef; 
+transform: scale(0.98); /* Slightly scale down when pressed */
+}
+
+/* FilterLogic */
+
+.split-list {
+  margin: 0;
+  padding: 0;
+}
+
+.split-item {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  left: 20px; /* Adjusts to align with the text inside the select */
+  font-family: 'Open Sans', sans-serif;
+  margin-left: 15px;
+}
+.split-item input[type="checkbox"] {
+  margin-right: 10px; /* Space between the checkbox and the label */
+}
+
+.text {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  color: #76C657;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  font-family: 'Open Sans', sans-serif;
+}
+
+.hidden-checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+.dropdown-select ::selection {
+  background: #76C657; /* Your desired green color */
+  color: white; /* Text color */
+}
+
+.dropdown-select option:hover {
+  background-color: #76C657 !important; /* Green */
+  color: white;
+}
+
+.dropdown-select option:checked {
+  background-color: #76C657 !important; /* Your desired green color */
+  color: white;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 24px;
+}
+
+.custom-checkbox {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  border: 2px solid #76C657;
+  border-radius: 4px;
+  position: relative;
+}
+
+.checkmark {
+  color: #76C657;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  line-height: 1;
+  display: none;  /* Aligns the checkmark vertically */
+}
+
+select {
+  font-size: 0.8rem; /* Smaller font size */
+  padding: 0.4rem 0.8rem; /* Smaller padding */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 0.5rem; /* Less margin below the dropdown */
+  cursor: pointer;
+  width: auto; /* Adjust width to content or set a specific size */
+  display: block; /* Ensure it doesn't inline with other elements */
+  color: var(--text-color);
+}
+
+.dropdown-container {
+  position: relative;
+  margin-bottom: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown-label {
+  position: absolute;
+  top: -0.6rem; /* Adjusts to move the label slightly above the select */
+  left: 20px; /* Adjusts to align with the text inside the select */
+  padding: 0 0.4rem;
+  background-color: var(--sidebar-bg); /* Use the background color variable */
+  font-size: 0.8rem;
+  transition: all 0.3s;
+  pointer-events: none;
+  user-select: none;
+  color: #76C657;
+}
+
+.dropdown-select {
+  font-size: 0.8rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #76C657;
+  border-radius: 4px;
+  cursor: pointer;
+  width: calc(100% - 30px);
+  display: block; 
+  margin-top: 1.2rem; 
+  margin-left: 15px;
+  margin-bottom: 15px;
+  background-color: var(--sidebar-bg); /* Use the background color variable */
+}
+
+.input-container {
+  position: relative;
+  margin-bottom: 1rem;
+  width: calc(100% - 30px);
+}
+
+.input-field {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #76C657;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: var(--text-color);
+  background-color: var(--sidebar-bg); /* Use the background color variable */
+  width: calc(100% - 30px);
+  margin-top: 1.2rem; /* Space for the label */
+  /* Other styles as needed */
+  margin-left: 15px;
+}
+
+.form-label {
+  position: absolute;
+  top: 0.4rem; /* Adjust this to position the label inside the border */
+  left: 20px; /* Adjust as needed */
+  background-color: var(--sidebar-bg); /* Use the background color variable */
+  padding: 0 0.4rem;
+  font-size: 0.8rem;
+  transition: all 0.3s;
+  pointer-events: none;
+  user-select: none;
+  color: #76C657;
+}
+
+.start-button {
+  width: fit-content; /* Adjust this value to your liking */
+  margin: 10px auto; /* Centers the elements */
+  display: block; /* Needed for margin auto to work */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adds shadow */
+  transition: box-shadow 0.3s ease; /* Smooth transition for the shadow */
+  background-color: #4CAF50;
+  color: white;
+  opacity: 0.9;
+  margin-top: 10px;
+  margin-bottom: 25px;
+  }
+  
+
+.start-button:hover {
+  background-color: #9BE77D; /* Lighter green color */
+  color: var(--text-color);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* Slightly larger shadow on hover */
+}
+
+.start-button:active {
+  background-color: #659C44; /* Darker green for pressed state */
+  transform: scale(0.98); /* Slightly scale down when pressed */
+}
+
+.reset-button {
+  background-color: #c22424ef;
+  color: white;
+  opacity: 0.9;
+  border: none; /* Optional: removes the default border */
+  padding: 10px 15px; /* Adjust padding as needed */
+  border-radius: 5px; /* Optional: rounds the corners of the button */
+  cursor: pointer; /* Changes the cursor to a pointer when hovering over the button */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adds shadow */
+  transition: box-shadow 0.3s ease; /* Smooth transition for the shadow */
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.reset-button:hover {
+  background-color: #c22424ef; 
+  color: var(--text-color);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* Slightly larger shadow on hover */
+
+}
+
+.reset-button:active {
+  background-color: #7e1c1cef; /* Darker green for pressed state */
+  transform: scale(0.98); /* Slightly scale down when pressed */
+}
+
+/* Custom styles for progress bar */
+/* Style for the autorefresh checkbox to match other checkboxes */
+.toggle-container .split-item .hidden-checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+
+.toggle-container .split-item .checkbox-label {
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 24px;
+  color: #76C657;
+}
+
+.toggle-container .split-item .custom-checkbox {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  border: 2px solid #76C657;
+  border-radius: 4px;
+  position: relative;
+}
+
+.toggle-container .split-item .checkmark {
+  color: #76C657;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* Custom progress bar styling */
+.custom-progress {
+  width: 100%;
+  height: 20px;
+  background-color: var(--sidebar-bg);
+  border-radius: 10px;
+  overflow: hidden;
+  -webkit-appearance: none;
+  appearance: none;
+  border: 1px solid #76C657;
+  cursor: pointer;
+  width: calc(100% - 30px);
+}
+
+.custom-progress::-webkit-progress-bar {
+  background-color: var(--sidebar-bg);
+  border-radius: 10px;
+}
+
+.custom-progress::-webkit-progress-value {
+  background-color: #76C657;
+  border-radius: 10px;
+}
+
+.custom-progress::-moz-progress-bar {
+  background-color: #76C657;
+  border-radius: 10px;
+}
+
+.split-item, .toggle-container .checkbox-container {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  left: 20px; /* Adjust if needed */
+  font-family: 'Open Sans', sans-serif;
+  margin-left: 15px;
+}
+
+.hidden-checkbox:checked + .checkbox-label .checkmark {
+  display: inline; /* Show checkmark when checkbox is checked */
+}
+
+.gender-filter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 20px; /* Adjust the padding value as needed */
+  margin-left: 15px; /* Align with other containers */
+}
+
+.gender-filter-container .checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px; /* Consistent spacing between checkbox items */
+}
+
+.gender-filter-container .checkbox-container .hidden-checkbox {
+  margin-right: 10px; /* Space between the checkbox and the label */
+}
+
+.gender-filter-container .checkbox-container .checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--text-color);
+}
+
+.gender-filter-container .checkbox-container .custom-checkbox {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #76C657;
+  border-radius: 4px;
+  position: relative;
+}
+
+.gender-filter-container .checkbox-container .checkmark {
+  color: #76C657;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* ModeSwitch */
+
+.mode-switch button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.mode-switch-button:focus {
+outline: none; /* Optional: removes outline on focus */
+}
+
+/* FHTimingHeader */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  border-bottom: 1px solid #d3d3d3;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  z-index: 1010;
+  background-image: linear-gradient(to right, #ffffff, #76C657);
+}
+
+
+.navbar-grid {
+  display: grid;
+  grid-template-columns: 256px 1fr;
+  align-items: center;
+  height: 100%;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  justify-content: start; 
+  padding-left: 15px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 35px;
+  color: #000;
+}
+
+.navbar-icon {
+  height: 75%;
+  width: 75%;
+} 
+
+.nav-link {
+  color: #000;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  padding: 0 10px;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: #76C657; /* Change the color on hover */
+}
+
+.router-link-active {
+  font-weight: bold;
+  color: #76C657;
+}
+
+/* Graph */
+
+#myChart {
+  display: flex;
+}
+
+

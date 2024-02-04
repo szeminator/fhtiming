@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import StartDialog from './components/StartDialog.vue';
 import Table from './components/Table.vue';
-import Graph from './components/Graph.vue';
+import Chart from './components/Chart.vue';
 import Impressum from './views/Impressum.vue';
 
 const routes = [
@@ -19,9 +19,9 @@ const routes = [
     component: Impressum 
   },
   { 
-    path: '/graph', 
-    name: 'graph',
-    component: Graph 
+    path: '/chart', 
+    name: 'chart',
+    component: Chart 
   },
 ];
 

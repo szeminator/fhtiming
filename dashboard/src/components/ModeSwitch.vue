@@ -31,19 +31,3 @@ watchEffect(() => {
   }
 });
 </script>
-
-<style scoped>
-.mode-switch button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px;
-}
-
-.mode-switch-button:focus {
-  outline: none; /* Optional: removes outline on focus */
-}
-</style>
