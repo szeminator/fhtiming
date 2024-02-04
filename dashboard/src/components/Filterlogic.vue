@@ -112,7 +112,7 @@ let progressIntervalId: number | null | undefined = null;
 let intervalId: number | null | undefined = null;
 const checkbox_filterFemales = ref(false);
 const checkbox_filterMales = ref(false);
-let intervalLengthInSeconds = 2;
+let intervalLengthInSeconds = 10;
 
 const keyMappings = {
   start: 'Start Number',
