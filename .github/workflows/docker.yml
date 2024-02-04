@@ -68,7 +68,7 @@ jobs:
         with:
           context: ./dashboard # Adjust the context to the directory containing the Dockerfile
           push: true
-          tags: szeminator/fhtiming:latest
+          tags: szeminator/fhtiming:${{ github.ref_name }}
 
       - name: Deploy to server
         uses: appleboy/ssh-action@master
