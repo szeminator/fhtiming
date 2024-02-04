@@ -32,6 +32,6 @@ jobs:
       - name: Build and push Docker
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: ./dashboard # Adjust the context to the directory containing the Dockerfile
           push: true
           tags: szeminator/fhtiming:latest
