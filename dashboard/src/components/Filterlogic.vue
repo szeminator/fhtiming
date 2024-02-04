@@ -186,6 +186,7 @@ watch(textInput, (newVal) => {
             store.setEventID(numberInput.value);
             isError.value = false;
         } else {
+          // @ts-ignore
             numberInput.value = null;
             isError.value = true;
         }
