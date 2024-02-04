@@ -6,22 +6,18 @@ export function fetchStartersThatDidntGetFar() {
     let store = useStore();
     let chartdata = store.allResults;
     let allSplitIDNamePairs = store.selectedSplitIDNamePairs;
-    //console.log(allSplitIDNamePairs);
-    //console.log(startSplitID)
     let splitNameForStart = allSplitIDNamePairs.find(split => split.Splitnr === startSplitID.toString())?.Splitname + "_Time"
     let splitNameForTurn1 = allSplitIDNamePairs.find(split => split.Splitnr === turn1SplitID.toString())?.Splitname + "_Time"
     let splitNameForTurn2 = allSplitIDNamePairs.find(split => split.Splitnr === turn2SplitID.toString())?.Splitname + "_Time"
     let splitNameForFinish = allSplitIDNamePairs.find(split => split.Splitnr === finishSplitID.toString())?.Splitname + "_Time"
 
 
-    //console.log(splitNameForStart);
     let filteredData = chartdata.filter(data => 
         data[splitNameForStart] && data[splitNameForStart] !== "-" &&
         (!data[splitNameForTurn1] || data[splitNameForTurn1] === "-") &&
         (!data[splitNameForTurn2] || data[splitNameForTurn2] === "-") &&
         (!data[splitNameForFinish] || data[splitNameForFinish] === "-")
     );
-    console.log(filteredData);
     return filteredData;
 }
 
@@ -56,10 +52,6 @@ export function fastestWoman() {
             leadingWoman = females[i];
         }
     }
-
-    //console.log(leadingWoman);
-    //console.log(leadingWoman.first);
-    //console.log(leadingWoman.last);
     return leadingWoman.first + " " + leadingWoman.last;
 }
 
@@ -78,14 +70,14 @@ export function fastestMan() {
         data => data['gender']==="M"); 
 
     if (males.length === 0) {
-        return "no data"; // No females in the data
+        return "no data"; // No males in the data
     }
 
     males = males.filter(
         data => data[nettoSplitName]!="-"); 
 
     if (males.length === 0) {
-        return "no data"; // No females in the data
+        return "no data"; // No males in the data
     }
 
     let leadingMan = [];
@@ -94,10 +86,6 @@ export function fastestMan() {
             leadingMan = males[i];
         }
     }
-
-    //console.log(leadingMan);
-    //console.log(leadingMan.first);
-    //console.log(leadingMan.last);
     return leadingMan.first + " " + leadingMan.last;
 }
 
@@ -123,10 +111,6 @@ export function nextSpeakerRunner() {
             nextRunner = runners[i];
         }
     }
-
-    console.log(nextRunner);
-    console.log(nextRunner.first);
-    console.log(nextRunner.last);
     return nextRunner.first + " " + nextRunner.last;
 }
 
@@ -153,7 +137,6 @@ export function selectRunnersForSplit() {
     let splitID = store.selectedSplitIDs[0];
     let splitName = allSplitIDNamePairs.find(split => split.Splitnr === splitID)?.Splitname + "_Time"
     let filteredData = chartdata.filter(data => data[splitName] && data[splitName] !== "-");
-    console.log(filteredData);
     return filteredData;
 }
 
