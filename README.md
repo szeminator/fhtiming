@@ -1,29 +1,18 @@
-# FHtiming
+# Vue 3 + TypeScript + Vite
 
-This project is a Vue.js application that visualizes data using a bar chart. The data represents the progress of participants in a race, showing how many participants reached each stage of the race (start, turn1, turn2, finish).
+This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-## Features
+## Recommended IDE Setup
 
-- **Data Visualization**: The application uses Chart.js to visualize data in a bar chart format. Each bar represents a stage of the race, and the height of the bar represents the number of participants that reached that stage.
-- **Responsive Design**: The chart is responsive and adjusts its size based on the size of its parent div, making it suitable for both desktop and mobile devices.
-- **Vue.js**: The application is built using Vue.js, a popular JavaScript framework for building user interfaces.
+- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-## Installation
+## Type Support For `.vue` Imports in TS
 
-To install the project, follow these steps:
+TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
 
-1. Clone the repository: `git clone <repository-url>`
-2. Install the dependencies: `npm install`
-3. Start the application: `npm run serve`
+If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
 
-## Usage
-
-Once the application is running, you can view the chart on the main page. The chart updates automatically as the data changes.
-
-## Contributing
-
-Contributions are welcome! Please read the contributing guidelines before making any changes.
-
-## License
-
-This project is licensed under the MIT License.
+1. Disable the built-in TypeScript Extension
+   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
+   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
+2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
