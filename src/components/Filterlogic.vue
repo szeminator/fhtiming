@@ -210,9 +210,11 @@ watch(textInput, (newVal) => {
 
 watch(autoRefresh, (newVal) => {
   if (newVal) {
+        // @ts-ignore
       progressIntervalId = setInterval(() => {
         progress.value = (progress.value + 1) % 100;
       }, intervalLengthInSeconds * 10);
+            // @ts-ignore
       intervalId = setInterval(refresh, intervalLengthInSeconds * 1000);
 
     } else {
