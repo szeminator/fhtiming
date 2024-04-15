@@ -3,16 +3,19 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "main": "main.cjs",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "start": "electron .",
-    "electron:start": "cross-env ELECTRON_START_URL=http://localhost:5173 electron ."
+    "electron:start": "cross-env ELECTRON_START_URL=http://localhost:5173 electron .",
+    "electron:dev": "npm run build && electron ."
   },
   "dependencies": {
     "@types/chart.js": "^2.9.41",
     "chart.js": "^4.4.1",
+    "fs-extra": "^11.2.0",
     "pinia": "^2.1.7",
     "uuid": "^9.0.1",
     "vue": "^3.3.11",

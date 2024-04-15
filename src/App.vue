@@ -4,11 +4,17 @@ import InfoBox from './components/InfoBox.vue';
 import Sidebar from './views/Sidebar.vue';
 import { ref, computed } from 'vue';
 import { v4 as uuidv4 } from 'uuid';
+// Import the SVG files at the top of your script
+import hideSvg from '/hide.svg';
+import showSvg from '/show.svg';
+
+// Then use the imported assets in your template
+const toggleIconSrc = computed(() => isSidebarVisible.value ? hideSvg : showSvg);
+
 
 const isSidebarVisible = ref(true);
 const infoBoxes = ref([{ id: uuidv4(), title: "Info1" }]);
 
-const toggleIcon = computed(() => isSidebarVisible.value ? '/hide.svg' : '/show.svg');
 const hasInfoBoxes = computed(() => infoBoxes.value.length > 0);
 
 const toggleSidebar = () => {
@@ -36,7 +42,7 @@ const handleModeToggle = (isDarkMode: boolean | undefined) => {
   <div class="header-sidebar-container">
     <FHTimingHeader name="FHTimingHeader" @toggleMode="handleModeToggle" />
     <button @click="toggleSidebar" class="toggle-button">
-      <img :src="toggleIcon" alt="Toggle Sidebar" />
+      <img :src="toggleIconSrc" alt="Toggle Sidebar" />
     </button>
 
     <Sidebar v-show="isSidebarVisible" />

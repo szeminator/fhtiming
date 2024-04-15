@@ -78,6 +78,7 @@
 </div>
 
 
+
 </template>
 
 <script setup lang="ts">
@@ -128,6 +129,27 @@ const keyMappings = {
   city: 'City',
   dnf: 'DNF'
 // Add more mappings as needed
+};
+
+const saveSelection = () => {
+  const selectionData = {
+    selectedKeys: selectedKeys.value.map((key: string) => key.toString()), 
+    autoRefresh: autoRefresh.value,
+    filterFemales: checkbox_filterFemales.value,
+    filterMales: checkbox_filterMales.value,
+  };
+
+  console.log('Saving Data:', selectionData); 
+  window.electronAPI.saveData(selectionData);
+};
+
+//@ts-ignore
+const loadSelection = async () => {
+  const data = await window.electronAPI.loadData();
+  selectedKeys.value = data.selectedKeys || [];
+  autoRefresh.value = data.autoRefresh || false;
+  checkbox_filterFemales.value = data.filterFemales || false;
+  checkbox_filterMales.value = data.filterMales || false;
 };
 
 const selectedCourse = ref(null);
@@ -337,6 +359,20 @@ watch(selectedKeys, (newKeys) => {
 onMounted(() => {
   nettoTime.value = '199100';
   textInput.value = '2305270'; 
+  window.electronAPI.loadData().then(data => {
+    console.log("Initial Settings Loaded:", data);
+    console.log("Selected Keys:", data.selectedKeys);
+    console.log("selectedStoreKeys:", store.selectedKeys);
+    store.setSelectedKeys(data.selectedKeys || []);
+    selectedKeys.value = data.selectedKeys || [];
+    console.log("selectedStoreKeysAfterSetting:", store.selectedKeys);
+  }).catch(error => {
+    console.error("Error loading initial settings:", error);
+  });
+
+  window.electronAPI.onMenuSave(() => {
+    saveSelection();
+  });
 });
 
 const resetSplitsFilter = () => {
@@ -347,4 +383,7 @@ const resetKeysFilter = () => {
   selectedKeys.value = []; // Adjust this as needed for the default state
 };
 
+window.electronAPI.onSaveData((data) => {
+  console.log('Data received for saving:', data);
+});
 </script>
