@@ -1,29 +1,52 @@
 {
   "name": "dashboard",
-  "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "private": true,
   "scripts": {
-    "dev": "vite",
     "build": "vue-tsc && vite build",
+    "dev": "vite",
     "preview": "vite preview",
-    "start": "electron .",
-    "electron:start": "cross-env ELECTRON_START_URL=http://localhost:5173 electron ."
+    "serve:electron": "vue-cli-service serve:electron",
+    "tauri": "tauri"
   },
+  "main": "background.js",
   "dependencies": {
+    "@tauri-apps/api": "^1",
     "@types/chart.js": "^2.9.41",
     "chart.js": "^4.4.1",
     "pinia": "^2.1.7",
+    "source-map-support": "^0.5.4",
     "uuid": "^9.0.1",
     "vue": "^3.3.11",
     "vue-router": "^4.0.13"
   },
   "devDependencies": {
+    "@tauri-apps/cli": "^1",
     "@types/uuid": "^9.0.8",
     "@vitejs/plugin-vue": "^4.5.2",
-    "electron": "^29.1.6",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
-    "vue-tsc": "^1.8.25"
-  }
+    "vue-cli-plugin-electron-builder": "^0.3.2",
+    "vue-tsc": "^1.8.5"
+  },
+  "build": {
+    "directories": {
+      "output": "dist_electron"
+    },
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ]
+  },
+  "electronWebpack": {
+    "renderer": {
+      "sourceDirectory": "src",
+      "webpackConfig": "dist_electron/webpack.renderer.additions.js"
+    },
+    "main": {
+      "webpackConfig": "dist_electron/webpack.main.additions.js"
+    }
+  },
+  "type": "module"
 }
