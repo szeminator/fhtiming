@@ -4,4 +4,6 @@ export interface ElectronAPI {
     saveData: (data: any) => Promise<void>;
     loadData: () => Promise<any>;
     onMenuSave: (callback: () => void) => void; // Make sure this matches the actual implementation
+    onMenuLoad: (callback: () => void) => void; // Make sure this matches the actual implementation
+
   }

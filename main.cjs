@@ -37,7 +37,7 @@ function createMenu(mainWindow) {
         label: 'File',
         submenu: [
           { label: 'Save Settings', accelerator: 'CmdOrCtrl+S', click: () => mainWindow.webContents.send('menu-save') },
-          { label: 'Load Settings', click: () => mainWindow.webContents.send('load-settings') }
+          { label: 'Load Settings', click: () => mainWindow.webContents.send('menu-load') }
         ]
       },
       {

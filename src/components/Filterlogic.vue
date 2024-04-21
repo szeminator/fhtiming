@@ -373,6 +373,10 @@ onMounted(() => {
   window.electronAPI.onMenuSave(() => {
     saveSelection();
   });
+  window.electronAPI.onMenuLoad(() => {
+    loadSelection();
+  });
+
 });
 
 const resetSplitsFilter = () => {
