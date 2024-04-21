@@ -365,7 +365,9 @@ onMounted(() => {
     console.log("selectedStoreKeys:", store.selectedKeys);
     store.setSelectedKeys(data.selectedKeys || []);
     selectedKeys.value = data.selectedKeys || [];
-    console.log("selectedStoreKeysAfterSetting:", store.selectedKeys);
+    autoRefresh.value = data.autoRefresh || false;
+    checkbox_filterFemales.value = data.filterFemales || false;
+    checkbox_filterMales.value = data.filterMales || false;    console.log("selectedStoreKeysAfterSetting:", store.selectedKeys);
   }).catch(error => {
     console.error("Error loading initial settings:", error);
   });
