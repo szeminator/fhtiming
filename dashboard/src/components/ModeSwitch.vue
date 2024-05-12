@@ -9,11 +9,11 @@
 </template>
   
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 
 const isDarkMode = ref(false);
 
-const setTheme = (mode: string) => {
+const setTheme = (mode) => {
   isDarkMode.value = mode === 'dark';
   document.documentElement.classList.toggle('dark-theme', isDarkMode.value);
   document.documentElement.classList.toggle('light-theme', !isDarkMode.value);
@@ -23,20 +23,14 @@ const toggleMode = () => {
   setTheme(isDarkMode.value ? 'light' : 'dark');
 };
 
-watchEffect(() => {
-  window.__TAURI__.event.listen('change-theme', (event) => {
+onMounted(() => {
+  const handler = (event) => {
     setTheme(event.payload);
-  });
-
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    setTheme('dark');
-  }
+  };
+  window.__TAURI__.event.listen('change-theme', handler);
 });
 
-
-watchEffect(() => {
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    isDarkMode.value = true;
-  }
+onUnmounted(() => {
+  window.__TAURI__.event.unlisten('change-theme');
 });
 </script>

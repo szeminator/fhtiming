@@ -22,4 +22,4 @@ if (window.__TAURI__) {
     });
   }
   
-setupThemeListeners();
+  setupThemeListeners();
