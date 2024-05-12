@@ -1,33 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import StartDialog from './components/StartDialog.vue';
-import Table from './components/Table.vue';
-import Chart from './components/Chart.vue';
-import Impressum from './views/Impressum.vue';
-
-const routes = [
-  { 
-    path: '/',
-    component: StartDialog 
-  },
-  { 
-    path: '/table', 
-    name: 'table',
-    component: Table 
-  },
-  { 
-    path: '/impressum', 
-    component: Impressum 
-  },
-  { 
-    path: '/chart', 
-    name: 'chart',
-    component: Chart 
-  },
-];
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes,
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    { path: '/chart', component: () => import('./components/Chart.vue') },
+    { path: '/impressum', component: () => import('./views/Impressum.vue') },
+    { path: '/table', component: () => import('./components/Table.vue') },
+    { path: '/', component: () => import('./components/StartDialog.vue') },
+  ]
 });
 
 export default router;

@@ -13,16 +13,25 @@ import { ref, watchEffect } from 'vue';
 
 const isDarkMode = ref(false);
 
-const toggleMode = () => {
-  isDarkMode.value = !isDarkMode.value;
-  if (isDarkMode.value) {
-    document.documentElement.classList.add('dark-theme');
-    document.documentElement.classList.remove('light-theme');
-  } else {
-    document.documentElement.classList.add('light-theme');
-    document.documentElement.classList.remove('dark-theme');
-  }
+const setTheme = (mode: string) => {
+  isDarkMode.value = mode === 'dark';
+  document.documentElement.classList.toggle('dark-theme', isDarkMode.value);
+  document.documentElement.classList.toggle('light-theme', !isDarkMode.value);
 };
+
+const toggleMode = () => {
+  setTheme(isDarkMode.value ? 'light' : 'dark');
+};
+
+watchEffect(() => {
+  window.__TAURI__.event.listen('change-theme', (event) => {
+    setTheme(event.payload);
+  });
+
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    setTheme('dark');
+  }
+});
 
 
 watchEffect(() => {
