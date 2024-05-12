@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "tauri": "tauri"
   },
   "dependencies": {
+    "@tauri-apps/api": "^1.5.5",
     "@types/chart.js": "^2.9.41",
     "chart.js": "^4.4.1",
     "pinia": "^2.1.7",
@@ -17,6 +19,7 @@
     "vue-router": "^4.0.13"
   },
   "devDependencies": {
+    "@tauri-apps/cli": "^1.5.13",
     "@types/uuid": "^9.0.8",
     "@vitejs/plugin-vue": "^4.5.2",
     "typescript": "^5.2.2",
