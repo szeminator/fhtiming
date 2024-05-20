@@ -1,20 +1,18 @@
 <template>
-    <div class="mode-switch">
-        <button @click="toggleMode">
-            <img v-if="isDarkMode" src="/light.svg" alt="Light Mode"/>
-            <img v-else src="/dark.svg" alt="Dark Mode"/>
-        </button>
-    </div>
-
+  <div class="mode-switch">
+    <button @click="toggleMode">
+      <img v-if="isDarkMode" src="/light.svg" alt="Light Mode"/>
+      <img v-else src="/dark.svg" alt="Dark Mode"/>
+    </button>
+  </div>
 </template>
-  
+
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { ref, onMounted } from 'vue';
 
 const isDarkMode = ref(false);
 
-const toggleMode = () => {
-  isDarkMode.value = !isDarkMode.value;
+const applyTheme = () => {
   if (isDarkMode.value) {
     document.documentElement.classList.add('dark-theme');
     document.documentElement.classList.remove('light-theme');
@@ -24,10 +22,21 @@ const toggleMode = () => {
   }
 };
 
+const toggleMode = () => {
+  isDarkMode.value = !isDarkMode.value;
+  applyTheme();
+  window.electronAPI.toggleDarkMode(isDarkMode.value);
+};
 
-watchEffect(() => {
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    isDarkMode.value = true;
-  }
+onMounted(() => {
+  window.electronAPI.getDarkMode().then((mode) => {
+    isDarkMode.value = mode;
+    applyTheme();
+  });
+
+  window.electronAPI.onToggleTheme((newMode) => {
+    isDarkMode.value = newMode;
+    applyTheme();
+  });
 });
 </script>

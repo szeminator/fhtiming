@@ -6,11 +6,13 @@ const userDataPath = app.getPath('userData');
 const settingsFilePath = path.join(userDataPath, 'settings.json');
 
 let mainWindow;
+let isDarkMode = false;
 
 function createWindow () {
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
+        icon: path.join(__dirname, 'public/favicon.png'),
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
@@ -50,7 +52,16 @@ function createMenu(mainWindow) {
       },
       {
         label: 'Window',
-        role: 'windowMenu'
+        submenu: [
+          {
+            label: 'Toggle Dark Mode',
+            click: () => {
+              isDarkMode = !isDarkMode;
+              mainWindow.webContents.send('toggle-theme', isDarkMode);
+            }
+          },
+          { role: 'windowMenu' }
+        ]
       },
       {
         label: 'Help',
@@ -93,13 +104,23 @@ ipcMain.handle('save-data', async (event, data) => {
         console.log("Data loaded successfully:", data);
         return data;
       } else {
-        // File doesn't exist, so return default values or create the file with default values
-        const defaultData = {}; // Define your default settings structure here
+        const defaultData = {}; 
         await fs.writeJson(settingsFilePath, defaultData); // Optionally create the file with default data
         return defaultData;
       }
     } catch (error) {
       console.error('Failed to load data:', error);
-      return {}; // Return an empty object or default values if an error occurs
+      return {}; 
     }
   });
+
+// Handle dark mode toggle
+ipcMain.on('toggle-dark-mode', (event, isDark) => {
+  isDarkMode = isDark;
+  mainWindow.webContents.send('toggle-theme', isDarkMode);
+});
+
+// Handle getting the dark mode state
+ipcMain.handle('get-dark-mode', () => {
+  return isDarkMode;
+});
