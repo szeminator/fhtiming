@@ -24,13 +24,14 @@ const toggleMode = () => {
 };
 
 onMounted(() => {
-  const handler = (event) => {
-    setTheme(event.payload);
-  };
-  window.__TAURI__.event.listen('change-theme', handler);
+
+  window.__TAURI__.event.listen('change-theme', (event) => {
+      console.log('Theme changed to', event.payload);
+      setTheme(event.payload);
+    });
+
 });
 
 onUnmounted(() => {
-  window.__TAURI__.event.unlisten('change-theme');
 });
 </script>
