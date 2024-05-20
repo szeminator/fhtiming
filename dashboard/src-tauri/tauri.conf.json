@@ -24,7 +24,7 @@
         "removeFile": true,
         "renameFile": true,
         "exists": true,
-        "scope": ["{{appDir}}\\*"]
+        "scope": ["C:\\Users\\hanne\\AppData\\Roaming\\com.fh-tauri.dev\\*"]
       },
       "path": {
         "all": true

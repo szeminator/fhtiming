@@ -383,13 +383,32 @@ const saveSelection =  () => {
 
 
 window.__TAURI__.event.listen('load_data', async loadpath => {
-      console.log('LoadConfig: ' + loadpath.payload);
+
+  window.__TAURI__.path.appDir().then(appDir => {
+
+    const path = appDir + "config.json";
+    console.log('LoadConfig: ' + path);
+    readTextFile(path)
+      .then((fileContent) => {
+        console.log(fileContent);
+        const data = JSON.parse(fileContent);
+        selectedKeys.value = data.selectedKeys || [];
+        autoRefresh.value = data.autoRefresh || false;
+        checkbox_filterFemales.value = data.filterFemales || false;
+        checkbox_filterMales.value = data.filterMales || false;
+      })
+      .catch((error) => {
+        console.error('An error occurred:', error);
+      });
+  });
+
 // Open a selection dialog for image files
+/*
       const selected = await open({
         multiple: true,
         filters: [{
-          name: 'Image',
-          extensions: ['png', 'jpeg']
+          name: 'JSON Files',
+          extensions: ['json', 'txt']
         }]
       });
       if (Array.isArray(selected)) {
@@ -397,8 +416,9 @@ window.__TAURI__.event.listen('load_data', async loadpath => {
       } else if (selected === null) {
         // user cancelled the selection
       } else {
-        // user selected a single file
+        console.log('Selected: ' + selected);
       }
+      */
     });
 
 </script>
