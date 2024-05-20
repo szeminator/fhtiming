@@ -379,4 +379,9 @@ const saveSelection =  () => {
   });
 };
 
+
+window.__TAURI__.event.listen('load_data', (event) => {
+      console.log('LoadConfig');  
+    });
+
 </script>
