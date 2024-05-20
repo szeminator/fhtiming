@@ -86,6 +86,8 @@ import { useStore } from '../store';
 import { useRouter } from 'vue-router';
 import {fetchStartersThatDidntGetFar, selectRunnersForSplit, filterFemales, filterMales} from '../insights';
 
+import { writeFile } from '@tauri-apps/api/fs';
+
 
 interface Course {
     Coursenr: number;
@@ -354,7 +356,7 @@ window.__TAURI__.event.listen('save_data', (event) => {
     });
 
 
-const saveSelection = () => {
+const saveSelection =  () => {
   const selectionData = {
     selectedKeys: selectedKeys.value.map((key: string) => key.toString()), 
     autoRefresh: autoRefresh.value,
@@ -368,10 +370,12 @@ const saveSelection = () => {
   window.__TAURI__.path.appDir().then(appDir => {
     const path = appDir + "config.json";
     const data = JSON.stringify(selectionData);
-
-    window.__TAURI__.fs.writeFile({ path, data: "asdfsdafsdf" })
-      .then(() => console.log('Data saved successfully'))
-      .catch((error) => console.error('Failed to save data:', error));
+    try {
+      writeFile({ path: path, contents: data });
+      console.log('File written successfully');
+    } catch (error) {
+      console.error('Error writing file:', error);
+    }
   });
 };
 
