@@ -86,8 +86,8 @@ import { useStore } from '../store';
 import { useRouter } from 'vue-router';
 import {fetchStartersThatDidntGetFar, selectRunnersForSplit, filterFemales, filterMales} from '../insights';
 
-import { writeFile } from '@tauri-apps/api/fs';
-import { open } from '@tauri-apps/plugin-dialog';
+import { writeFile, readTextFile } from '@tauri-apps/api/fs';
+import { open } from '@tauri-apps/api/dialog';
 
 
 
@@ -382,15 +382,23 @@ const saveSelection =  () => {
 };
 
 
-window.__TAURI__.event.listen('load_data', async (event) => {
-      console.log('LoadConfig');  
-      // Open a dialog
-      const file = await open({
-        multiple: false,
-        directory: false,
+window.__TAURI__.event.listen('load_data', async loadpath => {
+      console.log('LoadConfig: ' + loadpath.payload);
+// Open a selection dialog for image files
+      const selected = await open({
+        multiple: true,
+        filters: [{
+          name: 'Image',
+          extensions: ['png', 'jpeg']
+        }]
       });
-      console.log(file);
-      // Prints file path and name to the console
+      if (Array.isArray(selected)) {
+        // user selected multiple files
+      } else if (selected === null) {
+        // user cancelled the selection
+      } else {
+        // user selected a single file
+      }
     });
 
 </script>
