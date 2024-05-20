@@ -87,6 +87,8 @@ import { useRouter } from 'vue-router';
 import {fetchStartersThatDidntGetFar, selectRunnersForSplit, filterFemales, filterMales} from '../insights';
 
 import { writeFile } from '@tauri-apps/api/fs';
+import { open } from '@tauri-apps/plugin-dialog';
+
 
 
 interface Course {
@@ -380,8 +382,15 @@ const saveSelection =  () => {
 };
 
 
-window.__TAURI__.event.listen('load_data', (event) => {
+window.__TAURI__.event.listen('load_data', async (event) => {
       console.log('LoadConfig');  
+      // Open a dialog
+      const file = await open({
+        multiple: false,
+        directory: false,
+      });
+      console.log(file);
+      // Prints file path and name to the console
     });
 
 </script>

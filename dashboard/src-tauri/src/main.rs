@@ -15,14 +15,14 @@ fn main() {
     let dark_mode = CustomMenuItem::new("dark_mode", "Dark Mode");
     let light_mode = CustomMenuItem::new("light_mode", "Light Mode");
 
-    let save = CustomMenuItem::new("save", "Save Config");
-    let load = CustomMenuItem::new("load", "Load Config");
+    let save = CustomMenuItem::new("save", "Save Config...");
+    let load = CustomMenuItem::new("load", "Load Config...");
 
 
     let file_submenu = Submenu::new(
         "File",
-        Menu::new().add_item(save)
-            .add_item(load),
+        Menu::new().add_item(load)
+            .add_item(save),
     );
 
     // Define a view submenu
