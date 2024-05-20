@@ -15,6 +15,13 @@ fn main() {
     let dark_mode = CustomMenuItem::new("dark_mode", "Dark Mode");
     let light_mode = CustomMenuItem::new("light_mode", "Light Mode");
 
+    let save = CustomMenuItem::new("save", "Save");
+
+    let file_submenu = Submenu::new(
+        "File",
+        Menu::new().add_item(save),
+    );
+
     // Define a view submenu
     let view_submenu = Submenu::new(
         "View",
@@ -35,6 +42,7 @@ fn main() {
     // Create the main menu with the view submenu
     let menu = Menu::new()
         .add_submenu(view_submenu)
+        .add_submenu(file_submenu)
         .add_submenu(window_submenu);
 
     tauri::Builder::default()
@@ -46,8 +54,10 @@ fn main() {
             "start_dialog" => event.window().emit("navigate", "/").unwrap(),
             "dark_mode" => event.window().emit("change-theme", "dark").unwrap(),
             "light_mode" => event.window().emit("change-theme", "light").unwrap(),
+            "save" => event.window().emit("save_data", ()).unwrap(),
             _ => {}
         })
         .run(context)
         .expect("error while running tauri application");
 }
+

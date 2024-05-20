@@ -86,6 +86,7 @@ import { useStore } from '../store';
 import { useRouter } from 'vue-router';
 import {fetchStartersThatDidntGetFar, selectRunnersForSplit, filterFemales, filterMales} from '../insights';
 
+
 interface Course {
     Coursenr: number;
     Coursename: string;
@@ -344,6 +345,34 @@ const resetSplitsFilter = () => {
 
 const resetKeysFilter = () => {
   selectedKeys.value = []; // Adjust this as needed for the default state
+};
+
+
+window.__TAURI__.event.listen('save_data', (event) => {
+      console.log('saveSelection');
+      saveSelection();
+    });
+
+
+const saveSelection = () => {
+  const selectionData = {
+    selectedKeys: selectedKeys.value.map((key: string) => key.toString()), 
+    autoRefresh: autoRefresh.value,
+    filterFemales: checkbox_filterFemales.value,
+    filterMales: checkbox_filterMales.value,
+  };
+
+  console.log('Saving Data:', selectionData); 
+  //window.electronAPI.saveData(selectionData);
+
+  window.__TAURI__.path.appDir().then(appDir => {
+    const path = appDir + "config.json";
+    const data = JSON.stringify(selectionData);
+
+    window.__TAURI__.fs.writeFile({ path, data: "asdfsdafsdf" })
+      .then(() => console.log('Data saved successfully'))
+      .catch((error) => console.error('Failed to save data:', error));
+  });
 };
 
 </script>
