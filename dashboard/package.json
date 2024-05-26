@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node updateScope.js", 
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "tauri:dev": "npm run prebuild && npm run tauri dev"
   },
   "dependencies": {
     "@tauri-apps/api": "^1.5.5",

@@ -86,8 +86,8 @@ import { useStore } from '../store';
 import { useRouter } from 'vue-router';
 import {fetchStartersThatDidntGetFar, selectRunnersForSplit, filterFemales, filterMales} from '../insights';
 
-import { writeFile, readTextFile } from '@tauri-apps/api/fs';
-import { open } from '@tauri-apps/api/dialog';
+import { writeFile, readTextFile,createDir } from '@tauri-apps/api/fs';
+import { appDir, join } from '@tauri-apps/api/path';
 
 
 
@@ -358,7 +358,7 @@ window.__TAURI__.event.listen('save_data', (event) => {
     });
 
 
-const saveSelection =  () => {
+    const saveSelection = async () => {
   const selectionData = {
     selectedKeys: selectedKeys.value.map((key: string) => key.toString()), 
     autoRefresh: autoRefresh.value,
@@ -366,41 +366,46 @@ const saveSelection =  () => {
     filterMales: checkbox_filterMales.value,
   };
 
-  console.log('Saving Data:', selectionData); 
-  //window.electronAPI.saveData(selectionData);
+  try {
+    const appDirectory = await appDir();
+    const path = await join(appDirectory, "config.json"); // Cross-platform path
 
-  window.__TAURI__.path.appDir().then(appDir => {
-    const path = appDir + "config.json";
-    const data = JSON.stringify(selectionData);
-    try {
-      writeFile({ path: path, contents: data });
-      console.log('File written successfully');
-    } catch (error) {
-      console.error('Error writing file:', error);
-    }
-  });
+    // Create the directory if it doesn't exist
+    await createDir(appDirectory, { recursive: true }); // Ensures the entire path is created if not already present
+
+    await writeFile({ path, contents: JSON.stringify(selectionData) });
+    console.log('File written successfully');
+  } catch (error) {
+    console.error('Error writing file:', error);
+  }
 };
 
 
-window.__TAURI__.event.listen('load_data', async loadpath => {
+window.__TAURI__.event.listen('load_data', async () => {
+  try {
+    const appDirectory = await appDir();
+    console.log('App Directory:', appDirectory); // Confirming appDirectory is a string
 
-  window.__TAURI__.path.appDir().then(appDir => {
+    const path = `${appDirectory}config.json`;
+    console.log('Config Path:', path); // This should output the full path
 
-    const path = appDir + "config.json";
-    console.log('LoadConfig: ' + path);
-    readTextFile(path)
-      .then((fileContent) => {
-        console.log(fileContent);
-        const data = JSON.parse(fileContent);
-        selectedKeys.value = data.selectedKeys || [];
-        autoRefresh.value = data.autoRefresh || false;
-        checkbox_filterFemales.value = data.filterFemales || false;
-        checkbox_filterMales.value = data.filterMales || false;
-      })
-      .catch((error) => {
-        console.error('An error occurred:', error);
-      });
-  });
+    if (typeof path !== 'string') {
+      console.error('Path is not a string:', path);
+      throw new Error('Path must be a string');
+    }
+
+    const fileContent = await readTextFile(path);
+    console.log('File Content:', fileContent);
+    
+    const data = JSON.parse(fileContent);
+    selectedKeys.value = data.selectedKeys || [];
+    autoRefresh.value = data.autoRefresh || false;
+    checkbox_filterFemales.value = data.filterFemales || false;
+    checkbox_filterMales.value = data.filterMales || false;
+
+  } catch (error) {
+    console.error('An error occurred:', error);
+  }
 
 // Open a selection dialog for image files
 /*
