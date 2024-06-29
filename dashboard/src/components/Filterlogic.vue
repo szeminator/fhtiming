@@ -351,8 +351,16 @@ const resetKeysFilter = () => {
   selectedKeys.value = []; // Adjust this as needed for the default state
 };
 
+declare global {
+    interface Window {
+        __TAURI__: {
+            event: any;
+        };
+    }
+}
 
-window.__TAURI__.event.listen('save_data', (event) => {
+
+window.__TAURI__.event.listen('save_data', (_event: any) => {
       console.log('saveSelection');
       saveSelection();
     });

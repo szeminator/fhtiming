@@ -13,7 +13,7 @@ import { ref, onMounted, onUnmounted } from 'vue';
 
 const isDarkMode = ref(false);
 
-const setTheme = (mode) => {
+const setTheme = (mode: string) => {
   isDarkMode.value = mode === 'dark';
   document.documentElement.classList.toggle('dark-theme', isDarkMode.value);
   document.documentElement.classList.toggle('light-theme', !isDarkMode.value);
@@ -25,7 +25,7 @@ const toggleMode = () => {
 
 onMounted(() => {
 
-  window.__TAURI__.event.listen('change-theme', (event) => {
+  window.__TAURI__.event.listen('change-theme', (event: { payload: string; }) => {
       console.log('Theme changed to', event.payload);
       setTheme(event.payload);
     });
